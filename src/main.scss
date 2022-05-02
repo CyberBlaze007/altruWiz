@@ -1,6 +1,10 @@
 body {
 	background-color: #fff;
 }
+html {
+	scroll-behavior: smooth;
+	scroll-snap-type: y proximity;
+}
 .nav {
 	display: flex;
 	flex-direction: row;
@@ -16,11 +20,11 @@ body {
 			font-style: normal;
 			font-weight: 700;
 			padding: 0 1rem 0 2rem;
-			font-size: 2rem;
+			font-size: 1.5rem;
 			color: #7339ab;
 		}
 		&-icon {
-			height: 2rem;
+			height: 1.5rem;
 			width: auto;
 		}
 	}
@@ -29,8 +33,9 @@ body {
 		flex-direction: row;
 		align-items: center;
 		height: auto;
-		a {
+		&-link {
 			padding-right: 3rem;
+			text-decoration: none;
 			height: fit-content;
 			font-family: 'Montserrat';
 			font-style: normal;
@@ -58,6 +63,7 @@ body {
 		width: 100vw;
 
 		&-col1 {
+			z-index: 1;
 			display: flex;
 			flex-direction: column;
 			align-items: left;
@@ -89,9 +95,17 @@ body {
 				width: fit-content;
 				border-radius: 20px;
 				padding: 0.5rem 2rem;
+				cursor: pointer;
+				transition: 0.25s all linear;
+				&:hover {
+					box-shadow: 3px 3px 8px 3px rgba(115, 57, 171, 0.25);
+					background: rgb(106, 48, 161);
+					transition: 0.25s all linear;
+				}
 			}
 		}
 		&-col2 {
+			z-index: 0;
 			position: relative;
 			display: flex;
 			flex-direction: column;
@@ -110,8 +124,129 @@ body {
 		position: sticky;
 		top: 5rem;
 		margin-top: 100vh;
-		height: calc(100vh - 5rem);
+		min-height: 100vh;
+		height: fit-content;
 		background-color: white;
 		box-shadow: 0 -3px 10px 5px rgba(0, 0, 0, 0.25);
+	}
+}
+.events {
+	padding: 5rem;
+	display: flex;
+	scroll-snap-align: start;
+	flex-direction: column;
+	align-items: center;
+	&-header {
+		padding-bottom: 1rem;
+		height: 5rem;
+		width: 100%;
+		h1 {
+			font-family: 'Montserrat';
+			font-style: normal;
+			font-weight: 700;
+			color: #424242;
+			font-size: 1.5rem;
+		}
+	}
+	&-list {
+		width: 100%;
+		&-compact,
+		&-expanded {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			grid-gap: 1rem;
+			grid-auto-flow: dense;
+			row-gap: 2rem;
+			align-items: space-between;
+			justify-items: space-around;
+			height: fit-content;
+		}
+		&-items {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			background: #f9f9f9;
+			border: 1px inset rgba(0, 0, 0, 0.15);
+			box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.1);
+			transition: 0.25s box-shadow linear;
+			border-radius: 20px;
+			cursor: pointer;
+
+			&-details {
+				padding: 0.5rem 1rem;
+				&-title {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 700;
+					font-size: 1rem;
+					line-height: 1.5rem;
+					height: 5rem;
+					text-overflow: ellipsis;
+				}
+				&-date {
+					font-size: 0.8rem;
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					color: #7339ab;
+					height: 1.5rem;
+					text-overflow: ellipsis;
+				}
+				&-org {
+					font-size: 0.8rem;
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					height: 1.5rem;
+					text-overflow: ellipsis;
+				}
+				&-xp {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					&-icon {
+						height: 1rem;
+						width: 1rem;
+					}
+					&-label {
+						font-size: 0.8rem;
+						height: fit-content;
+						padding-left: 0.5rem;
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+			&:hover {
+				box-shadow: 3px 4px 8px rgba(115, 57, 171, 0.3);
+				transition: 0.25s box-shadow linear;
+			}
+		}
+	}
+	&-container {
+		padding-top: 3rem;
+		&-button {
+			background: #ffffff;
+			border: 1px solid rgba(0, 0, 0, 0.35);
+			box-sizing: border-box;
+			box-shadow: 0px 4px 5px 4px rgba(0, 0, 0, 0.05);
+			border-radius: 10px;
+			padding: 0.6rem 6rem;
+			font-family: 'Montserrat';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 22px;
+			color: rgba(0, 0, 0, 0.75);
+			transition: 0.25s all linear;
+			cursor: pointer;
+			&:hover {
+				box-shadow: 0px 4px 5px 4px rgba(115, 57, 171, 0.15);
+				color: rgba(84, 41, 124, 0.75);
+				transition: 0.25s all linear;
+			}
+		}
 	}
 }

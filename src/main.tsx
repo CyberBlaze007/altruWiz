@@ -1,6 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
+
+//React Router Components
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+//Local Components
 import Landing from './pages/Landing';
 import './index.scss';
 

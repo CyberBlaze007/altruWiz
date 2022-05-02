@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function LandingNav() {
 	return (
@@ -11,10 +12,14 @@ function LandingNav() {
 						className='nav-col1-icon'
 					/>
 				</div>
-				<div className='nav-col2'>
-					<a>Log In</a>
-					<a>Sign Up</a>
-				</div>
+				<nav className='nav-col2'>
+					<Link to='' className='nav-col2-link'>
+						Log In
+					</Link>
+					<Link to='' className='nav-col2-link'>
+						Sign Up
+					</Link>
+				</nav>
 			</div>
 		</>
 	);

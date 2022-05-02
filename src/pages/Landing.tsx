@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react';
+//Local Components
+import EventList from '../components/EventList';
 import LandingNav from '../components/LandingNav';
 import '../main.scss';
+import { useEffect, useState } from 'react';
 
 function Landing() {
-	const [offsetY, setOffset] = useState(0);
-	const handleScroll = () => setOffset(window.pageYOffset);
-
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
-
 	return (
 		<div className='landing'>
 			<div className='landing-header'>
 				<div className='landing-header-col1'>
 					<h1>For better unity, help your community.</h1>
-					<button onClick={() => console.log('clicked')}>
+					<button
+						onClick={() => document.getElementById('list')?.scrollIntoView()}>
 						Find your next event
 					</button>
 				</div>
@@ -25,7 +20,7 @@ function Landing() {
 				</div>
 			</div>
 			<div className='landing-body'>
-				<h1>Events</h1>
+				<EventList />
 			</div>
 			<div className='landing-navbar'>
 				<LandingNav />
