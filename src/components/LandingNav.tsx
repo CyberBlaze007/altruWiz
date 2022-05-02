@@ -16,7 +16,7 @@ function LandingNav() {
 					<Link to='' className='nav-col2-link'>
 						Log In
 					</Link>
-					<Link to='' className='nav-col2-link'>
+					<Link to='/test-firebase' className='nav-col2-link'>
 						Sign Up
 					</Link>
 				</nav>
