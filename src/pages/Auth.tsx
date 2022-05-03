@@ -1,17 +1,16 @@
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import '../main.scss';
 
 //Firebase Components
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signOut,
+} from 'firebase/auth';
 import { auth } from '../firebase-config';
 import AuthNav from '../components/AuthNav';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
-
-// const AuthContext = React.createContext();
-// export function useAuth() {
-// 	return useContext(AuthContext);
-// }
 
 function Auth({ type = true }) {
 	const [registerEmail, setRegisterEmail] = useState('');
@@ -19,24 +18,15 @@ function Auth({ type = true }) {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 
-	const [user, setUser] = useState('');
-
-	onAuthStateChanged(auth, (user: any) => {
-		if (user) {
-			// User is signed in, see docs for a list of available properties
-			// https://firebase.google.com/docs/reference/js/firebase.User
-			const uid = user.uid;
-			console.log(uid);
-			// ...
-		} else {
-			// User is signed out
-			// ...
-		}
-	});
+	var [user, setUser] = useState('');
 
 	const register = async () => {
 		try {
-			await createUserWithEmailAndPassword(auth, registerEmail, registerPassword).then((userCredential) => {
+			await createUserWithEmailAndPassword(
+				auth,
+				registerEmail,
+				registerPassword
+			).then((userCredential) => {
 				// Signed in
 				const user = userCredential.user;
 				console.log(user);
@@ -49,22 +39,29 @@ function Auth({ type = true }) {
 
 	const login = async () => {
 		try {
-			await signInWithEmailAndPassword(auth, loginEmail, loginPassword).then((userCredential) => {
-				// Signed in
-				const user = userCredential.user;
-				console.log(user);
-				var temp: any = '';
-				temp = userCredential.user.email;
-				setUser(temp);
-				// ...
-			});
+			await signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(
+				(userCredential) => {
+					// Signed in
+					var temp: any = userCredential.user.email;
+					setUser(temp);
+					// ...
+				}
+			);
 		} catch (error: any) {
 			console.log(error.message);
 		}
 	};
 
 	const logout = async () => {
-		await signOut(auth);
+		try {
+			await signOut(auth).then(() => {
+				setUser('');
+				console.log('User Signed Out');
+				console.log(user);
+			});
+		} catch (error: any) {
+			console.log(error.message);
+		}
 	};
 
 	return (
@@ -89,12 +86,14 @@ function Auth({ type = true }) {
 									<input
 										onChange={(event) => {
 											setLoginEmail(event.target.value);
-										}}></input>
+										}}
+									></input>
 									<h1>Password</h1>
 									<input
 										onChange={(event) => {
 											setLoginPassword(event.target.value);
-										}}></input>
+										}}
+									></input>
 									<h1>Forgot Password</h1>
 								</div>
 								<button onClick={login}>Login</button>
@@ -128,9 +127,10 @@ function Auth({ type = true }) {
 				<Footer />
 			</div>
 
-			{/* <h4> User Logged In: </h4>
+			{user == '' ? <h4> User Not Logged In. </h4> : <h4> User Logged In: </h4>}
 			<h2>{user}</h2>
-			<button onClick={logout}> Sign Out </button> */}
+
+			<button onClick={logout}> Sign Out </button>
 		</div>
 	);
 }
