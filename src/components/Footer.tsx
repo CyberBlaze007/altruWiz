@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
 	return (
@@ -15,32 +16,52 @@ function Footer() {
 						<div className='footer-row1-block2-col1-head'>
 							<h1>Quick Links</h1>
 						</div>
-						<div className='footer-row1-block2-col1-links'>
-							<h1>Home</h1>
-							<h1>Dashboard</h1>
-							<h1>Events</h1>
-							<h1>About Us</h1>
-							<h1>FAQs</h1>
-						</div>
+						<nav className='footer-row1-block2-col1-links'>
+							<Link to={'/'} className='footer-row1-block2-col1-links-text'>
+								Home
+							</Link>
+							<Link to={'/dashboard'} className='footer-row1-block2-col1-links-text'>
+								Dashboard
+							</Link>
+							<Link to={'/'} className='footer-row1-block2-col1-links-text'>
+								Events
+							</Link>
+							<Link to={'/'} className='footer-row1-block2-col1-links-text'>
+								About Us
+							</Link>
+							<Link to={'/'} className='footer-row1-block2-col1-links-text'>
+								FAQs
+							</Link>
+						</nav>
 					</div>
 					<div className='footer-row1-block2-col2'>
 						<div className='footer-row1-block2-col2-head'>
 							<h1>Legal</h1>
 						</div>
-						<div className='footer-row1-block2-col2-links'>
-							<h1>Terms</h1>
-							<h1>Privacy</h1>
-						</div>
+						<nav className='footer-row1-block2-col2-links'>
+							<Link to={'/'} className='footer-row1-block2-col2-links-text'>
+								Terms
+							</Link>
+							<Link to={'/'} className='footer-row1-block2-col2-links-text'>
+								Privacy
+							</Link>
+						</nav>
 					</div>
 					<div className='footer-row1-block2-col3'>
 						<div className='footer-row1-block2-col3-head'>
 							<h1>Contact Us</h1>
 						</div>
-						<div className='footer-row1-block2-col3-links'>
-							<h1>Facebook</h1>
-							<h1>Instagram</h1>
-							<h1>Twitter</h1>
-						</div>
+						<nav className='footer-row1-block2-col3-links'>
+							<Link to={''} className='footer-row1-block2-col3-links-text'>
+								Facebook
+							</Link>
+							<Link to={''} className='footer-row1-block2-col3-links-text'>
+								Instagram
+							</Link>
+							<Link to={''} className='footer-row1-block2-col3-links-text'>
+								Twitter
+							</Link>
+						</nav>
 					</div>
 				</div>
 			</div>
