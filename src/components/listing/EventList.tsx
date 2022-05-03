@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { events } from './../pseudodata/events-data';
+import { events } from '../../pseudodata/events-data';
 
 function EventList() {
 	const [isCompact, setIsCompact] = useState(true);

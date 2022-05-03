@@ -1,8 +1,8 @@
 import '../main.scss';
 //Local Components
-import EventList from '../components/EventList';
-import LandingNav from '../components/LandingNav';
-import Footer from '../components/Footer';
+import EventList from '../components/listing/EventList';
+import Footer from '../components/footer/Footer';
+import LandingNav from './../components/navbar/LandingNav';
 
 function Landing() {
 	return (

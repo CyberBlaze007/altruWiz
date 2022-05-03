@@ -8,8 +8,8 @@ import {
 	signOut,
 } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import AuthNav from '../components/AuthNav';
-import Footer from '../components/Footer';
+import AuthNav from '../components/navbar/AuthNav';
+import Footer from '../components/footer/Footer';
 import { Link } from 'react-router-dom';
 
 function Auth({ type = true }) {
