@@ -17,5 +17,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<Route path='/test-firebase' element={<Test />}></Route>
 			</Routes>
 		</BrowserRouter>
-	</React.StrictMode>
+	</React.StrictMode>,
 );

@@ -250,3 +250,120 @@ html {
 		}
 	}
 }
+.footer {
+	background: #7339ab;
+	height: fit-content;
+	&-row1 {
+		display: flex;
+		flex-direction: row;
+		padding: 5rem;
+		&-block1 {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 35%;
+			&-container {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				&-text {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 700;
+					font-size: 3rem;
+					color: #ffffff;
+				}
+				&-icon {
+					height: 3rem;
+					padding-left: 1rem;
+				}
+			}
+		}
+		&-block2 {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			width: 65%;
+			&-col1 {
+				display: flex;
+				flex-direction: column;
+				&-head {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 700;
+						font-size: 1.25rem;
+						color: #f9f9f9;
+					}
+				}
+				&-links {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1rem;
+						color: #f9f9f9;
+					}
+				}
+			}
+			&-col2 {
+				display: flex;
+				flex-direction: column;
+				&-head {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 700;
+						font-size: 1.25rem;
+						color: #f9f9f9;
+					}
+				}
+				&-links {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1rem;
+						color: #f9f9f9;
+					}
+				}
+			}
+			&-col3 {
+				display: flex;
+				flex-direction: column;
+				&-head {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 700;
+						font-size: 1.25rem;
+						color: #f9f9f9;
+					}
+				}
+				&-links {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1rem;
+						color: #f9f9f9;
+					}
+				}
+			}
+		}
+	}
+	&-row2 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 5rem;
+		h1 {
+			font-family: 'Montserrat';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 1.5rem;
+			color: #b8b8b8;
+		}
+	}
+}
