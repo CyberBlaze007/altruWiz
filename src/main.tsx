@@ -13,6 +13,7 @@ import Auth from './pages/Auth';
 import FileUpload from './pages/FileUpload';
 import Dashboard from './pages/Dashboard';
 import Signin from './pages/Signin';
+import Signup from './pages/Signup';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -20,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<Routes>
 				<Route path='/' element={<Landing />}></Route>
 				<Route path='/login' element={<Signin />}></Route>
-				<Route path='/register' element={<Auth type={false} />}></Route>
+				<Route path='/register' element={<Signup />}></Route>
 				<Route path='/upload' element={<FileUpload />}></Route>
 				<Route path='/dashboard' element={<Dashboard />}></Route>
 			</Routes>
