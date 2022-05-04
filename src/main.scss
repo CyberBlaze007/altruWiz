@@ -276,7 +276,7 @@ html {
 			display: flex;
 			flex-direction: column;
 			height: fit-content;
-			width: 55vw;
+			width: 50vw;
 			background: #ffffff;
 			border: 1px solid rgba(0, 0, 0, 0.15);
 			box-sizing: border-box;
@@ -302,142 +302,218 @@ html {
 					color: rgba(0, 0, 0, 0.75);
 				}
 			}
-			&-fullname {
-				display: flex;
-				flex-direction: row;
-				height: fit-content;
-				&-col1 {
-					display: flex;
-					flex-direction: column;
-					width: 50%;
-					&-label {
-						&-text {
-							font-family: 'Montserrat';
-							font-style: normal;
-							font-weight: 600;
-							font-size: 1rem;
-							color: rgba(0, 0, 0, 0.75);
-						}
-					}
-					&-input {
-						&-field {
-							height: 2.5rem;
-							font-size: 1rem;
-							width: 80%;
-							background: #ffffff;
-							border: 1px solid rgba(0, 0, 0, 0.35);
-							box-sizing: border-box;
-							box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
-							border-radius: 5px;
-						}
-					}
-				}
-				&-col2 {
-					display: flex;
-					flex-direction: column;
-					width: 50%;
-					&-label {
-						&-text {
-							font-family: 'Montserrat';
-							font-style: normal;
-							font-weight: 600;
-							font-size: 1rem;
-							color: rgba(0, 0, 0, 0.75);
-						}
-					}
-
-					&-input {
-						&-field {
-							height: 2.5rem;
-							font-size: 1rem;
-							width: 80%;
-							background: #ffffff;
-							border: 1px solid rgba(0, 0, 0, 0.35);
-							box-sizing: border-box;
-							box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
-							border-radius: 5px;
-						}
-					}
-				}
-			}
-
-			&-email {
-				&-text {
-					font-family: 'Montserrat';
-					font-style: normal;
-					font-weight: 600;
-					font-size: 1rem;
-					color: rgba(0, 0, 0, 0.75);
-				}
-				&-input {
-					height: 2.5rem;
-					font-size: 1rem;
-					width: 80%;
-					background: #ffffff;
-					border: 1px solid rgba(0, 0, 0, 0.35);
-					box-sizing: border-box;
-					box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
-					border-radius: 5px;
-				}
-			}
-			&-password {
-				&-text {
-					font-family: 'Montserrat';
-					font-style: normal;
-					font-weight: 600;
-					font-size: 1rem;
-					color: rgba(0, 0, 0, 0.75);
-				}
-				&-input {
-					height: 2.5rem;
-					font-size: 1rem;
-					width: 80%;
-					background: #ffffff;
-					border: 1px solid rgba(0, 0, 0, 0.35);
-					box-sizing: border-box;
-					box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
-					border-radius: 5px;
-				}
-			}
-			&-button {
-				display: flex;
-				flex-direction: column;
+			&-section {
+				display: grid;
+				grid-auto-flow: row;
+				row-gap: 2rem;
 				align-items: center;
-				padding-bottom: 1rem;
-				width: 80%;
-				&-create {
-					width: 80%;
-					border: none;
-					background: #7339ab;
-					box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
-					border-radius: 10px;
-					font-family: 'Montserrat';
-					font-style: normal;
-					font-weight: 700;
-					font-size: 1.25rem;
-					padding: 0.5rem 3rem;
-					color: #ffffff;
-				}
-			}
-			&-footer {
-				display: flex;
-				flex-direction: row;
-				&-text {
-					font-family: 'Montserrat';
-					text-decoration: none;
-					font-style: normal;
-					font-weight: 600;
-					font-size: 1rem;
-					color: rgba(0, 0, 0, 0.35);
-				}
-				&-login {
-					font-family: 'Montserrat';
-					font-style: normal;
-					font-weight: 600;
-					font-size: 1rem;
+				&-forms {
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+					&-fullname {
+						display: flex;
+						flex-direction: row;
+						height: fit-content;
+						justify-content: space-between;
+						width: 100%;
+						&-col1 {
+							display: flex;
+							flex-direction: column;
+							width: 47.5%;
+							&-label {
+								&-text {
+									font-family: 'Montserrat';
+									font-style: normal;
+									font-weight: 600;
+									font-size: 1rem;
+									color: rgba(0, 0, 0, 0.75);
+								}
+							}
+							&-input {
+								&-field {
+									height: 2.5rem;
+									font-size: 1rem;
+									width: 100%;
+									background: #ffffff;
+									border: 1px solid rgba(0, 0, 0, 0.35);
+									box-sizing: border-box;
+									box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+									border-radius: 5px;
+								}
+							}
+						}
+						&-col2 {
+							display: flex;
+							flex-direction: column;
+							width: 47.5%;
+							&-label {
+								&-text {
+									font-family: 'Montserrat';
+									font-style: normal;
+									font-weight: 600;
+									font-size: 1rem;
+									color: rgba(0, 0, 0, 0.75);
+								}
+							}
 
-					text-align: center;
-					color: #7339ab;
+							&-input {
+								&-field {
+									height: 2.5rem;
+									font-size: 1rem;
+									width: 100%;
+									background: #ffffff;
+									border: 1px solid rgba(0, 0, 0, 0.35);
+									box-sizing: border-box;
+									box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+									border-radius: 5px;
+								}
+							}
+						}
+					}
+
+					&-email {
+						&-text {
+							font-family: 'Montserrat';
+							font-style: normal;
+							font-weight: 600;
+							font-size: 1rem;
+							color: rgba(0, 0, 0, 0.75);
+						}
+						&-input {
+							height: 2.5rem;
+							font-size: 1rem;
+							width: 100%;
+							background: #ffffff;
+							border: 1px solid rgba(0, 0, 0, 0.35);
+							box-sizing: border-box;
+							box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+							border-radius: 5px;
+						}
+					}
+					&-password {
+						display: flex;
+						flex-direction: row;
+						height: fit-content;
+						justify-content: space-between;
+						width: 100%;
+						&-col1 {
+							display: flex;
+							flex-direction: column;
+							width: 47.5%;
+							&-label {
+								&-text {
+									font-family: 'Montserrat';
+									font-style: normal;
+									font-weight: 600;
+									font-size: 1rem;
+									color: rgba(0, 0, 0, 0.75);
+								}
+							}
+							&-input {
+								&-field {
+									height: 2.5rem;
+									font-size: 1rem;
+									width: 100%;
+									background: #ffffff;
+									border: 1px solid rgba(0, 0, 0, 0.35);
+									box-sizing: border-box;
+									box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+									border-radius: 5px;
+								}
+							}
+						}
+						&-col2 {
+							display: flex;
+							flex-direction: column;
+							width: 47.5%;
+							&-label {
+								&-text {
+									font-family: 'Montserrat';
+									font-style: normal;
+									font-weight: 600;
+									font-size: 1rem;
+									color: rgba(0, 0, 0, 0.75);
+								}
+							}
+
+							&-input {
+								&-field {
+									height: 2.5rem;
+									font-size: 1rem;
+									width: 100%;
+									background: #ffffff;
+									border: 1px solid rgba(0, 0, 0, 0.35);
+									box-sizing: border-box;
+									box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+									border-radius: 5px;
+								}
+							}
+						}
+					}
+				}
+				&-button {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					&-hold {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						padding-bottom: 1rem;
+						width: 80%;
+						&-create {
+							width: 80%;
+							border: none;
+							background: #7339ab;
+							box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
+							border-radius: 10px;
+							font-family: 'Montserrat';
+							font-style: normal;
+							font-weight: 700;
+							font-size: 1.25rem;
+							padding: 0.5rem 3rem;
+							color: #ffffff;
+						}
+					}
+				}
+				&-footer {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					&-hold {
+						display: flex;
+						flex-direction: row;
+						&-label {
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+							&-text {
+								font-family: 'Montserrat';
+								text-decoration: none;
+								font-style: normal;
+								font-weight: 600;
+								font-size: 1rem;
+								color: rgba(0, 0, 0, 0.35);
+							}
+						}
+						&-login {
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+
+							&-link {
+								padding-left: 0.5rem;
+								font-family: 'Montserrat';
+								text-decoration: none;
+								font-style: normal;
+								font-weight: 600;
+								font-size: 1rem;
+								// text-align: center;
+								color: #7339ab;
+							}
+						}
+					}
 				}
 			}
 		}
