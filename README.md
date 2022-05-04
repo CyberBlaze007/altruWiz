@@ -6,7 +6,11 @@ AltruWiz is a website that serves as a consolidated center for community service
 
 Team Members:
 Floreta, Jezreel Jedidiah 
+
 Macapagong, Jessa Marie 
+
 Tampus, Mervin John 
+
 Tapayan, Nash Uriel
+
 Velez, Renz Brian
