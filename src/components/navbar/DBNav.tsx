@@ -11,33 +11,31 @@ function DBNav() {
 	const [profile, setProfile] = useState(true);
 	return (
 		<>
-			<div className='nav-p'>
-				<div className='nav-p-col1'>
-					<h1 className='nav-p-col1-text'>AltruWiz</h1>
+			<div className='nav'>
+				<div className='nav-col1'>
+					<h1 className='nav-col1-text'>AltruWiz</h1>
 					<img
 						src='/assets/altruwiz-logo-colored.svg'
-						className='nav-p-col1-icon'
+						className='nav-col1-icon'
 					/>
 				</div>
-				<nav className='nav-p-col2'>
-					<div className='nav-p-col2-container'>
-						<button className='nav-p-col2-container-button'>Event Code</button>
+				<nav className='nav-col2-p'>
+					<div className='nav-col2-container'>
+						<button className='nav-col2-container-button'>Event Code</button>
 					</div>
-					<div className='nav-p-col2-profile'>
-						<h1 className='nav-p-col2-profile-text'>
-							{profiles.at(0).username}
-						</h1>
-						<div className='nav-p-col2-profile-nav'>
+					<div className='nav-col2-profile'>
+						<h1 className='nav-col2-profile-text'>{profiles.at(0).username}</h1>
+						<div className='nav-col2-profile-nav'>
 							{profile ? (
 								<img
 									src={`/src/pseudodata/${profiles.at(0).image}`}
 									onError={() => setProfile(false)}
-									className='nav-p-col2-profile-nav-pic'
+									className='nav-col2-profile-nav-pic'
 								/>
 							) : (
-								<AccountCircleIcon className='nav-p-col2-profile-nav-pic' />
+								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 							)}
-							<ArrowDropDownIcon className='nav-p-col2-profile-nav-menu' />
+							<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
 						</div>
 					</div>
 				</nav>

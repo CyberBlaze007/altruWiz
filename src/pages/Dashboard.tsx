@@ -69,8 +69,10 @@ function Dashboard() {
 	`;
 	return (
 		<div className='dashboard'>
-			<DBNav />
 			<div className='dashboard-container'>
+				<div className='dashboard-container-nav'>
+					<DBNav />
+				</div>
 				<TabsUnstyled defaultValue={0} className='dashboard-container-tab'>
 					<TabsList className='dashboard-container-tab-list'>
 						<Tab onClick={() => setIndex(0)}>Profile</Tab>
@@ -81,10 +83,7 @@ function Dashboard() {
 					</TabsList>
 				</TabsUnstyled>
 			</div>
-			{cards[index]}
-			<div className='dashboard-footer'>
-				<Footer />
-			</div>
+			<div className='dashboard-body'>{cards[index]}</div>
 		</div>
 	);
 }
