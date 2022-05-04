@@ -1,13 +1,23 @@
+import { useState } from 'react';
+
+//Tabs Components
 import { TabUnstyled, TabsListUnstyled, TabsUnstyled } from '@mui/base';
 import { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+
+//Tab Pages
 import Badges from '../components/cards/Badges';
 import Certificates from '../components/cards/Certificates';
 import Events from '../components/cards/Events';
 import Profile from './../components/cards/Profile';
 import Achievements from './../components/cards/Achievements';
+
+//MUI Components
 import { styled } from '@mui/system';
-import { useState } from 'react';
+
+//Local Components
+import DBNav from './../components/navbar/DBNav';
+import Footer from './../components/footer/Footer';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
@@ -59,16 +69,22 @@ function Dashboard() {
 	`;
 	return (
 		<div className='dashboard'>
-			<TabsUnstyled defaultValue={0} className='dashboard-tab'>
-				<TabsList className='dashboard-tab-list'>
-					<Tab onClick={() => setIndex(0)}>Profile</Tab>
-					<Tab onClick={() => setIndex(1)}>Events</Tab>
-					<Tab onClick={() => setIndex(2)}>Achievements</Tab>
-					<Tab onClick={() => setIndex(3)}>Certificates</Tab>
-					<Tab onClick={() => setIndex(4)}>Badges</Tab>
-				</TabsList>
-			</TabsUnstyled>
+			<DBNav />
+			<div className='dashboard-container'>
+				<TabsUnstyled defaultValue={0} className='dashboard-container-tab'>
+					<TabsList className='dashboard-container-tab-list'>
+						<Tab onClick={() => setIndex(0)}>Profile</Tab>
+						<Tab onClick={() => setIndex(1)}>Events</Tab>
+						<Tab onClick={() => setIndex(2)}>Achievements</Tab>
+						<Tab onClick={() => setIndex(3)}>Certificates</Tab>
+						<Tab onClick={() => setIndex(4)}>Badges</Tab>
+					</TabsList>
+				</TabsUnstyled>
+			</div>
 			{cards[index]}
+			<div className='dashboard-footer'>
+				<Footer />
+			</div>
 		</div>
 	);
 }

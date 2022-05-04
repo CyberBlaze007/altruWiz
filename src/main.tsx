@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './main.scss';
+import './components/components.scss';
 import './index.scss';
 
 //React Router Components
@@ -18,7 +20,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<Routes>
 				<Route path='/' element={<Landing />}></Route>
 				<Route path='/login' element={<Signin />}></Route>
-				{/* <Route path='/login' element={<Auth type={true} />}></Route> */}
 				<Route path='/register' element={<Auth type={false} />}></Route>
 				<Route path='/upload' element={<FileUpload />}></Route>
 				<Route path='/dashboard' element={<Dashboard />}></Route>

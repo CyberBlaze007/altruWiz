@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
-import '../index.scss';
 
 function FileUpload() {
 	const [imageUpload, setImageUpload] = useState(null);

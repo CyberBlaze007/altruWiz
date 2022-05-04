@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../main.scss';
 
 //Firebase Components
 import {
