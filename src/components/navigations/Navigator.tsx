@@ -24,7 +24,7 @@ function Navigator() {
 			// alert('Login First');
 			navigate('/login');
 		}
-	}, [user, location]);
+	}, [user, loading, location]);
 	return <></>;
 }
 
