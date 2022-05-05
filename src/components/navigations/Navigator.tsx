@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase-config';
-import { ScaleLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 
 function Navigator() {
 	const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Navigator() {
 
 	useEffect(() => {
 		if (loading) {
-			setTimeout(() => setTime(false), 2000);
+			setTimeout(() => setTime(false), 3000);
 			return;
 		}
 		if (
@@ -32,7 +32,7 @@ function Navigator() {
 		<div
 			className={loading || time ? 'modal display-flex' : 'modal display-none'}>
 			<section className='modal-main'>
-				<ScaleLoader height={'10rem'} width={'1.2rem'} color={'white'} />
+				<HashLoader size={100} color={'#9013FE'} />
 			</section>
 		</div>
 	);
