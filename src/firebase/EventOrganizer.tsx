@@ -11,7 +11,7 @@ class EventOrganizer {
 }
 
 // Firestore data converter
-const cityConverter = {
+const eventOrgConverter = {
     toFirestore: (EventOrganizer:EventOrganizer) => {
         return {
             name: EventOrganizer.name,
@@ -24,4 +24,4 @@ const cityConverter = {
     }
 };
 
-export default cityConverter;
+export default eventOrgConverter;
