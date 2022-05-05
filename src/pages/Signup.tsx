@@ -1,14 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../components/footer/Footer';
 import AuthNav from '../components/navbar/AuthNav';
-import { useState } from 'react';
+import { TextField } from '@mui/material';
 
 //Firebase Components
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import UserDataService from '../firebase/services';
-import { TextField } from '@mui/material';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signup() {
 	const [firstName, setFirstName] = useState('');
@@ -16,6 +16,16 @@ function Signup() {
 	const [registerEmail, setRegisterEmail] = useState('');
 	const [registerPassword, setRegisterPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [user, loading] = useAuthState(auth);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (loading) {
+			alert('loading.......');
+			return;
+		}
+		if (user) navigate('/dashboard');
+	}, [user, loading]);
 
 	const register = async () => {
 		//sign up back-end
@@ -190,7 +200,8 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}>
+									}
+								>
 									Create Account
 								</button>
 							</div>
@@ -205,7 +216,8 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}>
+										to={'/login'}
+									>
 										Login
 									</Link>
 								</div>

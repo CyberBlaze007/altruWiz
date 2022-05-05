@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import AuthNav from './../components/navbar/AuthNav';
 import Footer from './../components/footer/Footer';
+import { TextField } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 //For Auth
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { Link, useNavigate } from 'react-router-dom';
-import { TextField } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signin() {
