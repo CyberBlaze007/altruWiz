@@ -7,8 +7,24 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 //Metadata
 import { profiles } from './../../pseudodata/profile-data';
 
+//Firebase Components
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase-config';
+import { Link } from 'react-router-dom';
+
 function DBNav() {
 	const [profile, setProfile] = useState(true);
+
+	const logout = async () => {
+		try {
+			await signOut(auth).then(() => {
+				alert('User Signed Out');
+			});
+		} catch (error: any) {
+			console.log(error.message);
+		}
+	};
+
 	return (
 		<>
 			<div className='nav'>
@@ -24,7 +40,11 @@ function DBNav() {
 						<button className='nav-col2-container-button'>Event Code</button>
 					</div>
 					<div className='nav-col2-profile'>
-						<h1 className='nav-col2-profile-text'>{profiles.at(0).username}</h1>
+						<Link onClick={logout} to={'/'}>
+							<h1 className='nav-col2-profile-text'>
+								{profiles.at(0).username}
+							</h1>
+						</Link>
 						<div className='nav-col2-profile-nav'>
 							{profile ? (
 								<img
