@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import Footer from './../footer/Footer';
-import { TextField } from '@mui/material';
-import DateFnsUtils from '@date-io/date-fns';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { TextField, MenuItem } from '@mui/material';
 
 function Profile() {
 	const [firstName, setFirstName] = useState('');
@@ -12,7 +10,7 @@ function Profile() {
 	const [email, setEmail] = useState('');
 	const [address, setAddress] = useState('');
 	const [description, setDescription] = useState('');
-	const [selectedDate, handleDateChange] = useState(new Date());
+	const [bday, setBday] = useState(new Date());
 
 	return (
 		<div className='profile'>
@@ -55,27 +53,23 @@ function Profile() {
 						<div className='profile-body-sec1-form-gender'>
 							<h1 className='profile-body-sec1-form-label'>Gender</h1>
 							<TextField
-								variant='outlined'
 								color='secondary'
+								sx={{ minWidth: '8rem' }}
 								size='small'
-								className='rofile-body-sec1-form-gender-field'
-								placeholder='I identify as...'
-								value={gender}
-								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-									setGender(event.target.value)
-								}
+								className='profile-body-sec1-form-gender-field'
 								margin='dense'
-							/>
+								value={gender}
+								select
+								onChange={(event) => setGender(event.target.value)}>
+								<MenuItem value={'Male'}>Male</MenuItem>
+								<MenuItem value={'Female'}>Female</MenuItem>
+								<MenuItem value={'Prefer not to say'}>
+									Prefer not to say
+								</MenuItem>
+							</TextField>
 						</div>
 						<div className='profile-body-sec1-form-bday'>
 							<h1 className='profile-body-sec1-form-label'>Birthday</h1>
-							<MuiPickersUtilsProvider utils={DateFnsUtils}>
-								<DatePicker
-									value={selectedDate}
-									onChange={handleDateChange}
-									variant='static'
-								/>
-							</MuiPickersUtilsProvider>
 						</div>
 						<div className='profile-body-sec1-form-email'>
 							<h1 className='profile-body-sec1-form-label'>Email</h1>
@@ -126,7 +120,7 @@ function Profile() {
 							placeholder='Write something about you...'
 							size='small'
 							multiline
-							rows={3}
+							rows={5}
 							className='profile-body-sec2-form-field'
 							value={description}
 							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
