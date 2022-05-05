@@ -7,26 +7,54 @@ import { useState } from 'react';
 //Firebase Components
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
+import UserDataService from '../firebase/services';
 
 function Signup() {
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 	const [registerEmail, setRegisterEmail] = useState('');
 	const [registerPassword, setRegisterPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const register = async () => {
+	const register = async (e: any) => {
+		//sign up back-end
+		const newUser = {
+			name: { first: firstName, last: lastName },
+			rank: 'Spark',
+			avatar: '',
+			eventsJoined: [''],
+			badgesCollected: [''],
+			expTotal: 0,
+		};
+		console.log(newUser);
+
+		//create user for Authentication
 		try {
 			await createUserWithEmailAndPassword(
 				auth,
 				registerEmail,
 				registerPassword
-			).then((userCredential) => {
-				// Signed in
-				const user = userCredential.user;
-				console.log(user);
-				// ...
+			).then(async (userCredential) => {
+				// User Created for Auth
+				const userID = userCredential.user.uid;
+				console.log(userID);
+
+				//create userData for Firestore
+				try {
+					await UserDataService.addUser(newUser, userID);
+				} catch (error) {
+					console.log(error);
+				}
 			});
 		} catch (error: any) {
 			console.log(error.message);
 		}
+
+		setFirstName('');
+		setLastName('');
+		setRegisterEmail('');
+		setRegisterPassword('');
+		setConfirmPassword('');
 	};
 
 	return (
@@ -54,7 +82,10 @@ function Signup() {
 									<div className='signup-body-container-section-forms-fullname-col1-input'>
 										<input
 											className='signup-body-container-section-forms-fullname-col1-input-field'
-											type='text'></input>
+											type='text'
+											value={firstName}
+											onChange={(event) => setFirstName(event.target.value)}
+										></input>
 									</div>
 								</div>
 								<div className='signup-body-container-section-forms-fullname-col2'>
@@ -66,7 +97,10 @@ function Signup() {
 									<div className='signup-body-container-section-forms-fullname-col2-input'>
 										<input
 											className='signup-body-container-section-forms-fullname-col2-input-field'
-											type='text'></input>
+											type='text'
+											value={lastName}
+											onChange={(event) => setLastName(event.target.value)}
+										></input>
 									</div>
 								</div>
 							</div>
@@ -77,9 +111,9 @@ function Signup() {
 								<input
 									className='signup-body-container-section-forms-email-input'
 									type='text'
-									onChange={(event) =>
-										setRegisterEmail(event.target.value)
-									}></input>
+									value={registerEmail}
+									onChange={(event) => setRegisterEmail(event.target.value)}
+								></input>
 							</div>
 							<div className='signup-body-container-section-forms-password'>
 								<div className='signup-body-container-section-forms-password-col1'>
@@ -91,10 +125,12 @@ function Signup() {
 									<div className='signup-body-container-section-forms-password-col1-input'>
 										<input
 											className='signup-body-container-section-forms-password-col1-input-field'
-											type='pass'
+											type='password'
+											value={registerPassword}
 											onChange={(event) =>
 												setRegisterPassword(event.target.value)
-											}></input>
+											}
+										></input>
 									</div>
 								</div>
 
@@ -107,7 +143,12 @@ function Signup() {
 									<div className='signup-body-container-section-forms-password-col2-input'>
 										<input
 											className='signup-body-container-section-forms-password-col1-input-field'
-											type='pass'></input>
+											type='password'
+											value={confirmPassword}
+											onChange={(event) =>
+												setConfirmPassword(event.target.value)
+											}
+										></input>
 									</div>
 								</div>
 							</div>
@@ -116,7 +157,8 @@ function Signup() {
 							<div className='signup-body-container-section-button-hold'>
 								<button
 									className='signup-body-container-section-button-hold-create'
-									onClick={register}>
+									onClick={register}
+								>
 									Create Account
 								</button>
 							</div>
@@ -131,7 +173,8 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}>
+										to={'/login'}
+									>
 										Login
 									</Link>
 								</div>
