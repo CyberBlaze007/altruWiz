@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import UserDataService from '../firebase/services';
+import { TextField } from '@mui/material';
 
 function Signup() {
 	const [firstName, setFirstName] = useState('');
@@ -80,12 +81,18 @@ function Signup() {
 										</h1>
 									</div>
 									<div className='signup-body-container-section-forms-fullname-col1-input'>
-										<input
+										<TextField
+											variant='outlined'
+											color='secondary'
+											size='small'
 											className='signup-body-container-section-forms-fullname-col1-input-field'
-											type='text'
+											margin='dense'
 											value={firstName}
-											onChange={(event) => setFirstName(event.target.value)}
-										></input>
+											onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+												setFirstName(event.target.value)
+											}
+											fullWidth
+										/>
 									</div>
 								</div>
 								<div className='signup-body-container-section-forms-fullname-col2'>
@@ -95,12 +102,18 @@ function Signup() {
 										</h1>
 									</div>
 									<div className='signup-body-container-section-forms-fullname-col2-input'>
-										<input
+										<TextField
+											variant='outlined'
+											color='secondary'
+											size='small'
 											className='signup-body-container-section-forms-fullname-col2-input-field'
-											type='text'
+											margin='dense'
 											value={lastName}
-											onChange={(event) => setLastName(event.target.value)}
-										></input>
+											onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+												setLastName(event.target.value)
+											}
+											fullWidth
+										/>
 									</div>
 								</div>
 							</div>
@@ -108,12 +121,18 @@ function Signup() {
 								<h1 className='signup-body-container-section-forms-email-text'>
 									Email
 								</h1>
-								<input
-									className='signup-body-container-section-forms-email-input'
-									type='text'
+								<TextField
+									variant='outlined'
+									color='secondary'
+									size='small'
+									className='signup-body-container-section-forms-email-field'
+									margin='dense'
 									value={registerEmail}
-									onChange={(event) => setRegisterEmail(event.target.value)}
-								></input>
+									onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+										setRegisterEmail(event.target.value)
+									}
+									fullWidth
+								/>
 							</div>
 							<div className='signup-body-container-section-forms-password'>
 								<div className='signup-body-container-section-forms-password-col1'>
@@ -123,14 +142,19 @@ function Signup() {
 										</h1>
 									</div>
 									<div className='signup-body-container-section-forms-password-col1-input'>
-										<input
+										<TextField
+											variant='outlined'
+											color='secondary'
+											size='small'
 											className='signup-body-container-section-forms-password-col1-input-field'
+											margin='dense'
 											type='password'
 											value={registerPassword}
-											onChange={(event) =>
+											onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 												setRegisterPassword(event.target.value)
 											}
-										></input>
+											fullWidth
+										/>
 									</div>
 								</div>
 
@@ -141,14 +165,19 @@ function Signup() {
 										</h1>
 									</div>
 									<div className='signup-body-container-section-forms-password-col2-input'>
-										<input
-											className='signup-body-container-section-forms-password-col1-input-field'
+										<TextField
+											variant='outlined'
+											color='secondary'
+											size='small'
+											className='signup-body-container-section-forms-password-col2-input-field'
+											margin='dense'
 											type='password'
 											value={confirmPassword}
-											onChange={(event) =>
+											onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 												setConfirmPassword(event.target.value)
 											}
-										></input>
+											fullWidth
+										/>
 									</div>
 								</div>
 							</div>
@@ -157,8 +186,11 @@ function Signup() {
 							<div className='signup-body-container-section-button-hold'>
 								<button
 									className='signup-body-container-section-button-hold-create'
-									onClick={register}
-								>
+									onClick={
+										confirmPassword === registerPassword
+											? register
+											: () => alert('Password does not match')
+									}>
 									Create Account
 								</button>
 							</div>
@@ -173,8 +205,7 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}
-									>
+										to={'/login'}>
 										Login
 									</Link>
 								</div>

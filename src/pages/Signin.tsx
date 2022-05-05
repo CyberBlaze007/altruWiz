@@ -13,29 +13,10 @@ import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 
 function Signin() {
-	const [registerEmail, setRegisterEmail] = useState('');
-	const [registerPassword, setRegisterPassword] = useState('');
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 
 	var [user, setUser] = useState('');
-
-	const register = async () => {
-		try {
-			await createUserWithEmailAndPassword(
-				auth,
-				registerEmail,
-				registerPassword
-			).then((userCredential) => {
-				// Signed in
-				const user = userCredential.user;
-				console.log(user);
-				// ...
-			});
-		} catch (error: any) {
-			console.log(error.message);
-		}
-	};
 
 	const login = async () => {
 		try {
@@ -92,7 +73,7 @@ function Signin() {
 									variant='outlined'
 									color='secondary'
 									size='small'
-									className='profile-body-sec1-form-fname-field'
+									className='signin-body-container-col2-form-fields-field'
 									margin='dense'
 									value={loginEmail}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -108,7 +89,7 @@ function Signin() {
 									color='secondary'
 									size='small'
 									type='password'
-									className='profile-body-sec1-form-fname-field'
+									className='signin-body-container-col2-form-fields-field'
 									margin='dense'
 									value={loginPassword}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
