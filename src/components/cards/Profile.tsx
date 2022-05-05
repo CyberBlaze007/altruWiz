@@ -10,7 +10,7 @@ function Profile() {
 	const [email, setEmail] = useState('');
 	const [address, setAddress] = useState('');
 	const [description, setDescription] = useState('');
-	const [bday, setBday] = useState(new Date());
+	const [bday, setBday] = useState('');
 
 	return (
 		<div className='profile'>
@@ -70,6 +70,16 @@ function Profile() {
 						</div>
 						<div className='profile-body-sec1-form-bday'>
 							<h1 className='profile-body-sec1-form-label'>Birthday</h1>
+							<TextField
+								variant='outlined'
+								color='secondary'
+								size='small'
+								className='profile-body-sec1-form-bday-field'
+								type='date'
+								margin='dense'
+								value={bday}
+								onChange={(event) => setBday(event.target.value)}
+							/>
 						</div>
 						<div className='profile-body-sec1-form-email'>
 							<h1 className='profile-body-sec1-form-label'>Email</h1>
