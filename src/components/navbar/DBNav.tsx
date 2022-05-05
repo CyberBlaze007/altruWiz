@@ -17,9 +17,7 @@ function DBNav() {
 
 	const logout = async () => {
 		try {
-			await signOut(auth).then(() => {
-				alert('User Signed Out');
-			});
+			await signOut(auth);
 		} catch (error: any) {
 			console.log(error.message);
 		}

@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from './../components/navigations/Loading';
 
 function Signin() {
 	const [loginEmail, setLoginEmail] = useState('');
@@ -17,25 +18,17 @@ function Signin() {
 
 	const login = async () => {
 		try {
-			await signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(
-				(userCredential) => {
-					// Signed in
-					var temp: any = userCredential.user.email;
-					alert(`User Logged In: ${temp}`);
-				}
-			);
+			await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
 		} catch (err: any) {
-			alert('User Not Logged In.');
+			confirm('Incorrect Credentials');
 			console.log(err.message);
 		}
 	};
 
 	useEffect(() => {
-		if (loading) {
-			alert('loading.......');
-			return;
+		if (user) {
+			navigate('/dashboard');
 		}
-		if (user) navigate('/dashboard');
 	}, [user, loading]);
 
 	return (
@@ -95,8 +88,7 @@ function Signin() {
 							<div className='signin-body-container-col2-form-container'>
 								<button
 									onClick={login}
-									className='signin-body-container-col2-form-container-button'
-								>
+									className='signin-body-container-col2-form-container-button'>
 									Login
 								</button>
 							</div>
@@ -104,8 +96,7 @@ function Signin() {
 						<div className='signin-body-container-col2-footer'>
 							<Link
 								to={'/register'}
-								className='signin-body-container-col2-footer-text'
-							>
+								className='signin-body-container-col2-footer-text'>
 								New User? Sign Up
 							</Link>
 						</div>

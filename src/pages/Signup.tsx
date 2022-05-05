@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import UserDataService from '../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from '../components/navigations/Loading';
 
 function Signup() {
 	const [firstName, setFirstName] = useState('');
@@ -20,10 +21,6 @@ function Signup() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (loading) {
-			alert('loading.......');
-			return;
-		}
 		if (user) navigate('/dashboard');
 	}, [user, loading]);
 
@@ -200,8 +197,7 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}
-								>
+									}>
 									Create Account
 								</button>
 							</div>
@@ -216,8 +212,7 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}
-									>
+										to={'/login'}>
 										Login
 									</Link>
 								</div>

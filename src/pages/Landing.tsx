@@ -2,6 +2,7 @@
 import EventList from '../components/listing/EventList';
 import Footer from '../components/footer/Footer';
 import LandingNav from './../components/navbar/LandingNav';
+import Loading from '../components/navigations/Loading';
 
 function Landing() {
 	return (

@@ -17,6 +17,7 @@ import { styled } from '@mui/system';
 
 //Local Components
 import DBNav from './../components/navbar/DBNav';
+import Loading from '../components/navigations/Loading';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
@@ -74,6 +75,7 @@ function Dashboard() {
 	`;
 	return (
 		<div className='dashboard'>
+			<Loading />
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav />
