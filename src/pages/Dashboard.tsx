@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //Tabs Components
 import { TabUnstyled, TabsListUnstyled, TabsUnstyled } from '@mui/base';
@@ -17,10 +17,15 @@ import { styled } from '@mui/system';
 
 //Local Components
 import DBNav from './../components/navbar/DBNav';
-import Footer from './../components/footer/Footer';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
+
+	useEffect(() => {
+		const div = document.querySelector('html');
+		div.scrollTo(0, 0);
+	}, [index]);
+
 	const cards = [
 		<Profile />,
 		<Events />,

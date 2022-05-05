@@ -14,10 +14,12 @@ import FileUpload from './pages/FileUpload';
 import Dashboard from './pages/Dashboard';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import ScrollToTop from './components/navigations/ScrollToTop';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<BrowserRouter>
+			<ScrollToTop />
 			<Routes>
 				<Route path='/' element={<Landing />}></Route>
 				<Route path='/login' element={<Signin />}></Route>
