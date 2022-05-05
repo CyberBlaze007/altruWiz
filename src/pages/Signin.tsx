@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthNav from './../components/navbar/AuthNav';
 import Footer from './../components/footer/Footer';
 
 //For Auth
-import {
-	createUserWithEmailAndPassword,
-	signInWithEmailAndPassword,
-	signOut,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signin() {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
-
-	var [user, setUser] = useState('');
+	const [user, loading] = useAuthState(auth);
+	const navigate = useNavigate();
 
 	const login = async () => {
 		try {
@@ -24,28 +21,22 @@ function Signin() {
 				(userCredential) => {
 					// Signed in
 					var temp: any = userCredential.user.email;
-					setUser(temp);
-					// ...
 					alert(`User Logged In: ${temp}`);
 				}
 			);
-		} catch (error: any) {
+		} catch (err: any) {
 			alert('User Not Logged In.');
-			console.log(error.message);
+			console.log(err.message);
 		}
 	};
 
-	const logout = async () => {
-		try {
-			await signOut(auth).then(() => {
-				setUser('');
-				console.log('User Signed Out');
-				console.log(user);
-			});
-		} catch (error: any) {
-			console.log(error.message);
+	useEffect(() => {
+		if (loading) {
+			alert('loading.......');
+			return;
 		}
-	};
+		if (user) navigate('/dashboard');
+	}, [user, loading]);
 
 	return (
 		<div className='signin'>
@@ -97,7 +88,6 @@ function Signin() {
 									}
 									fullWidth
 								/>
-
 								<h1 className='signin-body-container-col2-form-fields-text2'>
 									Forgot Password
 								</h1>
@@ -105,7 +95,8 @@ function Signin() {
 							<div className='signin-body-container-col2-form-container'>
 								<button
 									onClick={login}
-									className='signin-body-container-col2-form-container-button'>
+									className='signin-body-container-col2-form-container-button'
+								>
 									Login
 								</button>
 							</div>
@@ -113,7 +104,8 @@ function Signin() {
 						<div className='signin-body-container-col2-footer'>
 							<Link
 								to={'/register'}
-								className='signin-body-container-col2-footer-text'>
+								className='signin-body-container-col2-footer-text'
+							>
 								New User? Sign Up
 							</Link>
 						</div>

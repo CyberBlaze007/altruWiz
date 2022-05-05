@@ -17,7 +17,7 @@ function Signup() {
 	const [registerPassword, setRegisterPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const register = async (e: any) => {
+	const register = async () => {
 		//sign up back-end
 		const newUser = {
 			name: { first: firstName, last: lastName },
