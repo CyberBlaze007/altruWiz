@@ -470,6 +470,12 @@
 					border: none;
 					border-radius: 10px;
 					color: #ffffff;
+					cursor: pointer;
+					transition: all 0.1s ease;
+					&:hover {
+						background-color: rgba(117, 57, 172, 0.9);
+						transition: all 0.1s ease;
+					}
 				}
 			}
 		}
@@ -513,6 +519,12 @@
 					box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
 					border-radius: 10px;
 					color: #ffffff;
+					cursor: pointer;
+					transition: all 0.1s ease;
+					&:hover {
+						background-color: rgba(117, 57, 172, 0.9);
+						transition: all 0.1s ease;
+					}
 				}
 			}
 		}

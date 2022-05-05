@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 function Signin() {
 	const [registerEmail, setRegisterEmail] = useState('');
@@ -87,21 +88,35 @@ function Signin() {
 								<h1 className='signin-body-container-col2-form-fields-text1'>
 									Email Address
 								</h1>
-								<input
-									type='text'
-									onChange={(event) => {
-										setLoginEmail(event.target.value);
-									}}
-									className='signin-body-container-col2-form-fields-input'></input>
+								<TextField
+									variant='outlined'
+									color='secondary'
+									size='small'
+									className='profile-body-sec1-form-fname-field'
+									margin='dense'
+									value={loginEmail}
+									onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+										setLoginEmail(event.target.value)
+									}
+									fullWidth
+								/>
 								<h1 className='signin-body-container-col2-form-fields-text1'>
 									Password
 								</h1>
-								<input
-									type='text'
-									onChange={(event) => {
-										setLoginPassword(event.target.value);
-									}}
-									className='signin-body-container-col2-form-fields-input'></input>
+								<TextField
+									variant='outlined'
+									color='secondary'
+									size='small'
+									type='password'
+									className='profile-body-sec1-form-fname-field'
+									margin='dense'
+									value={loginPassword}
+									onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+										setLoginPassword(event.target.value)
+									}
+									fullWidth
+								/>
+
 								<h1 className='signin-body-container-col2-form-fields-text2'>
 									Forgot Password
 								</h1>

@@ -194,6 +194,7 @@ html {
 					&-fields {
 						display: flex;
 						flex-direction: column;
+						width: 80%;
 						padding: 2rem 0;
 						&-text1 {
 							font-family: 'Montserrat';
@@ -205,7 +206,6 @@ html {
 						&-input {
 							height: 2.5rem;
 							font-size: 1rem;
-							width: 80%;
 							background: #ffffff;
 							border: 1px solid rgba(0, 0, 0, 0.35);
 							box-sizing: border-box;
@@ -218,6 +218,11 @@ html {
 							font-weight: 600;
 							font-size: 1rem;
 							color: rgba(0, 0, 0, 0.35);
+							cursor: pointer;
+							&:hover {
+								text-decoration: underline;
+								color: rgba(217, 38, 38, 0.6);
+							}
 						}
 					}
 					&-container {
@@ -233,11 +238,17 @@ html {
 							box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
 							border-radius: 10px;
 							font-family: 'Montserrat';
+							cursor: pointer;
 							font-style: normal;
 							font-weight: 700;
 							font-size: 1.25rem;
 							padding: 0.5rem 3rem;
 							color: #ffffff;
+							transition: all 0.1s ease;
+							&:hover {
+								background-color: rgba(117, 57, 172, 0.9);
+								transition: all 0.1s ease;
+							}
 						}
 					}
 				}
@@ -253,6 +264,7 @@ html {
 						color: rgba(0, 0, 0, 0.35);
 						&:hover {
 							text-decoration: underline;
+							color: rgb(115, 57, 171, 0.75);
 						}
 					}
 				}
@@ -469,11 +481,17 @@ html {
 							box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
 							border-radius: 10px;
 							font-family: 'Montserrat';
+							cursor: pointer;
 							font-style: normal;
 							font-weight: 700;
 							font-size: 1.25rem;
 							padding: 0.5rem 3rem;
 							color: #ffffff;
+							transition: all 0.1s ease;
+							&:hover {
+								background-color: rgba(117, 57, 172, 0.9);
+								transition: all 0.1s ease;
+							}
 						}
 					}
 				}
@@ -509,8 +527,11 @@ html {
 								font-style: normal;
 								font-weight: 600;
 								font-size: 1rem;
-								// text-align: center;
+								cursor: pointer;
 								color: #7339ab;
+								&:hover {
+									text-decoration: underline;
+								}
 							}
 						}
 					}

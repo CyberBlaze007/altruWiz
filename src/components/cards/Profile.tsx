@@ -11,6 +11,7 @@ function Profile() {
 	const [address, setAddress] = useState('');
 	const [description, setDescription] = useState('');
 	const [bday, setBday] = useState('');
+	const [editState, setEditState] = useState(true);
 
 	return (
 		<div className='profile'>
@@ -23,12 +24,13 @@ function Profile() {
 						<div className='profile-body-sec1-form-fname'>
 							<h1 className='profile-body-sec1-form-label'>First Name</h1>
 							<TextField
-								variant='outlined'
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								size='small'
-								className='rofile-body-sec1-form-fname-field'
+								className='profile-body-sec1-form-fname-field'
 								margin='dense'
 								value={firstName}
+								disabled={editState}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 									setFirstName(event.target.value)
 								}
@@ -38,12 +40,13 @@ function Profile() {
 						<div className='profile-body-sec1-form-lname'>
 							<h1 className='profile-body-sec1-form-label'>Last Name</h1>
 							<TextField
-								variant='outlined'
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								size='small'
-								className='rofile-body-sec1-form-lname-field'
+								className='profile-body-sec1-form-lname-field'
 								margin='dense'
 								value={lastName}
+								disabled={editState}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 									setLastName(event.target.value)
 								}
@@ -53,12 +56,14 @@ function Profile() {
 						<div className='profile-body-sec1-form-gender'>
 							<h1 className='profile-body-sec1-form-label'>Gender</h1>
 							<TextField
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								sx={{ minWidth: '8rem' }}
 								size='small'
 								className='profile-body-sec1-form-gender-field'
 								margin='dense'
 								value={gender}
+								disabled={editState}
 								select
 								onChange={(event) => setGender(event.target.value)}>
 								<MenuItem value={'Male'}>Male</MenuItem>
@@ -71,25 +76,27 @@ function Profile() {
 						<div className='profile-body-sec1-form-bday'>
 							<h1 className='profile-body-sec1-form-label'>Birthday</h1>
 							<TextField
-								variant='outlined'
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								size='small'
 								className='profile-body-sec1-form-bday-field'
 								type='date'
 								margin='dense'
 								value={bday}
+								disabled={editState}
 								onChange={(event) => setBday(event.target.value)}
 							/>
 						</div>
 						<div className='profile-body-sec1-form-email'>
 							<h1 className='profile-body-sec1-form-label'>Email</h1>
 							<TextField
-								variant='outlined'
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								size='small'
-								className='rofile-body-sec1-form-email-field'
+								className='profile-body-sec1-form-email-field'
 								margin='dense'
 								value={email}
+								disabled={editState}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 									setEmail(event.target.value)
 								}
@@ -99,12 +106,13 @@ function Profile() {
 						<div className='profile-body-sec1-form-address'>
 							<h1 className='profile-body-sec1-form-label'>Address</h1>
 							<TextField
-								variant='outlined'
+								variant={editState ? 'standard' : 'outlined'}
 								color='secondary'
 								size='small'
-								className='rofile-body-sec1-form-address-field'
+								className='profile-body-sec1-form-address-field'
 								margin='dense'
 								value={address}
+								disabled={editState}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 									setAddress(event.target.value)
 								}
@@ -113,7 +121,11 @@ function Profile() {
 						</div>
 					</div>
 					<div className='profile-body-sec1-footer'>
-						<button className='profile-body-sec1-footer-button'>Edit</button>
+						<button
+							className='profile-body-sec1-footer-button'
+							onClick={() => setEditState(false)}>
+							Edit
+						</button>
 					</div>
 				</div>
 				<div className='profile-body-divider'>
@@ -125,7 +137,7 @@ function Profile() {
 					</div>
 					<div className='profile-body-sec2-form'>
 						<TextField
-							variant='outlined'
+							variant={editState ? 'standard' : 'outlined'}
 							color='secondary'
 							placeholder='Write something about you...'
 							size='small'
@@ -133,12 +145,15 @@ function Profile() {
 							rows={5}
 							className='profile-body-sec2-form-field'
 							value={description}
+							disabled={editState}
 							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 								setDescription(event.target.value)
 							}
 							fullWidth
 						/>
-						<button className='profile-body-sec2-form-button'>
+						<button
+							className='profile-body-sec2-form-button'
+							onClick={() => setEditState(true)}>
 							Save Changes
 						</button>
 					</div>
