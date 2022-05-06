@@ -20,7 +20,7 @@ function Signup() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (user) navigate('/dashboard/profile');
+		if (user) navigate('/dashboard');
 	}, [user, loading]);
 
 	const register = async () => {
@@ -196,7 +196,8 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}>
+									}
+								>
 									Create Account
 								</button>
 							</div>
@@ -211,7 +212,8 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}>
+										to={'/login'}
+									>
 										Login
 									</Link>
 								</div>

@@ -84,7 +84,6 @@ html {
 	}
 	&-body {
 		position: sticky;
-
 		top: 5rem;
 		margin-top: 100vh;
 		min-height: 100vh;
@@ -497,16 +496,6 @@ html {
 	animation-duration: 4s;
 }
 
-.display-flex {
-	display: flex;
-}
-
-.display-none {
-	display: none;
-}
-
-//Animations
-
 @keyframes background {
 	from {
 		opacity: 1;
@@ -514,4 +503,12 @@ html {
 	to {
 		opacity: 0;
 	}
+}
+
+.display-flex {
+	display: flex;
+}
+
+.display-none {
+	display: none;
 }

@@ -2,6 +2,7 @@
 import EventList from '../components/listing/EventList';
 import Footer from '../components/footer/Footer';
 import LandingNav from './../components/navbar/LandingNav';
+import Loading from '../components/navigations/Loading';
 import { createContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config';
@@ -11,6 +12,7 @@ function Landing() {
 	const UserContext = createContext('');
 	const [user] = useAuthState(auth);
 	!user ? null : console.log(`UserUID:${user.uid}`);
+
 	return (
 		<UserContext.Provider value={!user ? null : user.uid}>
 			<div className='landing'>
@@ -18,7 +20,8 @@ function Landing() {
 					<div className='landing-header-col1'>
 						<h1>For better unity, help your community.</h1>
 						<button
-							onClick={() => document.getElementById('list')?.scrollIntoView()}>
+							onClick={() => document.getElementById('list')?.scrollIntoView()}
+						>
 							Find your next event
 						</button>
 					</div>
@@ -27,7 +30,7 @@ function Landing() {
 					</div>
 				</div>
 				<div className='landing-body'>
-					<EventList use='dash' />
+					<EventList />
 					<div className='landing-body-footer'>
 						<Footer />
 					</div>
