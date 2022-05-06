@@ -1,4 +1,3 @@
-import React from 'react';
 import EventList from './../listing/EventList';
 import Footer from './../footer/Footer';
 
