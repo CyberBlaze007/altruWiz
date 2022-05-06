@@ -27,6 +27,7 @@
 		flex-direction: row;
 		align-items: center;
 		height: auto;
+		animation: showNav 0.3s ease;
 		&-p {
 			display: grid;
 			grid-template-columns: auto auto;
@@ -106,7 +107,6 @@
 .events {
 	padding: 5rem;
 	display: flex;
-	scroll-snap-align: start;
 	flex-direction: column;
 	align-items: center;
 	&-header {
@@ -543,8 +543,60 @@
 		}
 	}
 }
+.achievements {
+	&-row1 {
+		&-col1 {
+			&-image {
+			}
+			&-text {
+			}
+		}
+		&-col2 {
+			&-bar {
+				&-icon {
+				}
+				&-label1 {
+				}
+				&-label2 {
+				}
+			}
+			&-text {
+			}
+		}
+		&-col3 {
+		}
+	}
+	&-row2 {
+		&-header {
+		}
+		&-table {
+			&-head {
+			}
+			&-body {
+				&-cells {
+				}
+			}
+		}
+	}
+}
+
 .event {
 	&-body {
 		min-height: calc(100vh - 8.2rem);
 	}
+}
+
+//Animations
+@keyframes showNav {
+	from {
+		height: 0;
+	}
+	to {
+		height: 3rem;
+	}
+}
+
+//special id's
+#dash {
+	scroll-snap-align: start;
 }

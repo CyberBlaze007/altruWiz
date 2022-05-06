@@ -8,7 +8,10 @@ function Footer() {
 				<div className='footer-row1-block1'>
 					<div className='footer-row1-block1-container'>
 						<h1 className='footer-row1-block1-container-text'>AltruWiz</h1>
-						<img src='/assets/altruwiz-logo-white.svg' className='footer-row1-block1-container-icon' />
+						<img
+							src='/assets/altruwiz-logo-white.svg'
+							className='footer-row1-block1-container-icon'
+						/>
 					</div>
 				</div>
 				<div className='footer-row1-block2'>
@@ -20,7 +23,9 @@ function Footer() {
 							<Link to={'/'} className='footer-row1-block2-col1-links-text'>
 								Home
 							</Link>
-							<Link to={'/dashboard'} className='footer-row1-block2-col1-links-text'>
+							<Link
+								to={'/dashboard/profile'}
+								className='footer-row1-block2-col1-links-text'>
 								Dashboard
 							</Link>
 							<Link to={'/'} className='footer-row1-block2-col1-links-text'>

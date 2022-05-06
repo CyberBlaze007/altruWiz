@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 //Tabs Components
 import { TabUnstyled, TabsListUnstyled, TabsUnstyled } from '@mui/base';
@@ -20,12 +21,22 @@ import DBNav from './../components/navbar/DBNav';
 import Loading from '../components/navigations/Loading';
 
 function Dashboard() {
+	const tabs = [
+		'/dashboard/profile',
+		'/dashboard/events',
+		'/dashboard/achievements',
+		'/dashboard/certificates',
+		'/dashboard/badges',
+	];
+	const navigate = useNavigate();
+	const location = useLocation();
 	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
 		const div = document.querySelector('html');
 		div.scrollTo(0, 0);
-	}, [index]);
+		setIndex(tabs.indexOf(location.pathname));
+	}, [location]);
 
 	const cards = [
 		<Profile />,
@@ -80,13 +91,41 @@ function Dashboard() {
 				<div className='dashboard-container-nav'>
 					<DBNav />
 				</div>
-				<TabsUnstyled defaultValue={0} className='dashboard-container-tab'>
+				<TabsUnstyled
+					defaultValue={0}
+					value={index}
+					className='dashboard-container-tab'>
 					<TabsList className='dashboard-container-tab-list'>
-						<Tab onClick={() => setIndex(0)}>Profile</Tab>
-						<Tab onClick={() => setIndex(1)}>Events</Tab>
-						<Tab onClick={() => setIndex(2)}>Achievements</Tab>
-						<Tab onClick={() => setIndex(3)}>Certificates</Tab>
-						<Tab onClick={() => setIndex(4)}>Badges</Tab>
+						<Tab
+							onClick={() => {
+								navigate('/dashboard/profile');
+							}}>
+							Profile
+						</Tab>
+						<Tab
+							onClick={() => {
+								navigate('/dashboard/events');
+							}}>
+							Events
+						</Tab>
+						<Tab
+							onClick={() => {
+								navigate('/dashboard/achievements');
+							}}>
+							Achievements
+						</Tab>
+						<Tab
+							onClick={() => {
+								navigate('/dashboard/certificates');
+							}}>
+							Certificates
+						</Tab>
+						<Tab
+							onClick={() => {
+								navigate('/dashboard/badges');
+							}}>
+							Badges
+						</Tab>
 					</TabsList>
 				</TabsUnstyled>
 			</div>
