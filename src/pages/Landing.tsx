@@ -3,32 +3,41 @@ import EventList from '../components/listing/EventList';
 import Footer from '../components/footer/Footer';
 import LandingNav from './../components/navbar/LandingNav';
 import Loading from '../components/navigations/Loading';
+import { createContext } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase-config';
 
 function Landing() {
+	const UserContext = createContext('');
+	const [user] = useAuthState(auth);
+
 	return (
-		<div className='landing'>
-			<div className='landing-header'>
-				<div className='landing-header-col1'>
-					<h1>For better unity, help your community.</h1>
-					<button
-						onClick={() => document.getElementById('list')?.scrollIntoView()}>
-						Find your next event
-					</button>
+		<UserContext.Provider value={!user ? null : user.displayName}>
+			<div className='landing'>
+				<div className='landing-header'>
+					<div className='landing-header-col1'>
+						<h1>For better unity, help your community.</h1>
+						<button
+							onClick={() => document.getElementById('list')?.scrollIntoView()}
+						>
+							Find your next event
+						</button>
+					</div>
+					<div className='landing-header-col2'>
+						<img src='/assets/landing2-backdrop.png' alt='error' />
+					</div>
 				</div>
-				<div className='landing-header-col2'>
-					<img src='/assets/landing2-backdrop.png' alt='error' />
+				<div className='landing-body'>
+					<EventList />
+					<div className='landing-body-footer'>
+						<Footer />
+					</div>
+				</div>
+				<div className='landing-navbar'>
+					<LandingNav />
 				</div>
 			</div>
-			<div className='landing-body'>
-				<EventList />
-				<div className='landing-body-footer'>
-					<Footer />
-				</div>
-			</div>
-			<div className='landing-navbar'>
-				<LandingNav />
-			</div>
-		</div>
+		</UserContext.Provider>
 	);
 }
 

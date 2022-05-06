@@ -88,7 +88,8 @@ function Signin() {
 							<div className='signin-body-container-col2-form-container'>
 								<button
 									onClick={login}
-									className='signin-body-container-col2-form-container-button'>
+									className='signin-body-container-col2-form-container-button'
+								>
 									Login
 								</button>
 							</div>
@@ -96,7 +97,8 @@ function Signin() {
 						<div className='signin-body-container-col2-footer'>
 							<Link
 								to={'/register'}
-								className='signin-body-container-col2-footer-text'>
+								className='signin-body-container-col2-footer-text'
+							>
 								New User? Sign Up
 							</Link>
 						</div>
