@@ -2,11 +2,11 @@ import React from 'react';
 import EventList from './../listing/EventList';
 import Footer from './../footer/Footer';
 
-function Events() {
+function Events({ use }: any) {
 	return (
 		<div className='event'>
 			<div className='event-body'>
-				<EventList />
+				<EventList use={use} />
 			</div>
 			<div className='event-footer'>
 				<Footer />

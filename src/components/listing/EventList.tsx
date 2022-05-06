@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { events } from '../../pseudodata/events-data';
 
-function EventList() {
+function EventList({ use }: any) {
 	const [isCompact, setIsCompact] = useState(true);
+
 	return (
-		<div className='events' id='list'>
+		<div className='events'>
 			<div className='events-header'>
 				<h1>Events</h1>
 			</div>
-			<div className='events-list'>
+			<div className='events-list' id={use}>
 				<div className={`events-list${isCompact ? '-compact' : '-expanded'}`}>
 					{isCompact
 						? events.slice(0, 8).map((data) => (
