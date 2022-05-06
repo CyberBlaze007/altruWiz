@@ -27,7 +27,7 @@ function Landing() {
 					</div>
 				</div>
 				<div className='landing-body'>
-					<EventList use='dash' />
+					<EventList use='list' />
 					<div className='landing-body-footer'>
 						<Footer />
 					</div>

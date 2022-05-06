@@ -1,11 +1,11 @@
 import EventList from './../listing/EventList';
 import Footer from './../footer/Footer';
 
-function Events({ use }: any) {
+function Events() {
 	return (
 		<div className='event'>
 			<div className='event-body'>
-				<EventList use={use} />
+				<EventList use='dash' />
 			</div>
 			<div className='event-footer'>
 				<Footer />

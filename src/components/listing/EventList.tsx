@@ -5,11 +5,11 @@ function EventList({ use }: any) {
 	const [isCompact, setIsCompact] = useState(true);
 
 	return (
-		<div className='events'>
+		<div className='events' id={use}>
 			<div className='events-header'>
 				<h1>Events</h1>
 			</div>
-			<div className='events-list' id={use}>
+			<div className='events-list'>
 				<div className={`events-list${isCompact ? '-compact' : '-expanded'}`}>
 					{isCompact
 						? events.slice(0, 8).map((data) => (
