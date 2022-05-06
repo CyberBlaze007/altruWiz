@@ -11,13 +11,24 @@ import { profiles } from './../../pseudodata/profile-data';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { Link } from 'react-router-dom';
+import UserDataService from '../../firebase/services';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
+	const [user] = useAuthState(auth);
 
 	const logout = async () => {
 		try {
 			await signOut(auth);
+		} catch (error: any) {
+			console.log(error.message);
+		}
+	};
+
+	const deleteU = async () => {
+		try {
+			await UserDataService.deleteUser(user.uid);
 		} catch (error: any) {
 			console.log(error.message);
 		}
@@ -53,7 +64,9 @@ function DBNav() {
 							) : (
 								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 							)}
-							<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
+							<Link onClick={deleteU} to={'/'}>
+								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
+							</Link>
 						</div>
 					</div>
 				</nav>
