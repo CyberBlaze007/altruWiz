@@ -17,6 +17,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [user] = useAuthState(auth);
+	// const docUser = UserDataService.getUser(user.uid);
 
 	const logout = async () => {
 		try {
@@ -25,7 +26,15 @@ function DBNav() {
 			console.log(error.message);
 		}
 	};
-
+	// const getCurrentUser = async () => {
+	// 	try {
+	// 		await UserDataService.getUser(user.uid).then((doc) => {
+	// 			console.log(doc.data());
+	// 		});
+	// 	} catch (error: any) {
+	// 		console.log(error.message);
+	// 	}
+	// };
 	const deleteU = async () => {
 		try {
 			await UserDataService.deleteUser(user.uid);
@@ -39,10 +48,12 @@ function DBNav() {
 			<div className='nav'>
 				<div className='nav-col1'>
 					<h1 className='nav-col1-text'>AltruWiz</h1>
+					{/* <Link onClick={getCurrentUser} to={'/dashboard'}> */}
 					<img
 						src='/assets/altruwiz-logo-colored.svg'
 						className='nav-col1-icon'
 					/>
+					{/* </Link> */}
 				</div>
 				<nav className='nav-col2-p'>
 					<div className='nav-col2-container'>

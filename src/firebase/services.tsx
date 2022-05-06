@@ -15,7 +15,8 @@ const eventsCol = collection(db, 'events');
 const ranksCol = collection(db, 'ranks');
 const achievementCol = collection(db, 'achievements');
 const badgesCol = collection(db, 'badges');
-class UserDataService {
+class DataService {
+	//User CRUD
 	addUser = (newUser: any, id: string) => {
 		return setDoc(doc(db, userCol.toString(), id), newUser);
 	};
@@ -36,4 +37,4 @@ class UserDataService {
 	};
 }
 
-export default new UserDataService();
+export default new DataService();

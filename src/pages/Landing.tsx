@@ -6,13 +6,15 @@ import Loading from '../components/navigations/Loading';
 import { createContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config';
+import DBNav from '../components/navbar/DBNav';
 
 function Landing() {
 	const UserContext = createContext('');
 	const [user] = useAuthState(auth);
+	!user ? null : console.log(`UserUID:${user.uid}`);
 
 	return (
-		<UserContext.Provider value={!user ? null : user.displayName}>
+		<UserContext.Provider value={!user ? null : user.uid}>
 			<div className='landing'>
 				<div className='landing-header'>
 					<div className='landing-header-col1'>
@@ -34,7 +36,7 @@ function Landing() {
 					</div>
 				</div>
 				<div className='landing-navbar'>
-					<LandingNav />
+					{user ? <DBNav /> : <LandingNav />}
 				</div>
 			</div>
 		</UserContext.Provider>

@@ -7,7 +7,6 @@ import { HashLoader } from 'react-spinners';
 function Navigator() {
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log(location);
 	const [user, loading] = useAuthState(auth);
 	const [time, setTime] = useState(true);
 
@@ -22,7 +21,6 @@ function Navigator() {
 			location.pathname !== '/login' &&
 			location.pathname !== '/register'
 		) {
-			console.log(user);
 			alert('Login First');
 			navigate('/login');
 		}
@@ -30,7 +28,8 @@ function Navigator() {
 
 	return (
 		<div
-			className={loading || time ? 'modal display-flex' : 'modal display-none'}>
+			className={loading || time ? 'modal display-flex' : 'modal display-none'}
+		>
 			<section className='modal-main'>
 				<HashLoader size={100} color={'#9013FE'} />
 			</section>
