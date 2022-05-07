@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 //Firebase Components
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import UserDataService from '../firebase/services';
+import DataService from '../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signup() {
@@ -33,7 +33,6 @@ function Signup() {
 			badgesCollected: [''],
 			expTotal: 0,
 		};
-		console.log(newUser);
 
 		//create user for Authentication
 		try {
@@ -48,7 +47,7 @@ function Signup() {
 
 				//create userData for Firestore
 				try {
-					await UserDataService.addUser(newUser, userID);
+					await DataService.addUser(newUser, userID);
 				} catch (error) {
 					console.log(error);
 				}

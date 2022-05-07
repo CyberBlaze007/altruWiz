@@ -1,40 +1,35 @@
-import { firestore as db } from '../firebase-config';
-import {
-	collection,
-	getDoc,
-	setDoc,
-	updateDoc,
-	deleteDoc,
-	doc,
-} from 'firebase/firestore';
+import { firestore } from '../firebase-config';
+import { getDoc, setDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 
 //for user Collection crud
-const userCol = collection(db, 'user');
-const eventOrgCol = collection(db, 'eventOrganizer');
-const eventsCol = collection(db, 'events');
-const ranksCol = collection(db, 'ranks');
-const achievementCol = collection(db, 'achievements');
-const badgesCol = collection(db, 'badges');
+const userCol = 'user';
+
 class DataService {
 	//User CRUD
 	addUser = (newUser: any, id: string) => {
-		return setDoc(doc(db, userCol.toString(), id), newUser);
+		return setDoc(doc(firestore, userCol, id), newUser);
 	};
 
 	getUser = (id: string) => {
-		const userDoc = doc(db, userCol.toString(), id);
+		const userDoc = doc(firestore, userCol, id);
 		return getDoc(userDoc);
 	};
 
 	updateUser = (id: string, updatedUser: any) => {
-		const userDoc = doc(db, userCol.toString(), id);
+		const userDoc = doc(firestore, userCol, id);
 		return updateDoc(userDoc, updatedUser);
 	};
 
 	deleteUser = (id: string) => {
-		const userDoc = doc(db, userCol.toString(), id);
+		const userDoc = doc(firestore, userCol, id);
 		return deleteDoc(userDoc);
 	};
 }
 
 export default new DataService();
+
+// const eventOrgCol = collection(db, 'eventOrganizer');
+// const eventsCol = collection(db, 'events');
+// const ranksCol = collection(db, 'ranks');
+// const achievementCol = collection(db, 'achievements');
+// const badgesCol = collection(db, 'badges');

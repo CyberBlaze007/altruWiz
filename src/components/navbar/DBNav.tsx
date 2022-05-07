@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Icon Components
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -11,14 +11,16 @@ import { profiles } from './../../pseudodata/profile-data';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { Link } from 'react-router-dom';
-import UserDataService from '../../firebase/services';
+import DataService from '../../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [user] = useAuthState(auth);
 	// const docUser = UserDataService.getUser(user.uid);
-
+	// useEffect(() => {
+	// 	getCurrentUser();
+	// }, []);
 	const logout = async () => {
 		try {
 			await signOut(auth);
@@ -27,17 +29,21 @@ function DBNav() {
 		}
 	};
 	// const getCurrentUser = async () => {
-	// 	try {
-	// 		await UserDataService.getUser(user.uid).then((doc) => {
-	// 			console.log(doc.data());
-	// 		});
-	// 	} catch (error: any) {
-	// 		console.log(error.message);
+	// 	const data = await DataService.getUser(user.uid);
+	// 	console.log(data.data());
+	// .then((docSnap) => {
+	// 	console.log(user.uid);
+	// 	if (docSnap.exists()) {
+	// 		console.log('Document data:', docSnap.data());
+	// 	} else {
+	// 		// doc.data() will be undefined in this case
+	// 		console.log('No such document!');
 	// 	}
+	// });
 	// };
 	const deleteU = async () => {
 		try {
-			await UserDataService.deleteUser(user.uid);
+			await DataService.deleteUser(user.uid);
 		} catch (error: any) {
 			console.log(error.message);
 		}
