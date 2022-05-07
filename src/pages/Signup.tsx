@@ -28,6 +28,7 @@ function Signup() {
 		const newUser = {
 			name: { first: firstName, last: lastName },
 			rank: 'Spark',
+			email: registerEmail,
 			avatar: '',
 			eventsJoined: [''],
 			badgesCollected: [''],
@@ -195,7 +196,8 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}>
+									}
+								>
 									Create Account
 								</button>
 							</div>
@@ -210,7 +212,8 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}>
+										to={'/login'}
+									>
 										Login
 									</Link>
 								</div>

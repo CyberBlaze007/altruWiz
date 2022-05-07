@@ -15,7 +15,7 @@ class DataService {
 		return getDoc(userDoc);
 	};
 
-	updateUser = (id: string, updatedUser: any) => {
+	updateUser = (updatedUser: any, id: string) => {
 		const userDoc = doc(firestore, userCol, id);
 		return updateDoc(userDoc, updatedUser);
 	};

@@ -24,15 +24,36 @@ function Profile() {
 		await DataService.getUser(user.uid).then((docSnap) => {
 			console.log(user.uid);
 			if (docSnap.exists()) {
-				console.log('Document data:', docSnap.data());
+				// console.log('Document data:', docSnap.data());
 				const myData = docSnap.data();
 				setFirstName(myData.name.first);
 				setLastName(myData.name.last);
+				setGender(myData.gender);
+				setEmail(myData.email);
+				setAddress(myData.address);
+				setDescription(myData.desc);
+				setBday(myData.bday);
 			} else {
 				// doc.data() will be undefined in this case
 				console.log('No such document!');
 			}
 		});
+	};
+
+	const update = async () => {
+		const updatedUser = {
+			name: { first: firstName, last: lastName },
+			gender: gender,
+			email: email,
+			address: address,
+			desc: description,
+			bday: bday,
+		};
+		try {
+			await DataService.updateUser(updatedUser, user.uid);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -220,7 +241,10 @@ function Profile() {
 									? 'profile-body-sec2-form-button-hidden'
 									: 'profile-body-sec2-form-button'
 							}
-							onClick={() => setEditState(true)}
+							onClick={() => {
+								setEditState(true);
+								update();
+							}}
 						>
 							Save Changes
 						</button>

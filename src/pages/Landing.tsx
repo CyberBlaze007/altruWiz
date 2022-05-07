@@ -10,7 +10,7 @@ import DBNav from '../components/navbar/DBNav';
 function Landing() {
 	const UserContext = createContext('');
 	const [user] = useAuthState(auth);
-	!user ? null : console.log(`UserUID:${user.uid}`);
+	// !user ? null : console.log(`UserUID:${user.uid}`);
 	return (
 		<UserContext.Provider value={!user ? null : user.uid}>
 			<div className='landing'>
@@ -18,7 +18,8 @@ function Landing() {
 					<div className='landing-header-col1'>
 						<h1>For better unity, help your community.</h1>
 						<button
-							onClick={() => document.getElementById('list')?.scrollIntoView()}>
+							onClick={() => document.getElementById('list')?.scrollIntoView()}
+						>
 							Find your next event
 						</button>
 					</div>
