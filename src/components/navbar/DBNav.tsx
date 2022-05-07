@@ -18,7 +18,7 @@ function DBNav() {
 	const [profile, setProfile] = useState(true);
 	var [userName, setUserName] = useState('');
 	const [user] = useAuthState(auth);
-	const docUser = DataService.getUser(user.uid);
+
 	useEffect(() => {
 		getCurrentUser();
 	}, []);

@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import Footer from './../footer/Footer';
 import { TextField, MenuItem } from '@mui/material';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase-config';
+import DataService from '../../firebase/services';
 
 function Profile() {
 	const [firstName, setFirstName] = useState('');
@@ -12,6 +15,25 @@ function Profile() {
 	const [description, setDescription] = useState('');
 	const [bday, setBday] = useState('');
 	const [editState, setEditState] = useState(true);
+	const [user] = useAuthState(auth);
+
+	useEffect(() => {
+		getCurrentUser();
+	}, []);
+	const getCurrentUser = async () => {
+		await DataService.getUser(user.uid).then((docSnap) => {
+			console.log(user.uid);
+			if (docSnap.exists()) {
+				console.log('Document data:', docSnap.data());
+				const myData = docSnap.data();
+				setFirstName(myData.name.first);
+				setLastName(myData.name.last);
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+	};
 
 	return (
 		<div className='profile'>
