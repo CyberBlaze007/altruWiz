@@ -16,11 +16,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
+	var [userName, setUserName] = useState('');
 	const [user] = useAuthState(auth);
-	// const docUser = UserDataService.getUser(user.uid);
-	// useEffect(() => {
-	// 	getCurrentUser();
-	// }, []);
+	const docUser = DataService.getUser(user.uid);
+	useEffect(() => {
+		getCurrentUser();
+	}, []);
 	const logout = async () => {
 		try {
 			await signOut(auth);
@@ -28,19 +29,19 @@ function DBNav() {
 			console.log(error.message);
 		}
 	};
-	// const getCurrentUser = async () => {
-	// 	const data = await DataService.getUser(user.uid);
-	// 	console.log(data.data());
-	// .then((docSnap) => {
-	// 	console.log(user.uid);
-	// 	if (docSnap.exists()) {
-	// 		console.log('Document data:', docSnap.data());
-	// 	} else {
-	// 		// doc.data() will be undefined in this case
-	// 		console.log('No such document!');
-	// 	}
-	// });
-	// };
+	const getCurrentUser = async () => {
+		await DataService.getUser(user.uid).then((docSnap) => {
+			console.log(user.uid);
+			if (docSnap.exists()) {
+				console.log('Document data:', docSnap.data());
+				const myData = docSnap.data();
+				setUserName(myData.name.first);
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+	};
 	const deleteU = async () => {
 		try {
 			await DataService.deleteUser(user.uid);
@@ -54,12 +55,10 @@ function DBNav() {
 			<div className='nav'>
 				<div className='nav-col1'>
 					<h1 className='nav-col1-text'>AltruWiz</h1>
-					{/* <Link onClick={getCurrentUser} to={'/dashboard'}> */}
 					<img
 						src='/assets/altruwiz-logo-colored.svg'
 						className='nav-col1-icon'
 					/>
-					{/* </Link> */}
 				</div>
 				<nav className='nav-col2-p'>
 					<div className='nav-col2-container'>
@@ -67,9 +66,7 @@ function DBNav() {
 					</div>
 					<div className='nav-col2-profile'>
 						<Link onClick={logout} to={'/'}>
-							<h1 className='nav-col2-profile-text'>
-								{profiles.at(0).username}
-							</h1>
+							<h1 className='nav-col2-profile-text'>{userName}</h1>
 						</Link>
 						<div className='nav-col2-profile-nav'>
 							{profile ? (
