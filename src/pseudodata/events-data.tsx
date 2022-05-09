@@ -2,9 +2,14 @@ export const events = [
 	{
 		id: 1,
 		thumbnail: 'images/event1.png',
+		organizer: 'CIT-U',
 		title: 'Climate advocate training module 5: nurturing the grassroots',
 		date: 'Mon, May 2, 2002 5:30 PM PST',
+		time: '5:30 PM PST',
 		org: "Citizens' Climate Lobby",
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 100000,
 	},
 	{
