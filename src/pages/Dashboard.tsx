@@ -53,13 +53,9 @@ function Dashboard() {
 		cursor: pointer;
 		font-size: 1.2rem;
 		background-color: transparent;
-		width: fit-content;
 		padding: 1rem 1.2rem;
 		border: none;
 		display: flex;
-		justify-content: center;
-		align-items: center;
-
 		&:hover {
 			border-bottom: 5px solid rgba(115, 57, 171, 0.15);
 		}
@@ -81,8 +77,8 @@ function Dashboard() {
 	const TabsList = styled(TabsListUnstyled)`
 		width: 100%;
 		display: flex;
-		align-items: flex-start;
-		justify-content: space-around;
+		justify-content: space-between;
+		overflow: auto;
 	`;
 	return (
 		<div className='dashboard'>

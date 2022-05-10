@@ -4,7 +4,7 @@ export const achievements = [
 		rank: 'Growing Ember',
 		expGain: 499023,
 		expReq: 600000,
-		joined: 4,
+		joined: 40,
 		badges: 5,
 		events: [
 			{

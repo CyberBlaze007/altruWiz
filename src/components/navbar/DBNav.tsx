@@ -16,13 +16,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
-	var [userName, setUserName] = useState('');
 	const [user] = useAuthState(auth);
+<<<<<<< Updated upstream
 	const UserContext = createContext('');
+=======
+	var [userName, setUserName] = useState('');
+>>>>>>> Stashed changes
 
-	useEffect(() => {
-		getCurrentUser();
-	}, []);
 	const logout = async () => {
 		try {
 			await signOut(auth);
@@ -43,6 +43,11 @@ function DBNav() {
 			}
 		});
 	};
+
+	useEffect(() => {
+		getCurrentUser();
+	}, []);
+
 	const deleteU = async () => {
 		try {
 			await DataService.deleteUser(user.uid);
@@ -62,6 +67,7 @@ function DBNav() {
 							className='nav-col1-icon'
 						/>
 					</div>
+<<<<<<< Updated upstream
 					<nav className='nav-col2-p'>
 						<div className='nav-col2-container'>
 							<button className='nav-col2-container-button'>Event Code</button>
@@ -69,6 +75,25 @@ function DBNav() {
 						<div className='nav-col2-profile'>
 							<Link onClick={logout} to={'/'}>
 								<h1 className='nav-col2-profile-text'>{userName}</h1>
+=======
+					<div className='nav-col2-profile'>
+						<Link onClick={logout} to={'/'}>
+							<h1 className='nav-col2-profile-text'>{userName}</h1>
+						</Link>
+						<div className='nav-col2-profile-nav'>
+							{profile ? (
+								<img
+									src={`/src/pseudodata/${profiles.at(0).image}`}
+									onError={() => setProfile(false)}
+									onLoad={() => setProfile(true)}
+									className='nav-col2-profile-nav-pic'
+								/>
+							) : (
+								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
+							)}
+							<Link onClick={deleteU} to={'/'}>
+								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
+>>>>>>> Stashed changes
 							</Link>
 							<div className='nav-col2-profile-nav'>
 								{profile ? (

@@ -6,7 +6,6 @@ import { createContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config';
 import DBNav from '../components/navbar/DBNav';
-
 function Landing() {
 	const UserContext = createContext('');
 	const [user] = useAuthState(auth);
@@ -18,8 +17,7 @@ function Landing() {
 					<div className='landing-header-col1'>
 						<h1>For better unity, help your community.</h1>
 						<button
-							onClick={() => document.getElementById('list')?.scrollIntoView()}
-						>
+							onClick={() => document.getElementById('list')?.scrollIntoView()}>
 							Find your next event
 						</button>
 					</div>

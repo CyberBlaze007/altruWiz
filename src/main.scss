@@ -115,13 +115,20 @@ html {
 			width: 100%;
 		}
 		&-tab {
-			width: 80vw;
+			min-width: 75vw;
+			max-width: 85vw;
 			height: 3.6rem;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			justify-content: center;
 			padding-top: 1.5rem;
+			&-list {
+				width: 100%;
+				&::-webkit-scrollbar {
+					width: 0;
+					height: 0;
+				}
+			}
 		}
 		&-profile {
 			width: 100vw;
