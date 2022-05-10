@@ -17,11 +17,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [user] = useAuthState(auth);
-<<<<<<< Updated upstream
 	const UserContext = createContext('');
-=======
 	var [userName, setUserName] = useState('');
->>>>>>> Stashed changes
 
 	const logout = async () => {
 		try {
@@ -48,13 +45,13 @@ function DBNav() {
 		getCurrentUser();
 	}, []);
 
-	const deleteU = async () => {
-		try {
-			await DataService.deleteUser(user.uid);
-		} catch (error: any) {
-			console.log(error.message);
-		}
-	};
+	// const deleteU = async () => {
+	// 	try {
+	// 		await DataService.deleteUser(user.uid);
+	// 	} catch (error: any) {
+	// 		console.log(error.message);
+	// 	}
+	// };
 
 	return (
 		<>
@@ -67,7 +64,6 @@ function DBNav() {
 							className='nav-col1-icon'
 						/>
 					</div>
-<<<<<<< Updated upstream
 					<nav className='nav-col2-p'>
 						<div className='nav-col2-container'>
 							<button className='nav-col2-container-button'>Event Code</button>
@@ -75,25 +71,6 @@ function DBNav() {
 						<div className='nav-col2-profile'>
 							<Link onClick={logout} to={'/'}>
 								<h1 className='nav-col2-profile-text'>{userName}</h1>
-=======
-					<div className='nav-col2-profile'>
-						<Link onClick={logout} to={'/'}>
-							<h1 className='nav-col2-profile-text'>{userName}</h1>
-						</Link>
-						<div className='nav-col2-profile-nav'>
-							{profile ? (
-								<img
-									src={`/src/pseudodata/${profiles.at(0).image}`}
-									onError={() => setProfile(false)}
-									onLoad={() => setProfile(true)}
-									className='nav-col2-profile-nav-pic'
-								/>
-							) : (
-								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
-							)}
-							<Link onClick={deleteU} to={'/'}>
-								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
->>>>>>> Stashed changes
 							</Link>
 							<div className='nav-col2-profile-nav'>
 								{profile ? (
@@ -105,7 +82,7 @@ function DBNav() {
 								) : (
 									<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 								)}
-								<Link onClick={deleteU} to={'/'}>
+								<Link onClick={() => {}} to={'/'}>
 									<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
 								</Link>
 							</div>
