@@ -10,13 +10,14 @@ import { profiles } from './../../pseudodata/profile-data';
 //Firebase Components
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DataService from '../../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [user] = useAuthState(auth);
+	const navigate = useNavigate();
 	const UserContext = createContext('');
 	var [userName, setUserName] = useState('');
 
@@ -57,7 +58,7 @@ function DBNav() {
 		<>
 			<UserContext.Provider value={!user ? null : user.uid}>
 				<div className='nav'>
-					<div className='nav-col1'>
+					<div className='nav-col1' onClick={() => navigate('/')}>
 						<h1 className='nav-col1-text'>AltruWiz</h1>
 						<img
 							src='/assets/altruwiz-logo-colored.svg'

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 //Tabs Components
@@ -15,6 +15,8 @@ import Achievements from './../components/cards/Achievements';
 
 //MUI Components
 import { styled } from '@mui/system';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 //Local Components
 import DBNav from './../components/navbar/DBNav';
@@ -80,6 +82,7 @@ function Dashboard() {
 		justify-content: space-between;
 		overflow: auto;
 	`;
+
 	return (
 		<div className='dashboard'>
 			<Loading />
@@ -91,7 +94,8 @@ function Dashboard() {
 					defaultValue={0}
 					value={index}
 					className='dashboard-container-tab'>
-					<TabsList className='dashboard-container-tab-list'>
+					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
+					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/profile');
@@ -123,6 +127,7 @@ function Dashboard() {
 							Badges
 						</Tab>
 					</TabsList>
+					{/* <ArrowForwardIosIcon className='dashboard-container-control' /> */}
 				</TabsUnstyled>
 			</div>
 			<div className='dashboard-body'>{cards[index]}</div>

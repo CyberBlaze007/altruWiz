@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { events } from '../../pseudodata/events-data';
 
 function EventList({ use }: any) {
 	const [isCompact, setIsCompact] = useState(true);
-
+	const navigate = useNavigate();
 	return (
 		<div className='events' id={use}>
 			<div className='events-header'>
@@ -13,7 +14,10 @@ function EventList({ use }: any) {
 				<div className={`events-list${isCompact ? '-compact' : '-expanded'}`}>
 					{isCompact
 						? events.slice(0, 8).map((data) => (
-								<div key={data.id} className='events-list-items'>
+								<div
+									key={data.id}
+									className='events-list-items'
+									onClick={() => navigate('/event/details')}>
 									<img src={`/src/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
@@ -37,7 +41,10 @@ function EventList({ use }: any) {
 								</div>
 						  ))
 						: events.map((data) => (
-								<div key={data.id} className='events-list-items'>
+								<div
+									key={data.id}
+									className='events-list-items'
+									onClick={() => navigate('/event/details')}>
 									<img src={`/src/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
