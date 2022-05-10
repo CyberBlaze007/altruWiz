@@ -15,6 +15,7 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Navigator from './components/navigations/Navigator';
 import EventDetails from './pages/EventDetails';
+import OrgDashboard from './pages/OrgDashboard';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<Route path='/dashboard/certificates' element={<Dashboard />}></Route>
 				<Route path='/dashboard/badges' element={<Dashboard />}></Route>
 				<Route path='/event/details' element={<EventDetails />}></Route>
+				<Route path='/organization' element={<OrgDashboard />}></Route>
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>

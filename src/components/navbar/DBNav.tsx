@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 
 //Icon Components
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -18,6 +18,7 @@ function DBNav() {
 	const [profile, setProfile] = useState(true);
 	var [userName, setUserName] = useState('');
 	const [user] = useAuthState(auth);
+	const UserContext = createContext('');
 
 	useEffect(() => {
 		getCurrentUser();
@@ -52,39 +53,41 @@ function DBNav() {
 
 	return (
 		<>
-			<div className='nav'>
-				<div className='nav-col1'>
-					<h1 className='nav-col1-text'>AltruWiz</h1>
-					<img
-						src='/assets/altruwiz-logo-colored.svg'
-						className='nav-col1-icon'
-					/>
-				</div>
-				<nav className='nav-col2-p'>
-					<div className='nav-col2-container'>
-						<button className='nav-col2-container-button'>Event Code</button>
+			<UserContext.Provider value={!user ? null : user.uid}>
+				<div className='nav'>
+					<div className='nav-col1'>
+						<h1 className='nav-col1-text'>AltruWiz</h1>
+						<img
+							src='/assets/altruwiz-logo-colored.svg'
+							className='nav-col1-icon'
+						/>
 					</div>
-					<div className='nav-col2-profile'>
-						<Link onClick={logout} to={'/'}>
-							<h1 className='nav-col2-profile-text'>{userName}</h1>
-						</Link>
-						<div className='nav-col2-profile-nav'>
-							{profile ? (
-								<img
-									src={`/src/pseudodata/${profiles.at(0).image}`}
-									onError={() => setProfile(false)}
-									className='nav-col2-profile-nav-pic'
-								/>
-							) : (
-								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
-							)}
-							<Link onClick={deleteU} to={'/'}>
-								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
-							</Link>
+					<nav className='nav-col2-p'>
+						<div className='nav-col2-container'>
+							<button className='nav-col2-container-button'>Event Code</button>
 						</div>
-					</div>
-				</nav>
-			</div>
+						<div className='nav-col2-profile'>
+							<Link onClick={logout} to={'/'}>
+								<h1 className='nav-col2-profile-text'>{userName}</h1>
+							</Link>
+							<div className='nav-col2-profile-nav'>
+								{profile ? (
+									<img
+										src={`/src/pseudodata/${profiles.at(0).image}`}
+										onError={() => setProfile(false)}
+										className='nav-col2-profile-nav-pic'
+									/>
+								) : (
+									<AccountCircleIcon className='nav-col2-profile-nav-pic' />
+								)}
+								<Link onClick={deleteU} to={'/'}>
+									<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
+								</Link>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</UserContext.Provider>
 		</>
 	);
 }
