@@ -33,6 +33,10 @@ function Signup() {
 			eventsJoined: [''],
 			badgesCollected: [''],
 			expTotal: 0,
+			gender: '',
+			bday: '',
+			address: '',
+			desc: '',
 		};
 
 		//create user for Authentication

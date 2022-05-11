@@ -21,6 +21,10 @@ function DBNav() {
 	const UserContext = createContext('');
 	var [userName, setUserName] = useState('');
 
+	useEffect(() => {
+		getCurrentUser();
+	}, []);
+
 	const logout = async () => {
 		try {
 			await signOut(auth);
@@ -41,10 +45,6 @@ function DBNav() {
 			}
 		});
 	};
-
-	useEffect(() => {
-		getCurrentUser();
-	}, []);
 
 	// const deleteU = async () => {
 	// 	try {
