@@ -37,6 +37,8 @@ function Signup() {
 			bday: '',
 			address: '',
 			desc: '',
+			profilePic: '',
+			isOrganizer: false,
 		};
 
 		//create user for Authentication
