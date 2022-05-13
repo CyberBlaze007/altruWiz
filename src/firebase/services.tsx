@@ -76,12 +76,23 @@ class DataService {
 		const rankDoc = doc(firestore, rankCol, id);
 		return deleteDoc(rankDoc);
 	};
+
+	//Badges CRUD
+	addBadge = (newBadge: any, id: string) => {
+		return setDoc(doc(firestore, badgeCol, id), newBadge);
+	};
+	getBadge = (id: string) => {
+		const badgeDoc = doc(firestore, badgeCol, id);
+		return getDoc(badgeDoc);
+	};
+	updateBadge = (updatedBadge: any, id: string) => {
+		const badgeDoc = doc(firestore, badgeCol, id);
+		return updateDoc(badgeDoc, updatedBadge);
+	};
+	deleteBadge = (id: string) => {
+		const badgeDoc = doc(firestore, badgeCol, id);
+		return deleteDoc(badgeDoc);
+	};
 }
 
 export default new DataService();
-
-// const eventOrgCol = collection(db, 'eventOrganizer');
-// const eventsCol = collection(db, 'events');
-// const ranksCol = collection(db, 'ranks');
-// const achievementCol = collection(db, 'achievements');
-// const badgesCol = collection(db, 'badges');
