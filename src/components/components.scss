@@ -752,6 +752,74 @@
 	}
 }
 
+.badges {
+	&-list {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		width: 90%;
+		column-gap: 2rem;
+		row-gap: 2rem;
+		flex-wrap: wrap;
+		&-card {
+			padding-top: 3rem;
+			&-overlay {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+				aspect-ratio: 3/4.2;
+				z-index: -1;
+				img {
+					position: absolute;
+					height: 12rem;
+				}
+				&-details {
+					background: #ffffff;
+					border: 1px solid rgba(0, 0, 0, 0.15);
+					box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.05);
+					border-radius: 10px;
+					aspect-ratio: 3/3.5;
+					&-name {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 600;
+						font-size: 1.3rem;
+						line-height: 1.5rem;
+						color: #7339ab;
+					}
+					&-desc {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 0.9rem;
+						line-height: 1rem;
+						color: #424242;
+					}
+					&-date {
+						&-text1 {
+							font-family: 'Montserrat';
+							font-style: normal;
+							font-weight: 500;
+							font-size: 0.8rem;
+							line-height: 1rem;
+							color: #424242;
+						}
+						&-text2 {
+							font-family: 'Montserrat';
+							font-style: normal;
+							font-weight: 400;
+							font-size: 0.8rem;
+							line-height: 1rem;
+							color: #424242;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 //Animations
 @keyframes showNav {
 	from {
