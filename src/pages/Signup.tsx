@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 //Firebase Components
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import DataService from '../firebase/services';
+import DataService from '../firebase/Services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signup() {

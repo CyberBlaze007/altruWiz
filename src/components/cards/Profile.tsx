@@ -4,7 +4,7 @@ import Footer from './../footer/Footer';
 import { TextField, MenuItem } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase-config';
-import DataService from '../../firebase/services';
+import DataService from '../../firebase/Services';
 
 function Profile() {
 	const [firstName, setFirstName] = useState('');

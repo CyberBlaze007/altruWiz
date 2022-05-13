@@ -11,7 +11,7 @@ import { profiles } from './../../pseudodata/profile-data';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { Link, useNavigate } from 'react-router-dom';
-import DataService from '../../firebase/services';
+import DataService from '../../firebase/Services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
