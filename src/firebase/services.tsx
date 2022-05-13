@@ -45,7 +45,7 @@ class DataService {
 
 	//Events CRUD
 	addEvent = (newEvent: any, id: string) => {
-		return setDoc(doc(firestore, orgCol, id), newEvent);
+		return setDoc(doc(firestore, eventCol, id), newEvent);
 	};
 	getEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id);
@@ -58,6 +58,23 @@ class DataService {
 	deleteEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id);
 		return deleteDoc(eventDoc);
+	};
+
+	//Ranks CRUD
+	addRank = (newRank: any, id: string) => {
+		return setDoc(doc(firestore, rankCol, id), newRank);
+	};
+	getRank = (id: string) => {
+		const rankDoc = doc(firestore, rankCol, id);
+		return getDoc(rankDoc);
+	};
+	updateRank = (updatedRank: any, id: string) => {
+		const rankDoc = doc(firestore, rankCol, id);
+		return updateDoc(rankDoc, updatedRank);
+	};
+	deleteRank = (id: string) => {
+		const rankDoc = doc(firestore, rankCol, id);
+		return deleteDoc(rankDoc);
 	};
 }
 
