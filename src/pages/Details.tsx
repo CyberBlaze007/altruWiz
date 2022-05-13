@@ -3,16 +3,23 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
 import DBNav from './../components/navbar/DBNav';
+import { useNavigate } from 'react-router-dom';
 
 function Details() {
 	const data = events.at(0);
+	const navigate = useNavigate();
 	return (
 		<div className='details'>
 			<div className='details-nav'>
 				<DBNav />
 			</div>
 			<div className='details-back'>
-				<ArrowBackIcon className='details-back-icon' />
+				<ArrowBackIcon
+					className='details-back-icon'
+					onClick={() => {
+						navigate('/dashboard/events');
+					}}
+				/>
 			</div>
 			<div className='details-head'>
 				<div className='details-head-row1'>

@@ -537,6 +537,10 @@ html {
 		padding: 0.5rem 2rem;
 		&-icon {
 			color: #7339ab;
+			&:hover {
+				cursor: pointer;
+				color: #542383;
+			}
 		}
 	}
 	&-head {
@@ -618,6 +622,11 @@ html {
 			border-radius: 10px 10px 0 0;
 			&-icon {
 				color: #7339ab;
+				&:hover {
+					cursor: pointer;
+					color: #7a43ad;
+				}
+				transition: all 0.2s ease;
 			}
 			&-register {
 				color: #fff;
@@ -633,6 +642,11 @@ html {
 				font-size: 1rem;
 				line-height: 1.5rem;
 				border-radius: 5px;
+				&:hover {
+					cursor: pointer;
+					background: #7a43ad;
+				}
+				transition: all 0.2s ease;
 			}
 		}
 	}
