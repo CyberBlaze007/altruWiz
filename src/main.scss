@@ -19,6 +19,7 @@ html {
 		position: fixed;
 		top: 0;
 		display: flex;
+		flex-wrap: wrap;
 		flex-direction: row;
 		margin-top: 5rem;
 		height: calc(100vh - 5rem);
@@ -67,8 +68,6 @@ html {
 			}
 		}
 		&-col2 {
-			z-index: 0;
-			position: relative;
 			display: flex;
 			flex-direction: column;
 			align-items: right;
@@ -523,45 +522,62 @@ html {
 	}
 }
 
-.eventDetails {
-	margin-top: 10vh;
-	width: 100%;
+.details {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	position: relative;
-	&-header {
-		width: 90vw;
-		height: 50vh;
+	&-nav {
+		width: 100%;
+		position: fixed;
+		top: 0;
+	}
+	&-back {
+		height: fit-content;
+		height: fit-content;
+		margin-top: 4rem;
+		padding: 0.5rem 2rem;
+		&-icon {
+			color: #7339ab;
+		}
+	}
+	&-head {
+		display: flex;
+		flex-direction: column;
+		align-self: center;
+		width: 90%;
 		&-row1 {
-			width: 100%;
 			display: flex;
-			height: 40vh;
 			flex-direction: row;
+			column-gap: 2rem;
+			justify-content: space-evenly;
+			flex-wrap: wrap;
 			&-col1 {
-				width: 60%;
+				flex-grow: 0.8;
+				min-width: 300px;
+				width: 50%;
 				img {
 					width: 100%;
 					height: 100%;
+					border-radius: 20px;
 					object-fit: cover;
 				}
 			}
 			&-col2 {
-				width: 40%;
-				padding: 2vw 2vh;
 				display: flex;
 				flex-direction: column;
-				align-items: flex-start;
-				h1 {
+				min-width: 300px;
+				width: 30%;
+				flex-grow: 0.8;
+				&-title {
+					word-wrap: break-word;
 					font-family: 'Montserrat';
 					font-style: normal;
 					font-weight: 700;
 					font-size: 2.5rem;
 					line-height: 2.5rem;
-					// text-align: justify;
+					text-align: start;
 					color: rgba(0, 0, 0, 0.85);
 				}
-				h2 {
+				&-org {
 					margin: 0;
 					font-family: 'Montserrat';
 					font-style: normal;
@@ -570,19 +586,17 @@ html {
 					line-height: 1.3rem;
 					color: #7339ab;
 				}
-				&-exp {
+				&-xp {
 					margin-top: 2vh;
 					display: flex;
 					flex-direction: row;
 					align-items: center;
-					justify-content: space-evenly;
+					column-gap: 0.5rem;
 					img {
-						width: 25px;
-						height: 25px;
+						width: 1.2rem;
 						object-fit: contain;
 					}
 					p {
-						margin-left: 2vw;
 						font-family: 'Montserrat';
 						font-style: normal;
 						font-weight: 600;
@@ -594,111 +608,207 @@ html {
 			}
 		}
 		&-row2 {
-			height: 7%;
-			padding: 2vw 2vh;
 			display: flex;
 			flex-direction: row;
+			padding: 1.5rem 2rem;
 			align-items: center;
 			justify-content: space-between;
-			// background: #ffffff;
+			width: calc(100% - 4rem);
 			border: 1px solid rgba(0, 0, 0, 0.1);
-			border-radius: 10px;
-			&-share {
-				width: 10%;
-				height: 5vh;
-				color: #fff;
+			border-radius: 10px 10px 0 0;
+			&-icon {
+				color: #7339ab;
 			}
 			&-register {
-				width: 40%;
-				height: 5vh;
 				color: #fff;
+				height: 3rem;
+				min-width: 10rem;
+				width: 35%;
 				background: #7339ab;
+				border-radius: 5px;
+				border: none;
+				font-family: 'Montserrat';
+				font-style: normal;
 				font-weight: 700;
 				font-size: 1rem;
-				line-height: 1rem;
+				line-height: 1.5rem;
 				border-radius: 5px;
-				cursor: pointer;
-				border: 0;
-				&:hover {
-					background: #9549dc;
-					transition: background 800ms;
-				}
 			}
 		}
 	}
 	&-body {
-		margin: 0;
-		position: relative;
 		width: 90%;
-		height: 100vh;
 		display: flex;
+		column-gap: 2rem;
 		flex-direction: row;
-		&-leftCol {
-			width: 20%;
-			padding: 2vw 2vh;
-			background: rgba(169, 80, 255, 0.05);
+		flex-wrap: wrap;
+		height: fit-content;
+		align-self: center;
+		justify-content: space-between;
+		&-col1 {
 			display: flex;
 			flex-direction: column;
-			align-items: flex-start;
-			justify-content: flex-start;
-
-			font-family: 'Montserrat';
-			font-style: normal;
-			h3 {
-				font-weight: 600;
-				font-size: 1.1rem;
-				line-height: 1.1rem;
-				color: #000000;
+			row-gap: 1.5rem;
+			width: 10%;
+			flex-grow: 1;
+			min-width: 300px;
+			height: auto;
+			background: rgba(169, 80, 255, 0.05);
+			padding-top: 5rem;
+			&-sec1 {
+				padding-left: 2rem;
+				h1 {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 600;
+					font-size: 1.5rem;
+					line-height: 1.8rem;
+					text-align: justify;
+					color: #000000;
+				}
+				p {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 1rem;
+					line-height: 1.5rem;
+					text-align: justify;
+					color: #000000;
+				}
 			}
-			p {
-				font-weight: 500;
-				font-size: 1rem;
-				line-height: 1rem;
-				color: #000000;
+			&-sec2 {
+				padding-left: 2rem;
+				h1 {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 600;
+					font-size: 1.5rem;
+					line-height: 1.8rem;
+					text-align: justify;
+					color: #000000;
+				}
+				p {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 1rem;
+					line-height: 1.5rem;
+					text-align: justify;
+					color: #000000;
+				}
+			}
+			&-sec3 {
+				padding-left: 2rem;
+				h1 {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 600;
+					font-size: 1.5rem;
+					line-height: 1.8rem;
+					text-align: justify;
+					color: #000000;
+				}
+				p {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 1rem;
+					line-height: 1.5rem;
+					text-align: justify;
+					color: #000000;
+				}
+			}
+			&-sec4 {
+				padding-left: 2rem;
+				h1 {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 600;
+					font-size: 1.5rem;
+					line-height: 1.8rem;
+					text-align: justify;
+					color: #000000;
+				}
+				p {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 1rem;
+					line-height: 1.5rem;
+					text-align: justify;
+					color: #000000;
+				}
 			}
 		}
-		&-rightCol {
-			width: 80%;
-			padding: 2vw 2vh;
-			font-family: 'Montserrat';
-			font-style: normal;
-			text-align: justify;
+		&-col2 {
+			width: 50%;
 			display: flex;
 			flex-direction: column;
-			align-items: flex-start;
-			h1 {
-				margin: 1vh 2vw;
-				font-weight: 700;
-				font-size: 2.5rem;
-				line-height: 2.5rem;
-				color: #7339ab;
+			row-gap: 1rem;
+			flex-grow: 1;
+			padding-top: 2rem;
+			&-header {
+				h1 {
+					font-family: 'Montserrat';
+					font-style: normal;
+					font-weight: 700;
+					font-size: 2.5rem;
+					line-height: 3rem;
+					text-align: justify;
+					color: #7339ab;
+				}
 			}
-			h2 {
-				margin: 5vh 2vw;
-				font-weight: 600;
-				font-size: 1.8rem;
-				line-height: 1.8rem;
-				color: #542383;
-			}
-			p {
-				margin: 0vh 2vw;
-				font-weight: 500;
-				font-size: 1.2rem;
-				line-height: 1.2rem;
-				color: #000000;
-			}
-			&-body1 {
-				margin: 2vh 2vw;
-			}
-			&-divider {
-				margin: 5vh 0vw;
-				align-self: center;
-				width: 90%;
-				height: 0.1px;
-				border: 1px solid rgba(0, 0, 0, 0.5);
-			}
-			&-body2 {
-				margin: 2vh 2vw;
+			&-body {
+				width: 95%;
+				display: flex;
+				flex-direction: column;
+				row-gap: 3rem;
+				align-self: flex-end;
+				&-sec1 {
+					display: flex;
+					flex-direction: column;
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 600;
+						font-size: 1.3rem;
+						line-height: 2rem;
+						text-align: justify;
+						color: #542383;
+					}
+					p {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1.3rem;
+						line-height: 2rem;
+						text-align: justify;
+						color: #000000;
+					}
+				}
+				&-divider {
+					border-top: 2px solid rgba(0, 0, 0, 0.5);
+				}
+				&-sec2 {
+					h1 {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 600;
+						font-size: 1.6rem;
+						line-height: 2rem;
+						text-align: justify;
+						color: #542383;
+					}
+					p {
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1.6rem;
+						line-height: 2rem;
+						text-align: justify;
+						color: #000000;
+					}
+				}
 			}
 		}
 	}
