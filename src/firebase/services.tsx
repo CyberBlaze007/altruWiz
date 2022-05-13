@@ -26,9 +26,26 @@ class DataService {
 		return deleteDoc(userDoc);
 	};
 
+	//Organizations CRUD
+	addOrg = (newOrg: any, id: string) => {
+		return setDoc(doc(firestore, orgCol, id), newOrg);
+	};
+	getOrg = (id: string) => {
+		const orgDoc = doc(firestore, orgCol, id);
+		return getDoc(orgDoc);
+	};
+	updateOrg = (updatedOrg: any, id: string) => {
+		const orgDoc = doc(firestore, orgCol, id);
+		return updateDoc(orgDoc, updatedOrg);
+	};
+	deleteOrg = (id: string) => {
+		const orgDoc = doc(firestore, orgCol, id);
+		return deleteDoc(orgDoc);
+	};
+
 	//Events CRUD
 	addEvent = (newEvent: any, id: string) => {
-		return setDoc(doc(firestore, eventCol, id), newEvent);
+		return setDoc(doc(firestore, orgCol, id), newEvent);
 	};
 	getEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id);
