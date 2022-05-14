@@ -2,7 +2,6 @@ export const events = [
 	{
 		id: 1,
 		thumbnail: 'images/event1.png',
-		organizer: 'CIT-U',
 		title: 'Climate advocate training module 5: nurturing the grassroots',
 		date: 'Mon, May 2, 2002 5:30 PM PST',
 		time: '5:30 PM PST',
