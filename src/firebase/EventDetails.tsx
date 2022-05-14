@@ -1,28 +1,64 @@
 class EventDetails {
-    name: string;
-    attendanceCode: string;
-    image: string;
+    id: number;
+    title: string;
+    thumbnail: string;
+    date: string;
+    time: string;
+    limit: number;
+    org: string;
+    location: string;
+    quests: string;
+    badges: string;
+    xp: number;
     desc: string;
-    eventDate: string;
+    attendanceCode: string;
     timestamp: string; //review the data type returned by auto generation
     constructor (
-        name:string, 
+        id: number,
+        title:string,
+        thumbnail: string,
+        date: string,
+        time: string,
+        limit: number,
+        org: string,
+        location: string,
+        quests: string,
+        badges: string,
+        xp: number,
+        desc:string,  
         attendanceCode:string, 
-        image:string, 
-        desc:string, 
-        eventDate:string, 
         timestamp:string
         ) {
-        this.name = name;
-        this.attendanceCode = attendanceCode;
-        this.image = image;
+        this.id = id;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.date = date;
+        this.time = time;
+        this.limit =limit;
+        this.org =org;
+        this.location =location;
+        this.quests = quests;
+        this.badges = badges;
+        this.xp = xp;
         this.desc = desc;
-        this.eventDate = eventDate;
+        this.attendanceCode = attendanceCode;
         this.timestamp = timestamp;
     }
     toString() {
-        return this.name + ', ' + this.attendanceCode + ',' + this.image + ',' 
-        + this.desc + ',' + this.eventDate + ',' + this.timestamp;
+        return this.id + ', ' 
+        + this.title + ', ' 
+        + this.thumbnail + ', ' 
+        + this.date + ', '
+        + this.time + ', ' 
+        + this.limit + ', ' 
+        + this.org + ', ' 
+        + this.location + ', ' 
+        + this.quests + ', ' 
+        + this.badges + ', ' 
+        + this.xp + ','
+        + this.desc + ','
+        + this.attendanceCode + ',' 
+        + this.timestamp;
     }
 }
 
@@ -30,19 +66,38 @@ class EventDetails {
 const eventConverter = {
     toFirestore: (EventDetails:EventDetails) => {
         return {
-            name: EventDetails.name,
+            id: EventDetails.id,
+            title: EventDetails.title,
+            thumbnail: EventDetails.thumbnail,
+            date: EventDetails.date,
+            time: EventDetails.time,
+            limit: EventDetails.limit,
+            org: EventDetails.org,
+            location: EventDetails.location,
+            quests: EventDetails.quests,
+            badges: EventDetails.badges,
+            xp: EventDetails.xp,
+            desc: EventDetails.desc,
             attendanceCode: EventDetails.attendanceCode,
-            image: EventDetails.image
+            timestamp: EventDetails.timestamp
         };
     },
     fromFirestore: (snapshot:any, options:any) => {
         const data = snapshot.data(options);
         return new EventDetails(
-            data.name, 
-            data.attendanceCode, 
-            data.image,
+            data.id,
+            data.title, 
+            data.thumbnail, 
+            data.date, 
+            data.time, 
+            data.limit, 
+            data.org, 
+            data.location, 
+            data.quests, 
+            data.badges, 
+            data.xp,
             data.desc,
-            data.eventDate,
+            data.attendanceCode,
             data.timestamp
             );
     }
