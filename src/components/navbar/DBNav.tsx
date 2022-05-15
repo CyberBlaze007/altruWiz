@@ -1,8 +1,10 @@
 import React, { useState, useEffect, createContext } from 'react';
 
 //Icon Components
+import { Button } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 //Metadata
 import { profiles } from '../../../assets/pseudodata/profile-data';
@@ -19,6 +21,7 @@ function DBNav() {
 	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
 	const UserContext = createContext('');
+	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
 
 	useEffect(() => {
@@ -83,9 +86,32 @@ function DBNav() {
 								) : (
 									<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 								)}
-								<Link onClick={() => {}} to={'/'}>
+								<div onClick={() => setDropdownState(!dropDownState)}>
 									<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
-								</Link>
+								</div>
+								<div
+									className={
+										dropDownState
+											? 'nav-col2-profile-nav-modal-open'
+											: 'nav-col2-profile-nav-modal-close'
+									}>
+									{dropDownState ? (
+										<Button
+											startIcon={<LogoutIcon />}
+											onClick={logout}
+											style={{
+												color: 'white',
+												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+												fontFamily: 'Montserrat',
+												fontStyle: 'normal',
+												fontWeight: '500',
+												fontSize: '0.8rem',
+											}}>
+											{' '}
+											Log-out
+										</Button>
+									) : null}
+								</div>
 							</div>
 						</div>
 					</nav>

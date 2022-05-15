@@ -1,5 +1,12 @@
 import { firestore } from '../firebase-config';
-import { getDoc, setDoc, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import {
+	getDoc,
+	setDoc,
+	updateDoc,
+	deleteDoc,
+	doc,
+	getDocs,
+} from 'firebase/firestore';
 import eventConverter from './EventDetails';
 import badgesConverter from './BadgeDetails';
 import achievementConverter from './Achievement';
@@ -48,7 +55,10 @@ class DataService {
 
 	//Events CRUD
 	addEvent = (newEvent: any, id: string) => {
-		return setDoc(doc(firestore, eventCol, id).withConverter(eventConverter), newEvent);
+		return setDoc(
+			doc(firestore, eventCol, id).withConverter(eventConverter),
+			newEvent
+		);
 	};
 	getEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
@@ -60,7 +70,7 @@ class DataService {
 			// console.log(doc.id, ' => ', doc.data());
 			return doc.data;
 		});
-	};
+	}
 	updateEvent = (updatedEvent: any, id: string) => {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
 		return updateDoc(eventDoc, updatedEvent);
@@ -89,10 +99,15 @@ class DataService {
 
 	//Badges CRUD
 	addBadge = (newBadge: any, id: string) => {
-		return setDoc(doc(firestore, badgeCol, id).withConverter(badgesConverter), newBadge);
+		return setDoc(
+			doc(firestore, badgeCol, id).withConverter(badgesConverter),
+			newBadge
+		);
 	};
 	getBadge = (id: string) => {
-		const badgeDoc = doc(firestore, badgeCol, id).withConverter(badgesConverter);
+		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
+			badgesConverter
+		);
 		return getDoc(badgeDoc);
 	};
 	async getBadgeList(collection: any) {
@@ -101,9 +116,11 @@ class DataService {
 			// console.log(doc.id, ' => ', doc.data());
 			return doc.data;
 		});
-	};
+	}
 	updateBadge = (updatedBadge: any, id: string) => {
-		const badgeDoc = doc(firestore, badgeCol, id).withConverter(badgesConverter);
+		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
+			badgesConverter
+		);
 		return updateDoc(badgeDoc, updatedBadge);
 	};
 	deleteBadge = (id: string) => {
@@ -113,7 +130,9 @@ class DataService {
 
 	//For Achievements Section
 	getAchievements = (id: string) => {
-		const badgeDoc = doc(firestore, badgeCol, id).withConverter(achievementConverter);
+		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
+			achievementConverter
+		);
 		return getDoc(badgeDoc);
 	};
 
