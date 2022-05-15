@@ -122,8 +122,7 @@ function Profile() {
 									value={gender}
 									disabled={editState}
 									select={!editState}
-									onChange={(event) => setGender(event.target.value)}
-								>
+									onChange={(event) => setGender(event.target.value)}>
 									<MenuItem value={'Male'}>Male</MenuItem>
 									<MenuItem value={'Female'}>Female</MenuItem>
 									<MenuItem value={'Prefer not to say'}>
@@ -201,8 +200,7 @@ function Profile() {
 									? 'profile-body-sec1-footer-button'
 									: 'profile-body-sec1-footer-button-hidden'
 							}
-							onClick={() => setEditState(false)}
-						>
+							onClick={() => setEditState(false)}>
 							Edit
 						</button>
 					</div>
@@ -244,15 +242,11 @@ function Profile() {
 							onClick={() => {
 								setEditState(true);
 								update();
-							}}
-						>
+							}}>
 							Save Changes
 						</button>
 					</div>
 				</div>
-			</div>
-			<div className='profile-footer'>
-				<Footer />
 			</div>
 		</div>
 	);

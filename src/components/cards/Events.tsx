@@ -7,9 +7,6 @@ function Events() {
 			<div className='event-body'>
 				<EventList use='dash' />
 			</div>
-			<div className='event-footer'>
-				<Footer />
-			</div>
 		</div>
 	);
 }
