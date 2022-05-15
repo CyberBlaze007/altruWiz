@@ -845,10 +845,8 @@
 	&-list {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		width: 90%;
-		column-gap: 2rem;
-		row-gap: 2rem;
 		flex-wrap: wrap;
 		&-card {
 			width: 15rem;
