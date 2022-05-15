@@ -73,9 +73,7 @@ function DBNav() {
 							<button className='nav-col2-container-button'>Event Code</button>
 						</div>
 						<div className='nav-col2-profile'>
-							<Link onClick={logout} to={'/'}>
-								<h1 className='nav-col2-profile-text'>{userName}</h1>
-							</Link>
+							<h1 className='nav-col2-profile-text'>{userName}</h1>
 							<div className='nav-col2-profile-nav'>
 								{profile ? (
 									<img
@@ -98,7 +96,9 @@ function DBNav() {
 									{dropDownState ? (
 										<Button
 											startIcon={<LogoutIcon />}
-											onClick={logout}
+											onClick={() => {
+												setDropdownState(false), logout();
+											}}
 											style={{
 												color: 'white',
 												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
