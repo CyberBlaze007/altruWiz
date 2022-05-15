@@ -880,7 +880,7 @@
 	&-list {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: space-evenly;
 		width: 90%;
 		flex-wrap: wrap;
 		&-card {
