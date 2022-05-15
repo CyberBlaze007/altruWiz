@@ -1,6 +1,6 @@
 import { ConstructionOutlined } from '@mui/icons-material';
 import React from 'react';
-import { badges } from '../../pseudodata/badges';
+import { badges } from '../../../assets/pseudodata/badges';
 
 function Badges() {
 	return (

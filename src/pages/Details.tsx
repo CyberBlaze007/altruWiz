@@ -1,7 +1,6 @@
-import { events } from '../pseudodata/events-data';
+import { events } from '../../assets/pseudodata/events-data';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Button } from '@mui/material';
 import DBNav from './../components/navbar/DBNav';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,13 +23,16 @@ function Details() {
 			<div className='details-head'>
 				<div className='details-head-row1'>
 					<div className='details-head-row1-col1'>
-						<img src={`/src/pseudodata/${data.thumbnail}`} alt={data.title} />
+						<img
+							src={`/assets/pseudodata/${data.thumbnail}`}
+							alt={data.title}
+						/>
 					</div>
 					<div className='details-head-row1-col2'>
 						<h1 className='details-head-row1-col2-title'>{data.title}</h1>
 						<h1 className='details-head-row1-col2-org'>by {data.org}</h1>
 						<div className='details-head-row1-col2-xp'>
-							<img src='/src/pseudodata/images/star.png' alt='Star Icon' />
+							<img src='/assets/pseudodata/images/star.png' alt='Star Icon' />
 							<p>{data.xp}</p>
 						</div>
 					</div>

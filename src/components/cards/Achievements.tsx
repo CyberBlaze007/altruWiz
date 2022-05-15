@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { achievements } from '../../pseudodata/achievements';
+import { achievements } from '../../../assets/pseudodata/achievements';
 import {
 	CircularProgressbarWithChildren,
 	buildStyles,
@@ -37,7 +37,8 @@ function Achievements() {
 								value={
 									(achievements.at(0).expGain * 100) / achievements.at(0).expReq
 								}
-								className='achievements-body-row1-col2-bar-icon'>
+								className='achievements-body-row1-col2-bar-icon'
+							>
 								<h1 className='achievements-body-row1-col2-bar-icon-label1'>
 									{achievements.at(0).expGain}
 								</h1>
@@ -88,7 +89,8 @@ function Achievements() {
 							{achievements.at(0).events.map((data) => (
 								<div
 									className='achievements-body-row2-table-body-cells'
-									key={data.id}>
+									key={data.id}
+								>
 									<div className='achievements-body-row2-table-body-cells-col1'>
 										{data.id}
 									</div>

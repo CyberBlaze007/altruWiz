@@ -5,7 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 //Metadata
-import { profiles } from './../../pseudodata/profile-data';
+import { profiles } from '../../../assets/pseudodata/profile-data';
 
 //Firebase Components
 import { signOut } from 'firebase/auth';

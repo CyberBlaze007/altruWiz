@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { events } from '../../pseudodata/events-data';
+import { events } from '../../../assets/pseudodata/events-data';
 
 function EventList({ use }: any) {
 	const [isCompact, setIsCompact] = useState(true);
@@ -17,8 +17,9 @@ function EventList({ use }: any) {
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}>
-									<img src={`/src/pseudodata/${data.thumbnail}`}></img>
+									onClick={() => navigate('/event/details')}
+								>
+									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
 											{data.title}
@@ -32,7 +33,8 @@ function EventList({ use }: any) {
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'></img>
+												className='events-list-items-details-xp-icon'
+											></img>
 											<h1 className='events-list-items-details-xp-label'>
 												{data.xp}
 											</h1>
@@ -44,8 +46,9 @@ function EventList({ use }: any) {
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}>
-									<img src={`/src/pseudodata/${data.thumbnail}`}></img>
+									onClick={() => navigate('/event/details')}
+								>
+									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
 											{data.title}
@@ -59,7 +62,8 @@ function EventList({ use }: any) {
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'></img>
+												className='events-list-items-details-xp-icon'
+											></img>
 											<h1 className='events-list-items-details-xp-label'>
 												{data.xp}
 											</h1>
@@ -73,7 +77,8 @@ function EventList({ use }: any) {
 			<div className='events-container'>
 				<button
 					className='events-container-button'
-					onClick={() => setIsCompact(!isCompact)}>
+					onClick={() => setIsCompact(!isCompact)}
+				>
 					{isCompact ? 'See More' : 'See Less'}
 				</button>
 			</div>

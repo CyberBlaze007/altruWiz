@@ -1,5 +1,5 @@
-import { orgs } from '../pseudodata/org-data';
-import { events } from '../pseudodata/events-data';
+import { orgs } from '../../assets/pseudodata/org-data';
+import { events } from '../../assets/pseudodata/events-data';
 import { Button } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';

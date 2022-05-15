@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useAuthState from 'react-firebase-hooks/auth/dist/auth/useAuthState';
-import { auth } from '../firebase-config';
-import DataService from '../firebase/Services';
+import { auth } from '../../src/firebase-config';
+import DataService from '../../src/firebase/Services';
 
 function newData() {
 	//Make Organization Data
@@ -72,7 +72,7 @@ function newData() {
 		'Proxima Singula': 'proximaSingula', //9
 	};
 	const getCurrentRank = async () => {
-		await DataService.getRank(rankID['Spark']).then((docSnap) => {
+		await DataService.getRank(rankID['Spark']).then((docSnap: any) => {
 			console.log(user.uid);
 			if (docSnap.exists()) {
 				// console.log('Document data:', docSnap.data());
@@ -102,18 +102,20 @@ function newData() {
 	};
 
 	const getCurrentBadges = async () => {
-		await DataService.getBadge(badgesID['Poop Blaster']).then((docSnap) => {
-			if (docSnap.exists()) {
-				// console.log('Document data:', docSnap.data());
-				const myData = docSnap.data();
-				setBadgeDesc(badgeDesc);
-				setBadgeName(badgeName);
-				setBadgePic(badgePic);
-			} else {
-				// doc.data() will be undefined in this case
-				console.log('No such document!');
+		await DataService.getBadge(badgesID['Poop Blaster']).then(
+			(docSnap: any) => {
+				if (docSnap.exists()) {
+					// console.log('Document data:', docSnap.data());
+					const myData = docSnap.data();
+					setBadgeDesc(badgeDesc);
+					setBadgeName(badgeName);
+					setBadgePic(badgePic);
+				} else {
+					// doc.data() will be undefined in this case
+					console.log('No such document!');
+				}
 			}
-		});
+		);
 	};
 
 	return <div>newData</div>;
