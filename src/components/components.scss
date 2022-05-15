@@ -839,6 +839,9 @@
 }
 
 .badges {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	&-list {
 		display: flex;
 		flex-direction: row;
@@ -848,24 +851,32 @@
 		row-gap: 2rem;
 		flex-wrap: wrap;
 		&-card {
-			padding-top: 3rem;
+			width: 15rem;
+			aspect-ratio: 3/5;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
 			&-overlay {
 				display: flex;
 				flex-direction: column;
-				justify-content: space-between;
+				align-items: center;
 				position: relative;
-				aspect-ratio: 3/4.2;
 				z-index: -1;
 				img {
 					position: absolute;
-					height: 12rem;
+					top: -5rem;
+					left: auto;
+					height: 10rem;
 				}
 				&-details {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
 					background: #ffffff;
 					border: 1px solid rgba(0, 0, 0, 0.15);
 					box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.05);
 					border-radius: 10px;
-					aspect-ratio: 3/3.5;
+					padding: 5rem 1rem 1rem 1rem;
 					&-name {
 						font-family: 'Montserrat';
 						font-style: normal;
