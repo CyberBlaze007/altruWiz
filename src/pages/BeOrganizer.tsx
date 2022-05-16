@@ -4,9 +4,7 @@ import DBNav from '../components/navbar/DBNav';
 function BeOrganizer() {
 	return (
 		<div className='beOrganizer'>
-			<div className='beOrganizer-navbar'>
-				<DBNav />
-			</div>
+			<DBNav />
 			<div className='beOrganizer-body'>
 				<div className='beOrganizer-body-container'>
 					<div className='beOrganizer-body-container-info'>
@@ -44,7 +42,11 @@ function BeOrganizer() {
 									</h1>
 								</div>
 								<div className='beOrganizer-body-container-info-about-col2-descbox'>
-									<input className='beOrganizer-body-container-info-about-col2-descbox-in'></input>
+									<textarea
+										className='beOrganizer-body-container-info-about-col2-descbox-in'
+										rows={4}
+										cols={50}
+									/>
 								</div>
 							</div>
 						</div>

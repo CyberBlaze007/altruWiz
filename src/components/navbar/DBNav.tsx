@@ -92,24 +92,44 @@ function DBNav() {
 										dropDownState
 											? 'nav-col2-profile-nav-modal-open'
 											: 'nav-col2-profile-nav-modal-close'
-									}>
+									}
+								>
 									{dropDownState ? (
-										<Button
-											startIcon={<LogoutIcon />}
-											onClick={() => {
-												setDropdownState(false), logout();
-											}}
-											style={{
-												color: 'white',
-												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
-												fontFamily: 'Montserrat',
-												fontStyle: 'normal',
-												fontWeight: '500',
-												fontSize: '0.8rem',
-											}}>
-											{' '}
-											Log-out
-										</Button>
+										<>
+											<Button
+												onClick={() => {
+													setDropdownState(false), navigate('/makeorg');
+												}}
+												style={{
+													color: 'white',
+													textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+													fontFamily: 'Montserrat',
+													fontStyle: 'normal',
+													fontWeight: '500',
+													fontSize: '0.8rem',
+												}}
+											>
+												{' '}
+												Be an Organizer
+											</Button>
+											<Button
+												startIcon={<LogoutIcon />}
+												onClick={() => {
+													setDropdownState(false), logout();
+												}}
+												style={{
+													color: 'white',
+													textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+													fontFamily: 'Montserrat',
+													fontStyle: 'normal',
+													fontWeight: '500',
+													fontSize: '0.8rem',
+												}}
+											>
+												{' '}
+												Log-out
+											</Button>
+										</>
 									) : null}
 								</div>
 							</div>

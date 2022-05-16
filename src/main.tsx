@@ -34,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<Route path='/dashboard/certificates' element={<Dashboard />}></Route>
 				<Route path='/dashboard/badges' element={<Dashboard />}></Route>
 				<Route path='/event/details' element={<Details />}></Route>
+				<Route path='/makeorg' element={<BeOrganizer />}></Route>
 				<Route path='/organization' element={<OrgDashboard />}></Route>
 				<Route path='/dashboard' element={<Dashboard />}></Route>
 				<Route path='/addevent' element={<AddEvent />}></Route>
