@@ -4,6 +4,7 @@ import React, { useState, useEffect, createContext } from 'react';
 import { Button } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import JoinInnerIcon from '@mui/icons-material/JoinInner';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 //Metadata
@@ -92,11 +93,11 @@ function DBNav() {
 										dropDownState
 											? 'nav-col2-profile-nav-modal-open'
 											: 'nav-col2-profile-nav-modal-close'
-									}
-								>
+									}>
 									{dropDownState ? (
 										<>
 											<Button
+												startIcon={<JoinInnerIcon />}
 												onClick={() => {
 													setDropdownState(false), navigate('/makeorg');
 												}}
@@ -107,8 +108,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												Be an Organizer
 											</Button>
@@ -124,8 +124,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												Log-out
 											</Button>

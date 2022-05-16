@@ -113,7 +113,7 @@
 						animation: showDrop 0.3s ease;
 						padding-right: 1rem;
 						width: 12rem;
-						height: 3rem;
+						height: 6rem;
 						top: 3rem;
 						right: 1rem;
 					}
@@ -965,13 +965,13 @@
 		height: 0;
 	}
 	to {
-		height: 3rem;
+		height: 6rem;
 	}
 }
 
 @keyframes closeDrop {
 	from {
-		height: 3rem;
+		height: 6rem;
 		width: 12rem;
 	}
 	to {
