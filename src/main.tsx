@@ -17,6 +17,7 @@ import Navigator from './components/navigations/Navigator';
 import Details from './pages/Details';
 import OrgDashboard from './pages/OrgDashboard';
 import AddEvent from './components/modals/AddEvent';
+import BeOrganizer from './pages/BeOrganizer';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<Route path='/organization' element={<OrgDashboard />}></Route>
 				<Route path='/dashboard' element={<Dashboard />}></Route>
 				<Route path='/addevent' element={<AddEvent />}></Route>
+				<Route path='/beorganizer' element={<BeOrganizer />}></Route>
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
