@@ -1,7 +1,63 @@
-import React from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import DBNav from '../components/navbar/DBNav';
+import { auth } from '../firebase-config';
+import DataService from '../firebase/Services';
 
 function BeOrganizer() {
+	const [orgName, setOrgName] = useState('');
+	const [orgAbout, setOrgAbout] = useState('');
+	const [user] = useAuthState(auth);
+	const [orgCreator, setCreator] = useState('');
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		getCurrentUser();
+	}, []);
+	const getCurrentUser = async () => {
+		await DataService.getUser(user.uid).then((docSnap) => {
+			if (docSnap.exists()) {
+				const myData = docSnap.data();
+				setCreator(myData.email);
+			} else {
+				console.log('No such document!');
+			}
+		});
+	};
+
+	const makeOrg = async () => {
+		const newOrg = {
+			orgName: orgName,
+			orgAbout: orgAbout,
+			creator: orgCreator,
+			eventsCreated: [''],
+		};
+		try {
+			await DataService.addOrg(newOrg, user.uid);
+		} catch (error) {
+			console.log(error);
+		}
+
+		setOrgName('');
+		setOrgAbout('');
+		setCreator('');
+		const updatedUser = {
+			isOrganizer: true,
+		};
+		try {
+			await DataService.updateUser(updatedUser, user.uid);
+		} catch (error) {
+			console.log(error);
+		}
+
+		navigate('/organization');
+	};
+
+	function handleOnChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+		setOrgAbout(event.target.value);
+	}
+
 	return (
 		<div className='beOrganizer'>
 			<DBNav />
@@ -25,7 +81,13 @@ function BeOrganizer() {
 									</h1>
 								</div>
 								<div className='beOrganizer-body-container-info-name-col2-org'>
-									<input className='beOrganizer-body-container-info-name-col2-org-in'></input>
+									<input
+										className='beOrganizer-body-container-info-name-col2-org-in'
+										value={orgName}
+										onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+											setOrgName(event.target.value)
+										}
+									></input>
 								</div>
 							</div>
 						</div>
@@ -46,13 +108,18 @@ function BeOrganizer() {
 										className='beOrganizer-body-container-info-about-col2-descbox-in'
 										rows={4}
 										cols={50}
+										value={orgAbout}
+										onChange={(event) => handleOnChange(event)}
 									/>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className='beOrganizer-body-container-footer'>
-						<button className='beOrganizer-body-container-footer-button'>
+						<button
+							className='beOrganizer-body-container-footer-button'
+							onClick={makeOrg}
+						>
 							Done
 						</button>
 					</div>
