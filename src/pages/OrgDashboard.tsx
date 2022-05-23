@@ -4,17 +4,44 @@ import { Button } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DBNav from './../components/navbar/DBNav';
+import DataService from '../firebase/Services';
+import { auth } from '../firebase-config';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect, useState } from 'react';
 
 function OrgDashboard() {
 	const data = orgs.at(0);
+	const [orgName, setOrgName] = useState('');
+	const [orgDesc, setOrgDesc] = useState('');
+	const [user] = useAuthState(auth);
+
+	useEffect(() => {
+		getCurrentOrg();
+	}, []);
+
+	const getCurrentOrg = async () => {
+		await DataService.getOrg(user.uid).then((docSnap) => {
+			// console.log(user.uid);
+			if (docSnap.exists()) {
+				// console.log('Document data:', docSnap.data());
+				const myData = docSnap.data();
+				setOrgName(myData.orgName);
+				setOrgDesc(myData.orgAbout);
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+	};
+
 	return (
 		<>
 			<DBNav />
 			<div className='orgDashboard'>
 				<div className='orgDashboard-info'>
-					<h1>{data.name}</h1>
+					<h1>{orgName}</h1>
 					<h3>Organization Information</h3>
-					<p>{data.desc}</p>
+					<p>{orgDesc}</p>
 					<Button startIcon={<EditOutlinedIcon />}></Button>
 				</div>
 				<div className='orgDashboard-events'>

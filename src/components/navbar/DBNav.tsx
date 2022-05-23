@@ -24,6 +24,8 @@ function DBNav() {
 	const UserContext = createContext('');
 	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
+	var [orgName, setOrgName] = useState('');
+	var [isOrganizer, setIsOrganizer] = useState(false);
 
 	useEffect(() => {
 		getCurrentUser();
@@ -43,6 +45,18 @@ function DBNav() {
 				// console.log('Document data:', docSnap.data());
 				const myData = docSnap.data();
 				setUserName(myData.name.first);
+				setIsOrganizer(myData.isOrganizer);
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+		await DataService.getOrg(user.uid).then((docSnap) => {
+			// console.log(user.uid);
+			if (docSnap.exists()) {
+				// console.log('Document data:', docSnap.data());
+				const myData = docSnap.data();
+				setOrgName(myData.orgName);
 			} else {
 				// doc.data() will be undefined in this case
 				console.log('No such document!');
@@ -93,13 +107,17 @@ function DBNav() {
 										dropDownState
 											? 'nav-col2-profile-nav-modal-open'
 											: 'nav-col2-profile-nav-modal-close'
-									}>
+									}
+								>
 									{dropDownState ? (
 										<>
 											<Button
 												startIcon={<JoinInnerIcon />}
 												onClick={() => {
-													setDropdownState(false), navigate('/makeorg');
+													setDropdownState(false),
+														orgName
+															? navigate('/organization')
+															: navigate('/makeorg');
 												}}
 												style={{
 													color: 'white',
@@ -108,9 +126,10 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}>
+												}}
+											>
 												{' '}
-												Be an Organizer
+												{isOrganizer ? orgName : 'Be an Organizer'}
 											</Button>
 											<Button
 												startIcon={<LogoutIcon />}
@@ -124,7 +143,8 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}>
+												}}
+											>
 												{' '}
 												Log-out
 											</Button>
