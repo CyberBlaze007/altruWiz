@@ -19,17 +19,19 @@ function Navigator() {
 			!user &&
 			location.pathname !== '/' &&
 			location.pathname !== '/login' &&
-			location.pathname !== '/register'
+			location.pathname !== '/register' &&
+			location.pathname !== '/event/details'
 		) {
-			alert('Login First');
 			navigate('/login');
 		}
+
 		window.scrollTo(0, 0);
 	}, [user, loading, location]);
 
 	return (
 		<div
-			className={loading || time ? 'modal display-flex' : 'modal display-none'}>
+			className={loading || time ? 'modal display-flex' : 'modal display-none'}
+		>
 			<section className='modal-main'>
 				<HashLoader size={100} color={'#9013FE'} />
 			</section>
