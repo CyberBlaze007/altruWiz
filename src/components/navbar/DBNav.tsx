@@ -19,7 +19,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
-	const [user] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 	const navigate = useNavigate();
 	const UserContext = createContext('');
 	const [dropDownState, setDropdownState] = useState(false);
@@ -29,7 +29,7 @@ function DBNav() {
 
 	useEffect(() => {
 		getCurrentUser();
-	}, []);
+	}, [loading]);
 
 	const logout = async () => {
 		try {

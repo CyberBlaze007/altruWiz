@@ -15,11 +15,11 @@ function Profile() {
 	const [description, setDescription] = useState('');
 	const [bday, setBday] = useState('');
 	const [editState, setEditState] = useState(true);
-	const [user] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
 		getCurrentUser();
-	}, []);
+	}, [loading]);
 	const getCurrentUser = async () => {
 		await DataService.getUser(user.uid).then((docSnap) => {
 			console.log(user.uid);
@@ -122,7 +122,8 @@ function Profile() {
 									value={gender}
 									disabled={editState}
 									select={!editState}
-									onChange={(event) => setGender(event.target.value)}>
+									onChange={(event) => setGender(event.target.value)}
+								>
 									<MenuItem value={'Male'}>Male</MenuItem>
 									<MenuItem value={'Female'}>Female</MenuItem>
 									<MenuItem value={'Prefer not to say'}>
@@ -200,7 +201,8 @@ function Profile() {
 									? 'profile-body-sec1-footer-button'
 									: 'profile-body-sec1-footer-button-hidden'
 							}
-							onClick={() => setEditState(false)}>
+							onClick={() => setEditState(false)}
+						>
 							Edit
 						</button>
 					</div>
@@ -242,7 +244,8 @@ function Profile() {
 							onClick={() => {
 								setEditState(true);
 								update();
-							}}>
+							}}
+						>
 							Save Changes
 						</button>
 					</div>
