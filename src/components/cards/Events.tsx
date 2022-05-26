@@ -9,18 +9,21 @@ function Events() {
 	return (
 		<div className='event'>
 			<div className='event-body'>
-				<TextField
-					variant='outlined'
-					color='secondary'
-					size='small'
-					className='signin-body-container-col2-form-fields-field'
-					margin='dense'
-					placeholder='Search Anything'
-					value={search}
-					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-						setSearch(event.target.value)
-					}
-				/>
+				<div className='event-body-searchbar'>
+					<TextField
+						variant='outlined'
+						color='secondary'
+						size='small'
+						className='event-body-searchbar-field'
+						margin='dense'
+						placeholder='Search Anything'
+						value={search}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+							setSearch(event.target.value)
+						}
+					/>
+				</div>
+
 				{!search && (
 					<>
 						<EventList
