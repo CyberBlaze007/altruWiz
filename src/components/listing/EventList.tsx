@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { events } from '../../../assets/pseudodata/events-data';
 
-function EventList({ use }: any) {
+function EventList({ use, head, events }: any) {
 	const [isCompact, setIsCompact] = useState(true);
 	const navigate = useNavigate();
 	return (
 		<div className='events' id={use}>
 			<div className='events-header'>
-				<h1>Events</h1>
+				<h1>{head}</h1>
 			</div>
 			<div className='events-list'>
 				<div className={`events-list${isCompact ? '-compact' : '-expanded'}`}>
 					{isCompact
-						? events.slice(0, 8).map((data) => (
+						? events.slice(0, 8).map((data: any) => (
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}
-								>
+									onClick={() => navigate('/event/details')}>
 									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
@@ -33,8 +31,7 @@ function EventList({ use }: any) {
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'
-											></img>
+												className='events-list-items-details-xp-icon'></img>
 											<h1 className='events-list-items-details-xp-label'>
 												{data.xp}
 											</h1>
@@ -42,12 +39,11 @@ function EventList({ use }: any) {
 									</div>
 								</div>
 						  ))
-						: events.map((data) => (
+						: events.map((data: any) => (
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}
-								>
+									onClick={() => navigate('/event/details')}>
 									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
@@ -62,8 +58,7 @@ function EventList({ use }: any) {
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'
-											></img>
+												className='events-list-items-details-xp-icon'></img>
 											<h1 className='events-list-items-details-xp-label'>
 												{data.xp}
 											</h1>
@@ -77,8 +72,7 @@ function EventList({ use }: any) {
 			<div className='events-container'>
 				<button
 					className='events-container-button'
-					onClick={() => setIsCompact(!isCompact)}
-				>
+					onClick={() => setIsCompact(!isCompact)}>
 					{isCompact ? 'See More' : 'See Less'}
 				</button>
 			</div>
