@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function EventList({ use, head, events }: any) {
-	const [isCompact, setIsCompact] = useState(true);
+	const [isEnough, setIsEnough] = useState(events.length > 8);
+	const [isCompact, setIsCompact] = useState(isEnough);
 	const navigate = useNavigate();
 	return (
 		<div className='events' id={use}>
@@ -69,13 +70,15 @@ function EventList({ use, head, events }: any) {
 				</div>
 			</div>
 
-			<div className='events-container'>
-				<button
-					className='events-container-button'
-					onClick={() => setIsCompact(!isCompact)}>
-					{isCompact ? 'See More' : 'See Less'}
-				</button>
-			</div>
+			{isEnough ? (
+				<div className='events-container'>
+					<button
+						className='events-container-button'
+						onClick={() => setIsCompact(!isCompact)}>
+						{isCompact ? 'See More' : 'See Less'}
+					</button>
+				</div>
+			) : null}
 		</div>
 	);
 }

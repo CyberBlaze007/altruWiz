@@ -5,6 +5,7 @@ import LandingNav from './../components/navbar/LandingNav';
 import { createContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config';
+import { events } from '../../assets/pseudodata/events-data';
 import DBNav from '../components/navbar/DBNav';
 function Landing() {
 	const UserContext = createContext('');
@@ -26,7 +27,7 @@ function Landing() {
 					</div>
 				</div>
 				<div className='landing-body'>
-					<EventList use='list' />
+					<EventList use='list' head='All Events' events={events} />
 					<div className='landing-body-footer'>
 						<Footer />
 					</div>
