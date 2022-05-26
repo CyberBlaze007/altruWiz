@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function EventList({ use, head, events }: any) {
 	const [isEnough, setIsEnough] = useState(events.length > 8);
 	const [isCompact, setIsCompact] = useState(isEnough);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setIsEnough(events.length > 8);
+		return () => setIsEnough(events.length > 8);
+	}, [events]);
+
 	return (
 		<div className='events' id={use}>
 			<div className='events-header'>
