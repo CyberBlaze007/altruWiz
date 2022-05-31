@@ -11,9 +11,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function OrgDashboard() {
-	const data = orgs.at(0);
 	const [orgName, setOrgName] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
+	const [eventsCreated, setEventsCreated] = useState([]);
 	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ function OrgDashboard() {
 				const myData = docSnap.data();
 				setOrgName(myData.orgName);
 				setOrgDesc(myData.orgAbout);
+				setEventsCreated(myData.eventsCreated);
 			} else {
 				// doc.data() will be undefined in this case
 				console.log('No such document!');
@@ -55,6 +56,9 @@ function OrgDashboard() {
 								<h4>Name</h4>
 								<h4>Attendees</h4>
 							</div>
+							<div>{eventsCreated[0]}</div>
+							<div>{eventsCreated[1]}</div>
+							<div>{eventsCreated[2]}</div>
 
 							{events.map((element) => {
 								<div className='orgDashboard-events-body'>

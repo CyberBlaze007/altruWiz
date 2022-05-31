@@ -55,10 +55,12 @@ class DataService {
 
 	//Events CRUD
 	addEvent = (newEvent: any, id: string) => {
-		return setDoc(
-			doc(firestore, eventCol, id).withConverter(eventConverter),
-			newEvent
-		);
+		// return setDoc(
+		// 	doc(firestore, eventCol, id).withConverter(eventConverter),
+		// 	newEvent
+		// );
+		// with converter not yet working
+		return setDoc(doc(firestore, eventCol, id), newEvent);
 	};
 	getEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
