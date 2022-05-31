@@ -8,12 +8,14 @@ import DataService from '../firebase/Services';
 import { auth } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function OrgDashboard() {
 	const data = orgs.at(0);
 	const [orgName, setOrgName] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
 	const [user] = useAuthState(auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		getCurrentOrg();
@@ -70,7 +72,12 @@ function OrgDashboard() {
 							})}
 							<div className='orgDashboard-events-bodyLast'>
 								<div className='orgDashboard-events-table-body-create'>
-									<Button endIcon={<AddOutlinedIcon />}>
+									<Button
+										endIcon={<AddOutlinedIcon />}
+										onClick={() => {
+											navigate('/event-creation');
+										}}
+									>
 										Create New Event
 									</Button>
 								</div>

@@ -12,6 +12,7 @@ import Details from './pages/Details';
 import OrgDashboard from './pages/OrgDashboard';
 import AddEvent from './components/modals/AddEvent';
 import BeOrganizer from './pages/BeOrganizer';
+import EventCreation from './pages/EventCreation';
 
 function App() {
 	return (
@@ -33,6 +34,7 @@ function App() {
 				<Route path='/dashboard' element={<Dashboard />}></Route>
 				<Route path='/addevent' element={<AddEvent />}></Route>
 				<Route path='/beorganizer' element={<BeOrganizer />}></Route>
+				<Route path='/event-creation' element={<EventCreation />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
