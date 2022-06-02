@@ -107,9 +107,10 @@ class DataService {
 		);
 	};
 	getBadge = (id: string) => {
-		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
-			badgesConverter
-		);
+		// const badgeDoc = doc(firestore, badgeCol, id).withConverter(
+		// 	badgesConverter
+		// );
+		const badgeDoc = doc(firestore, badgeCol, id);
 		return getDoc(badgeDoc);
 	};
 	async getBadgeList(collection: any) {

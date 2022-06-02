@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import DataService from '../../src/firebase/Services';
+
 export const badges = [
 	{
 		id: 1,
@@ -35,3 +38,47 @@ export const badges = [
 		date: '27-Feb-2022',
 	},
 ];
+
+async function getBadges(badgesCollected: any) {
+	let myData: any = [];
+	// var newElement: any;
+	// const [badges, setBadges] = useState(storeBadges);
+	// const [name, setName] = useState('');
+	// const [desc, setDesc] = useState('');
+	// const [pic, setPic] = useState('');
+	// const [date, setDate] = useState('');
+	// const [myData, setMyData] = useState();
+	console.log('BadgesCollected: ' + badgesCollected);
+	badgesCollected.forEach(async (data: any) => {
+		try {
+			await DataService.getBadge(data).then((docSnap) => {
+				console.log('Getting element at badges collection');
+
+				if (docSnap.exists()) {
+					// console.log('Document data:', docSnap.data());
+					myData.push(docSnap.data());
+
+					// setName(myData.badgeName);
+					// setDesc(myData.badgeDesc);
+					// setPic(myData.badgePic);
+					// setDate(myData.dateAcquired);
+					console.log('myDataName: ');
+					console.log(myData.badgeName);
+					console.log(myData.badgeDesc);
+					console.log(myData.dateAcquired);
+					// setBadges((storeBadges: any) => [...storeBadges, myData]);
+				} else {
+					// doc.data() will be undefined in this case
+					console.log('No such document!');
+				}
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	});
+
+	console.log('myData: ' + myData);
+	return myData;
+}
+
+export default getBadges;
