@@ -7,3 +7,37 @@ service cloud.firestore {
     }
   }
 }
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    //User is properly authenticated
+    function signedInUser() {
+      return request.auth.uid != null;
+    }
+
+    function validOrganizer() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isOrganizer == true;
+    }
+
+    //Check if proper owner
+    match /user/{userId} {
+      allow read, write, update: if signedInUser() && request.auth.uid == userId; 
+    }
+
+    //Restrict Access to Event Organizers Only
+    match /organizations/{orgId} {
+      allow read, create if: signedInUser();
+      allow update if: signedInUser() && validOrganizer();
+    }
+
+    //Restrict Access to Events collection
+    match /events/{eventId} {
+      allow read if: true
+      allow create if: signedInUser() && validOrganizer();
+      allow update, delete if: signedInUser() && validOrganizer();
+        // && request.auth.uid == get(/databases/$(database)/documents/organizations/$(?)).data.creator;
+    }
+  }
+}
