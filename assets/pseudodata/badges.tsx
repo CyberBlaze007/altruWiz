@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import DataService from '../../src/firebase/Services';
+
 export const badges = [
 	{
 		id: 1,
@@ -35,3 +38,56 @@ export const badges = [
 		date: '27-Feb-2022',
 	},
 ];
+
+async function getBadges(id: any) {
+	// let myData: any = [];
+	// console.log('BadgesCollected: ' + badgesCollected);
+	// badgesCollected.forEach(async (data: any) => {
+	// 	try {
+	// 		await DataService.getBadge(data).then((docSnap) => {
+	// 			console.log('Getting ' + data + ' at badges collection');
+
+	// 			if (docSnap.exists()) {
+	// 				// console.log('Document data:', docSnap.data());
+	// 				myData.push(docSnap.data());
+	// 				console.log('myDataName: ');
+	// 				console.log(docSnap.data().badgeName);
+	// 				console.log(docSnap.data().badgeDesc);
+	// 				console.log(docSnap.data().dateAcquired);
+	// 			} else {
+	// 				// doc.data() will be undefined in this case
+	// 				console.log('No such document!');
+	// 			}
+	// 		});
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// });
+
+	// console.log('myData: ');
+	// console.log(myData);
+	// return myData;
+	try {
+		await DataService.getBadge(id).then((docSnap) => {
+			console.log('Getting ' + id + ' at badges collection');
+
+			if (docSnap.exists()) {
+				// console.log('Document data:', docSnap.data());
+				// myData.push(docSnap.data());
+
+				console.log('myDataName: ');
+				console.log(docSnap.data().badgeName);
+				console.log(docSnap.data().badgeDesc);
+				console.log(docSnap.data().dateAcquired);
+				return docSnap.data();
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export default getBadges;
