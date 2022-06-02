@@ -9,19 +9,50 @@ import { debounce } from 'lodash';
 
 function Badges() {
 	const [user, loading] = useAuthState(auth);
-	const [myBadges, setMyBadges] = useState([]);
-	// const [data, setData] = useState('');
-	const [myData, setMyData]: any = useState(getBadges(myBadges));
-	// const [myBadge, setMyBadges] = useState([]);
-
-	// const myData: any = getBadges(data);
+	const [obtained, setObtained] = useState(false);
+	const [myBadgeName, setMyBadgeName] = useState('');
+	const [myBadgeDesc, setMyBadgeDesc] = useState('');
+	const [myBadgePic, setMyBadgePic] = useState('');
+	const [myDateAcquired, setMyDateAcquired] = useState('');
+	const [badgeIDs, setBadgeIDs]: any = useState(new Array());
 
 	const getCurrentBadges = debounce(async () => {
 		await DataService.getUser(user.uid).then((docSnap) => {
 			try {
-				const myData = docSnap.data();
-				setMyBadges(myData.badgesCollected);
-				console.log(myBadges);
+				// const myData = docSnap.data();
+				// setMyBadges(myData.badgesCollected);
+				// console.log(myBadges);
+				setBadgeIDs(docSnap.data().badgesCollected);
+				// setMyData(getBadges(docSnap.data().badgesCollected));
+
+				// console.log('MyData Current: ');
+				// console.log(myData);
+				badgeIDs.map(async (id: any) => {
+					try {
+						await DataService.getBadge(id).then((docSnap) => {
+							console.log('Getting ' + id + ' at badges collection');
+
+							if (docSnap.exists()) {
+								// console.log('Document data:', docSnap.data());
+								// myData.push(docSnap.data());
+
+								const data = docSnap.data();
+								console.log('myDataName: ');
+								setMyBadgeName(data.badgeName);
+								setMyBadgeDesc(data.badgeDesc);
+								setMyBadgePic(data.badgePic);
+								setMyDateAcquired(data.dateAcquired);
+							} else {
+								// doc.data() will be undefined in this case
+								console.log('No such document!');
+							}
+							setObtained(true);
+							console.log('obtained: ' + obtained);
+						});
+					} catch (e) {
+						console.log(e);
+					}
+				});
 			} catch (e) {
 				console.log(e);
 			}
@@ -30,32 +61,30 @@ function Badges() {
 
 	useEffect(() => {
 		getCurrentBadges();
-		setMyData(getBadges(myBadges));
 		return () => {
 			getCurrentBadges();
-			setMyData(getBadges(myBadges));
 		};
 	}, [loading]);
 
 	return (
 		<div className='badges'>
 			<div className='badges-list'>
-				<>
-					{myBadges.map((index) => {
+				{obtained &&
+					badgeIDs.map(() => {
 						return (
-							<div key={index} className='badges-list-card'>
+							<div className='badges-list-card'>
 								<div className='badges-list-card-overlay'>
-									<img src={myData?.at(index).badgePic} />
+									<img src={myBadgePic} />
 									<div className='badges-list-card-overlay-details'>
 										<h1 className='badges-list-card-overlay-details-name'>
-											{myData?.at(index).badgeName}
+											{myBadgeName}
 										</h1>
 										<h1 className='badges-list-card-overlay-details-desc'>
-											{myData?.at(index).badgeDesc}
+											{myBadgeDesc}
 										</h1>
 										<div className='badges-list-card-overlay-details-date'>
 											<h1 className='badges-list-card-overlay-details-date-text1'>
-												{myData?.at(index).dateAcquired.toString()}
+												{myDateAcquired.toString()}
 											</h1>
 											<h1 className='badges-list-card-overlay-details-date-text2'>
 												DATE ACQUIRED
@@ -66,11 +95,6 @@ function Badges() {
 							</div>
 						);
 					})}
-					{/* <h1> */}
-					{/* <>{console.log(getBadges(myBadges[1]))}</> */}
-					{/* {myBadges[1]} */}
-					{/* </h1> */}
-				</>
 			</div>
 		</div>
 	);

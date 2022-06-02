@@ -39,46 +39,55 @@ export const badges = [
 	},
 ];
 
-async function getBadges(badgesCollected: any) {
-	let myData: any = [];
-	// var newElement: any;
-	// const [badges, setBadges] = useState(storeBadges);
-	// const [name, setName] = useState('');
-	// const [desc, setDesc] = useState('');
-	// const [pic, setPic] = useState('');
-	// const [date, setDate] = useState('');
-	// const [myData, setMyData] = useState();
-	console.log('BadgesCollected: ' + badgesCollected);
-	badgesCollected.forEach(async (data: any) => {
-		try {
-			await DataService.getBadge(data).then((docSnap) => {
-				console.log('Getting element at badges collection');
+async function getBadges(id: any) {
+	// let myData: any = [];
+	// console.log('BadgesCollected: ' + badgesCollected);
+	// badgesCollected.forEach(async (data: any) => {
+	// 	try {
+	// 		await DataService.getBadge(data).then((docSnap) => {
+	// 			console.log('Getting ' + data + ' at badges collection');
 
-				if (docSnap.exists()) {
-					// console.log('Document data:', docSnap.data());
-					myData.push(docSnap.data());
+	// 			if (docSnap.exists()) {
+	// 				// console.log('Document data:', docSnap.data());
+	// 				myData.push(docSnap.data());
+	// 				console.log('myDataName: ');
+	// 				console.log(docSnap.data().badgeName);
+	// 				console.log(docSnap.data().badgeDesc);
+	// 				console.log(docSnap.data().dateAcquired);
+	// 			} else {
+	// 				// doc.data() will be undefined in this case
+	// 				console.log('No such document!');
+	// 			}
+	// 		});
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// });
 
-					// setName(myData.badgeName);
-					// setDesc(myData.badgeDesc);
-					// setPic(myData.badgePic);
-					// setDate(myData.dateAcquired);
-					console.log('myDataName: ');
-					console.log(myData.badgeName);
-					console.log(myData.badgeDesc);
-					console.log(myData.dateAcquired);
-					// setBadges((storeBadges: any) => [...storeBadges, myData]);
-				} else {
-					// doc.data() will be undefined in this case
-					console.log('No such document!');
-				}
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	});
+	// console.log('myData: ');
+	// console.log(myData);
+	// return myData;
+	try {
+		await DataService.getBadge(id).then((docSnap) => {
+			console.log('Getting ' + id + ' at badges collection');
 
-	console.log('myData: ' + myData);
-	return myData;
+			if (docSnap.exists()) {
+				// console.log('Document data:', docSnap.data());
+				// myData.push(docSnap.data());
+
+				console.log('myDataName: ');
+				console.log(docSnap.data().badgeName);
+				console.log(docSnap.data().badgeDesc);
+				console.log(docSnap.data().dateAcquired);
+				return docSnap.data();
+			} else {
+				// doc.data() will be undefined in this case
+				console.log('No such document!');
+			}
+		});
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 export default getBadges;
