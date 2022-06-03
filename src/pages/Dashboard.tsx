@@ -20,8 +20,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 //Local Components
 import DBNav from './../components/navbar/DBNav';
-import Loading from '../components/navigations/Loading';
 import Footer from './../components/footer/Footer';
+import Navigator from '../components/navigations/Navigator';
 
 function Dashboard() {
 	const tabs = [
@@ -86,7 +86,7 @@ function Dashboard() {
 
 	return (
 		<div className='dashboard'>
-			<Loading />
+			<Navigator />
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav />

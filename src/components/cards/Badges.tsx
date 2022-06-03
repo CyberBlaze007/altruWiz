@@ -9,28 +9,28 @@ import { debounce } from 'lodash';
 // import { realGetBadge } from './../../../assets/pseudodata/badges';
 import Loading from './../navigations/Loading';
 
-function Badges() {
+function Badges(check: any) {
 	const [obtained, setObtained] = useState(false);
 	const [badgeList, setBadgeList] = useState([]);
 	const [user, loading] = useAuthState(auth);
+	check && (check = user);
 
 	useEffect(() => {
 		getBadgeDetails();
-	}, [loading, obtained]);
+	}, [check]);
 
 	const getBadgeDetails = async () => {
-		await DataService.getUser(user.uid).then((docSnap) => {
+		await DataService.getUser(check.uid).then((docSnap) => {
 			if (docSnap.exists()) {
-				const myData = docSnap.data();
+				setBadgeList([]);
 				// setBadgeList(myData.badgesCollected);
-
-				myData.badgesCollected.map(async (dataID: any) => {
+				docSnap.data().badgesCollected.forEach(async (dataID: any) => {
 					console.log(dataID);
 					await DataService.getBadge(dataID).then((docSnap) => {
 						if (docSnap.exists()) {
 							console.log('Document data:', docSnap.data());
-							const myData = docSnap.data();
-							setBadgeList((badgeList) => [...badgeList, myData]);
+							// myData = docSnap.data();
+							setBadgeList((badgeList) => [...badgeList, docSnap.data()]);
 						} else {
 							// doc.data() will be undefined in this case
 							console.log('No such document!');
