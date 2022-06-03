@@ -86,7 +86,7 @@ function Dashboard() {
 
 	return (
 		<div className='dashboard'>
-			<Navigator />
+			{/* <Navigator /> */}
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav />
@@ -94,37 +94,43 @@ function Dashboard() {
 				<TabsUnstyled
 					defaultValue={0}
 					value={index}
-					className='dashboard-container-tab'>
+					className='dashboard-container-tab'
+				>
 					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/profile');
-							}}>
+							}}
+						>
 							Profile
 						</Tab>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/events');
-							}}>
+							}}
+						>
 							Events
 						</Tab>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/achievements');
-							}}>
+							}}
+						>
 							Achievements
 						</Tab>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/certificates');
-							}}>
+							}}
+						>
 							Certificates
 						</Tab>
 						<Tab
 							onClick={() => {
 								navigate('/dashboard/badges');
-							}}>
+							}}
+						>
 							Badges
 						</Tab>
 					</TabsList>

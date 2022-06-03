@@ -10,38 +10,33 @@ import { debounce } from 'lodash';
 import Loading from './../navigations/Loading';
 
 function Badges(check: any) {
-	const [obtained, setObtained] = useState(false);
+	// const [obtained, setObtained] = useState(false);
 	const [badgeList, setBadgeList] = useState([]);
+	const [badgeDetails, setBadgeDetails]: any = useState([]);
 	const [user, loading] = useAuthState(auth);
 	check && (check = user);
 
 	useEffect(() => {
+		getBadgeList();
 		getBadgeDetails();
-	}, [check]);
+	}, [loading]);
 
-	const getBadgeDetails = async () => {
-		await DataService.getUser(check.uid).then((docSnap) => {
+	const getBadgeList = async () => {
+		await DataService.getUser(check.uid).then(async (docSnap) => {
 			if (docSnap.exists()) {
-				setBadgeList([]);
-				// setBadgeList(myData.badgesCollected);
-				docSnap.data().badgesCollected.forEach(async (dataID: any) => {
-					console.log(dataID);
-					await DataService.getBadge(dataID).then((docSnap) => {
-						if (docSnap.exists()) {
-							console.log('Document data:', docSnap.data());
-							// myData = docSnap.data();
-							setBadgeList((badgeList) => [...badgeList, docSnap.data()]);
-						} else {
-							// doc.data() will be undefined in this case
-							console.log('No such document!');
-						}
-					});
-				});
-				setObtained(true);
+				setBadgeList(docSnap.data().badgesCollected);
+				// await getBadgeDetails();
 			} else {
 				// doc.data() will be undefined in this case
 				console.log('No such document!');
 			}
+		});
+	};
+	const getBadgeDetails = async () => {
+		await DataService.getBadges(badgeList).then((result) => {
+			setBadgeDetails(result);
+			console.log('badgeDetails: ');
+			console.log(badgeDetails);
 		});
 	};
 
@@ -49,7 +44,7 @@ function Badges(check: any) {
 	return (
 		<div className='badges'>
 			<div className='badges-list'>
-				{badgeList.map((data: any, index: number) => {
+				{badgeDetails.map((data: any, index: number) => {
 					return (
 						<div key={index} className='badges-list-card'>
 							<div className='badges-list-card-overlay'>
