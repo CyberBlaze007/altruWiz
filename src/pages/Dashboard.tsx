@@ -15,33 +15,14 @@ import Achievements from './../components/cards/Achievements';
 
 //MUI Components
 import { styled } from '@mui/system';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 //Local Components
 import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
-import Navigator from '../components/navigations/Navigator';
-import Code from '../components/modals/Code';
 
 function Dashboard() {
-	const tabs = [
-		'/dashboard/profile',
-		'/dashboard/events',
-		'/dashboard/achievements',
-		'/dashboard/certificates',
-		'/dashboard/badges',
-	];
 	const navigate = useNavigate();
-	const location = useLocation();
 	const [index, setIndex] = useState(0);
-	const [showModal, setShowModal] = useState(false);
-
-	useEffect(() => {
-		const div = document.querySelector('html');
-		div.scrollTo(0, 0);
-		setIndex(tabs.indexOf(location.pathname));
-	}, [location]);
 
 	const cards = [
 		<Profile />,
@@ -89,7 +70,7 @@ function Dashboard() {
 	return (
 		<div className='dashboard'>
 			{/* <Navigator /> */}
-			<Code showModal={showModal} setShowModal={setShowModal} />
+
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav />
@@ -102,31 +83,31 @@ function Dashboard() {
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
 							onClick={() => {
-								navigate('/dashboard/profile');
+								setIndex(0);
 							}}>
 							Profile
 						</Tab>
 						<Tab
 							onClick={() => {
-								navigate('/dashboard/events');
+								setIndex(1);
 							}}>
 							Events
 						</Tab>
 						<Tab
 							onClick={() => {
-								navigate('/dashboard/achievements');
+								setIndex(2);
 							}}>
 							Achievements
 						</Tab>
 						<Tab
 							onClick={() => {
-								navigate('/dashboard/certificates');
+								setIndex(3);
 							}}>
 							Certificates
 						</Tab>
 						<Tab
 							onClick={() => {
-								navigate('/dashboard/badges');
+								setIndex(4);
 							}}>
 							Badges
 						</Tab>

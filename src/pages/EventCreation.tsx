@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import DBNav from '../components/navbar/DBNav';
 import { auth, storage } from '../firebase-config';
-import DataService from '../firebase/Services';
+import DataService from '../firebase/services';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 function EventCreation() {
@@ -132,8 +132,7 @@ function EventCreation() {
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 									setEventName(event.target.value);
 									console.log(eventName);
-								}}
-							></input>
+								}}></input>
 
 							{/* <img src='' alt='Time Icon' /> */}
 							<h2>Time {`&`} Date</h2>
@@ -186,8 +185,7 @@ function EventCreation() {
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 							setEventLocation(event.target.value);
 							console.log(eventLocation);
-						}}
-					></input>
+						}}></input>
 
 					{/* <img src='' alt='Quest Icon' /> */}
 					<h2>Quest</h2>
@@ -213,8 +211,7 @@ function EventCreation() {
 				<button
 					onClick={() => {
 						uploadImage;
-					}}
-				>
+					}}>
 					Done
 				</button>
 			</div>

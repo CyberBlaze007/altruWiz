@@ -3,7 +3,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import DBNav from '../components/navbar/DBNav';
 import { auth } from '../firebase-config';
-import DataService from '../firebase/Services';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import DataService from '../firebase/services';
 
 function BeOrganizer() {
 	const [orgName, setOrgName] = useState('');
@@ -51,7 +52,7 @@ function BeOrganizer() {
 			console.log(error);
 		}
 
-		navigate('/organization');
+		navigate('/organizer');
 	};
 
 	function handleOnChange(event: ChangeEvent<HTMLTextAreaElement>): void {
@@ -76,6 +77,7 @@ function BeOrganizer() {
 							<div className='beOrganizer-body-container-info-name-col1'></div>
 							<div className='beOrganizer-body-container-info-name-col2'>
 								<div className='beOrganizer-body-container-info-name-col2-title'>
+									<ContactsIcon />
 									<h1 className='beOrganizer-body-container-info-name-col2-title-text'>
 										Name of the organization
 									</h1>
@@ -86,8 +88,7 @@ function BeOrganizer() {
 										value={orgName}
 										onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 											setOrgName(event.target.value)
-										}
-									></input>
+										}></input>
 								</div>
 							</div>
 						</div>
@@ -118,8 +119,7 @@ function BeOrganizer() {
 					<div className='beOrganizer-body-container-footer'>
 						<button
 							className='beOrganizer-body-container-footer-button'
-							onClick={makeOrg}
-						>
+							onClick={makeOrg}>
 							Done
 						</button>
 					</div>

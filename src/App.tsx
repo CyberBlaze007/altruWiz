@@ -19,17 +19,16 @@ function App() {
 		<BrowserRouter>
 			<Navigator />
 			<Routes>
-				<Route path='/' element={<Landing />}></Route>
-				<Route path='/login' element={<Signin />}></Route>
-				<Route path='/register' element={<Signup />}></Route>
-				<Route path='/upload' element={<FileUpload />}></Route>
-				<Route path='/event/details' element={<Details />}></Route>
-				<Route path='/makeorg' element={<BeOrganizer />}></Route>
-				<Route path='/organization' element={<OrgDashboard />}></Route>
-				<Route path='/dashboard/:id' element={<Dashboard />}></Route>
-				<Route path='/addevent' element={<AddEvent />}></Route>
-				<Route path='/beorganizer' element={<BeOrganizer />}></Route>
-				<Route path='/event-creation' element={<EventCreation />}></Route>
+				<Route path='/' element={<Landing />} />
+				<Route path='/login' element={<Signin />} />
+				<Route path='/register' element={<Signup />} />
+				<Route path='/upload' element={<FileUpload />} />
+				<Route path='/event/:id' element={<Details />} />
+				<Route path='/organizer' element={<OrgDashboard />} />
+				<Route path='/organizer/:id' element={<BeOrganizer />} />
+				<Route path='/dashboard' element={<Dashboard />} />
+				<Route path='/addevent' element={<AddEvent />} />
+				<Route path='/event-creation' element={<EventCreation />} />
 			</Routes>
 		</BrowserRouter>
 	);

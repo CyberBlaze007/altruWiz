@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DBNav from './../components/navbar/DBNav';
-import DataService from '../firebase/Services';
+import DataService from '../firebase/services';
 import { auth } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
@@ -80,8 +80,7 @@ function OrgDashboard() {
 										endIcon={<AddOutlinedIcon />}
 										onClick={() => {
 											navigate('/event-creation');
-										}}
-									>
+										}}>
 										Create New Event
 									</Button>
 								</div>

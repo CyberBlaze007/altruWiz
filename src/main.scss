@@ -283,6 +283,7 @@ html {
 		}
 	}
 }
+
 .signup {
 	display: flex;
 	flex-direction: column;
@@ -513,17 +514,6 @@ html {
 
 .display-none {
 	display: none;
-}
-
-//Animations
-
-@keyframes background {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
 }
 
 .details {
@@ -831,6 +821,7 @@ html {
 		}
 	}
 }
+
 .beOrganizer {
 	display: flex;
 	flex-direction: column;
@@ -873,6 +864,10 @@ html {
 				&-name {
 					&-col2 {
 						&-title {
+							display: flex;
+							flex-direction: row;
+							column-gap: 1rem;
+							align-items: center;
 							&-text {
 								font-family: 'Montserrat';
 								font-style: normal;
@@ -972,5 +967,16 @@ html {
 				}
 			}
 		}
+	}
+}
+
+//Animations
+
+@keyframes background {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
 	}
 }

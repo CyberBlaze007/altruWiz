@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
 
 //Icon Components
 import { Button } from '@mui/material';
@@ -16,10 +16,12 @@ import { auth } from '../../firebase-config';
 import { Link, useNavigate } from 'react-router-dom';
 import DataService from '../../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Code from '../modals/Code';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [user, loading] = useAuthState(auth);
+	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
 	const UserContext = createContext('');
 	const [dropDownState, setDropdownState] = useState(false);
@@ -74,6 +76,7 @@ function DBNav() {
 
 	return (
 		<>
+			<Code showModal={showModal} setShowModal={setShowModal} />
 			<UserContext.Provider value={!user ? null : user.uid}>
 				<div className='nav'>
 					<div className='nav-col1' onClick={() => navigate('/')}>
@@ -85,7 +88,11 @@ function DBNav() {
 					</div>
 					<nav className='nav-col2-p'>
 						<div className='nav-col2-container'>
-							<button className='nav-col2-container-button'>Event Code</button>
+							<button
+								className='nav-col2-container-button'
+								onClick={() => setShowModal(true)}>
+								Event Code
+							</button>
 						</div>
 						<div className='nav-col2-profile'>
 							<h1 className='nav-col2-profile-text'>{userName}</h1>
@@ -115,8 +122,8 @@ function DBNav() {
 												onClick={() => {
 													setDropdownState(false),
 														orgName
-															? navigate('/organization')
-															: navigate('/makeorg');
+															? navigate('/organizer')
+															: navigate('/organizer/makeorg');
 												}}
 												style={{
 													color: 'white',
