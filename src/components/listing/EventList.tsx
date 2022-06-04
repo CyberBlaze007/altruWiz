@@ -23,7 +23,7 @@ function EventList({ use, head, events }: any) {
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}>
+									onClick={() => navigate(`/event/${data.id}`)}>
 									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
@@ -50,7 +50,7 @@ function EventList({ use, head, events }: any) {
 								<div
 									key={data.id}
 									className='events-list-items'
-									onClick={() => navigate('/event/details')}>
+									onClick={() => navigate(`/event/${data.id}`)}>
 									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>

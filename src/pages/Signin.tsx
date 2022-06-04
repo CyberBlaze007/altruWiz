@@ -8,7 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Loading from './../components/navigations/Loading';
 
 function Signin() {
 	const [loginEmail, setLoginEmail] = useState('');
@@ -27,7 +26,7 @@ function Signin() {
 
 	useEffect(() => {
 		if (user) {
-			navigate('/dashboard/profile');
+			navigate('/dashboard');
 		}
 	}, [user, loading]);
 

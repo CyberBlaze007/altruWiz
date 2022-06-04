@@ -6,6 +6,8 @@ export const events = [
 		date: 'Mon, May 2, 2002 5:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: "Citizens' Climate Lobby",
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -19,7 +21,12 @@ export const events = [
 		date: 'Fri, Apr 29, 2022 1:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'World Alliance of Mediators Against Climate Change',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 156000,
 	},
 	{
@@ -29,7 +36,12 @@ export const events = [
 		date: 'Thu, Apr 28, 2022 9:00PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Bristol Research Forum on Ageing',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 456902,
 	},
 	{
@@ -40,7 +52,12 @@ export const events = [
 		date: 'Fri, Apr 29, 2022 10:00 AM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Fresh Roots',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 126000,
 	},
 	{
@@ -50,7 +67,12 @@ export const events = [
 		date: 'Tue, May 10, 2022 9:30 AM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Heal the Bay',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 356000,
 	},
 	{
@@ -60,7 +82,12 @@ export const events = [
 		date: 'Thu, Apr 28, 2022 9:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Coalition for the Homeless of Houston',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 67000,
 	},
 	{
@@ -70,7 +97,12 @@ export const events = [
 		date: 'Sat, Apr 30, 2022 5:00 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Black Mountains College',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 55902,
 	},
 	{
@@ -80,7 +112,12 @@ export const events = [
 		date: 'Wed, June 8, 2022 10:00 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'United Nations DOALOS',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 210000,
 	},
 	{
@@ -90,7 +127,12 @@ export const events = [
 		date: 'Mon, May 2, 2003 5:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: "Citizens' Climate Lobby",
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 5000,
 	},
 	{
@@ -100,7 +142,12 @@ export const events = [
 		date: 'Fri, Apr 29, 2023 1:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'World Alliance of Mediators Against Climate Change',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 8500,
 	},
 	{
@@ -110,7 +157,12 @@ export const events = [
 		date: 'Thu, Apr 28, 2023 9:00PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Bristol Research Forum on Ageing',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 140000,
 	},
 	{
@@ -121,7 +173,12 @@ export const events = [
 		date: 'Fri, Apr 29, 2023 10:00 AM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Fresh Roots',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 34000,
 	},
 	{
@@ -131,7 +188,12 @@ export const events = [
 		date: 'Tue, May 10, 2023 9:30 AM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Heal the Bay',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 678000,
 	},
 	{
@@ -141,7 +203,12 @@ export const events = [
 		date: 'Thu, Apr 28, 2023 9:30 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Coalition for the Homeless of Houston',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 14000,
 	},
 	{
@@ -151,7 +218,12 @@ export const events = [
 		date: 'Sat, Apr 30, 2023 5:00 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'Black Mountains College',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 25000,
 	},
 	{
@@ -161,7 +233,12 @@ export const events = [
 		date: 'Wed, June 8, 2023 10:00 PM PST',
 		time: '5:30 PM PST',
 		limit: 100,
+		description:
+			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
 		org: 'United Nations DOALOS',
+		location: 'San Fernando, Cebu',
+		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
+		badges: ['Gooey Person', 'Banana Warrior'],
 		xp: 69000,
 	},
 ];

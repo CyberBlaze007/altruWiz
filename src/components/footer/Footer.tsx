@@ -24,12 +24,12 @@ function Footer() {
 								Home
 							</Link>
 							<Link
-								to={'/dashboard/profile'}
+								to={'/dashboard'}
 								className='footer-row1-block2-col1-links-text'>
 								Dashboard
 							</Link>
 							<Link
-								to={'/dashboard/events'}
+								to={'/dashboard'}
 								className='footer-row1-block2-col1-links-text'>
 								Events
 							</Link>

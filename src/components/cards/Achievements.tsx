@@ -6,7 +6,7 @@ import {
 } from 'react-circular-progressbar';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase-config';
-import DataService from '../../firebase/Services';
+import DataService from '../../firebase/services';
 
 function Achievements() {
 	const [rankPic, setRankPic] = useState('');
@@ -85,8 +85,7 @@ function Achievements() {
 									backgroundColor: '#3e98c7',
 								})}
 								value={(expCurrent * 100) / expReq}
-								className='achievements-body-row1-col2-bar-icon'
-							>
+								className='achievements-body-row1-col2-bar-icon'>
 								<h1 className='achievements-body-row1-col2-bar-icon-label1'>
 									{expCurrent}
 								</h1>
@@ -138,8 +137,7 @@ function Achievements() {
 								return data ? (
 									<div
 										className='achievements-body-row2-table-body-cells'
-										key={index}
-									>
+										key={index}>
 										<div className='achievements-body-row2-table-body-cells-col1'>
 											{index + 1}
 										</div>

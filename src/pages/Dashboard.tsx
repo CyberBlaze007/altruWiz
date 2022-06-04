@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //Tabs Components
 import { TabUnstyled, TabsListUnstyled, TabsUnstyled } from '@mui/base';
@@ -21,7 +21,6 @@ import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
 
 function Dashboard() {
-	const navigate = useNavigate();
 	const [index, setIndex] = useState(0);
 
 	const cards = [

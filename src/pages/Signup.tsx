@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 //Firebase Components
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import DataService from '../firebase/Services';
+import DataService from '../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Signup() {
@@ -20,7 +20,7 @@ function Signup() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (user) navigate('/dashboard/profile');
+		if (user) navigate('/dashboard');
 	}, [user, loading]);
 
 	const register = async () => {
@@ -202,8 +202,7 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}
-								>
+									}>
 									Create Account
 								</button>
 							</div>
@@ -218,8 +217,7 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}
-									>
+										to={'/login'}>
 										Login
 									</Link>
 								</div>
