@@ -1,11 +1,13 @@
 import EventList from './../listing/EventList';
 import { events } from '../../../assets/pseudodata/events-data';
 import { personal_events } from '../../../assets/pseudodata/personal-events';
-import { TextField } from '@mui/material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 
 function Events() {
 	const [search, setSearch] = useState('');
+	let searchTemp: string;
 	return (
 		<div className='event'>
 			<div className='event-body'>
@@ -17,10 +19,21 @@ function Events() {
 						className='event-body-searchbar-field'
 						margin='dense'
 						placeholder='Search Anything'
-						value={search}
+						value={searchTemp}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-							setSearch(event.target.value)
+							(searchTemp = event.target.value)
 						}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position='end'>
+									<IconButton edge='end' color='secondary'>
+										<SearchIcon
+											onClick={() => setSearch(searchTemp || search)}
+										/>
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
 					/>
 				</div>
 

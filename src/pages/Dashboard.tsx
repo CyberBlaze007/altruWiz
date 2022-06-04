@@ -22,6 +22,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
 import Navigator from '../components/navigations/Navigator';
+import Code from '../components/modals/Code';
 
 function Dashboard() {
 	const tabs = [
@@ -34,6 +35,7 @@ function Dashboard() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [index, setIndex] = useState(0);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		const div = document.querySelector('html');
@@ -86,7 +88,11 @@ function Dashboard() {
 
 	return (
 		<div className='dashboard'>
+<<<<<<< Updated upstream
 			{/* <Navigator /> */}
+=======
+			<Code showModal={showModal} setShowModal={setShowModal} />
+>>>>>>> Stashed changes
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav />
