@@ -4,7 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DBNav from './../components/navbar/DBNav';
 import { useNavigate, useParams } from 'react-router-dom';
 import Rsvp from '../components/modals/Rsvp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Details() {
 	let { id } = useParams();
@@ -16,6 +16,13 @@ function Details() {
 			return event.id === parseInt(id);
 		})
 	);
+
+	useEffect(() => {
+		showRsvp
+			? (document.querySelector('body').style.overflow = 'hidden')
+			: (document.querySelector('body').style.overflow = 'auto');
+	}, [showRsvp]);
+
 	console.log(data);
 	const navigate = useNavigate();
 	return (

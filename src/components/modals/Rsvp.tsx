@@ -30,6 +30,12 @@ function Rsvp({ event, showModal, setShowModal }: any) {
 				}
 				transition={{ delay: 0.1, duration: 0.5, type: 'tween' }}
 				className='rsvp-container'>
+				<div className='rsvp-container-close'>
+					<CloseIcon
+						onClick={() => setShowModal(false)}
+						className='rsvp-container-close-icon'
+					/>
+				</div>
 				<div className='rsvp-container-header'>
 					<div className='rsvp-container-header-texts'>
 						<div className='rsvp-container-header-texts-title'>
@@ -37,11 +43,8 @@ function Rsvp({ event, showModal, setShowModal }: any) {
 						</div>
 						<div className='rsvp-container-header-texts-desc'>
 							<h2>organized by</h2>
-							<h1>{event.org}</h1>``
+							<h1>{event.org}</h1>
 						</div>
-					</div>
-					<div className='rsvp-container-header-close'>
-						<CloseIcon onClick={() => setShowModal(false)} />
 					</div>
 				</div>
 				<div className='rsvp-container-body'>

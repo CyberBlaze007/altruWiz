@@ -7,7 +7,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: "Citizens' Climate Lobby",
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -22,7 +22,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'World Alliance of Mediators Against Climate Change',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -37,7 +37,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Bristol Research Forum on Ageing',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -53,7 +53,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Fresh Roots',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -68,7 +68,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Heal the Bay',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -83,7 +83,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Coalition for the Homeless of Houston',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -98,7 +98,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Black Mountains College',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -113,7 +113,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'United Nations DOALOS',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -128,7 +128,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: "Citizens' Climate Lobby",
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -143,7 +143,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'World Alliance of Mediators Against Climate Change',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -158,7 +158,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Bristol Research Forum on Ageing',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -174,7 +174,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Fresh Roots',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -189,7 +189,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Heal the Bay',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -204,7 +204,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Coalition for the Homeless of Houston',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -219,7 +219,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'Black Mountains College',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
@@ -234,7 +234,7 @@ export const events = [
 		time: '5:30 PM PST',
 		limit: 100,
 		description:
-			'Exercitation eu aliqua id veniam dolore excepteur excepteur consectetur exercitation esse eiusmod pariatur et. Sit laborum cupidatat velit quis nisi tempor id mollit irure labore non quis sunt. Nisi duis id veniam ea tempor tempor elit ipsum excepteur. Labore incididunt do et in. Labore cillum laborum amet nulla amet. Occaecat nulla irure ex enim fugiat velit.',
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
 		org: 'United Nations DOALOS',
 		location: 'San Fernando, Cebu',
 		quests: ['Kill a slime.   0/5', 'Eat a banana.   0/5'],
