@@ -14,15 +14,6 @@ function StreamConnection() {
 	const achievementCol = collection(db, 'achievements');
 	const badgesCol = collection(db, 'badges');
 
-	// //Functions to Create
-	// async function addUser(newUser: any, id: string) {
-	// 	return setDoc(doc(db, userCol.toString(), id), newUser);
-	// }
-
-	// async function addEvent(newEvent: any, id: string) {
-	// 	return setDoc(doc(db, 'events', id), newEvent);
-	// }
-
 	//Functions to Read
 	async function getUser(id: any) {
 		const userRef = doc(db, userCol.toString(), id).withConverter(

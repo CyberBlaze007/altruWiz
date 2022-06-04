@@ -9,6 +9,7 @@ import {
 	collection,
 	query,
 	where,
+	onSnapshot,
 } from 'firebase/firestore';
 import eventConverter from './EventDetails';
 import badgesConverter from './BadgeDetails';
@@ -69,13 +70,21 @@ class DataService {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
 		return getDoc(eventDoc);
 	};
-	async getEventList(collection: any) {
-		const querySnapshot = await getDocs(collection);
-		querySnapshot.forEach((doc) => {
-			// console.log(doc.id, ' => ', doc.data());
-			return doc.data;
-		});
-	}
+	getEventList = () => {
+		const eventRef = collection(firestore, eventCol);
+
+		return getDocs(eventRef)
+			.then((snapshot) => {
+				let eventList: any = [];
+				snapshot.docs.forEach((docEach) => {
+					eventList.push({ ...docEach.data(), id: docEach.id });
+				});
+				return eventList;
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
+	};
 	updateEvent = (updatedEvent: any, id: string) => {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
 		return updateDoc(eventDoc, updatedEvent);
@@ -111,22 +120,20 @@ class DataService {
 	};
 	getBadges = async () => {
 		const colRef = collection(firestore, badgeCol);
-		return getDocs(colRef).then((snapshot) => {
-			let badgeList: any = [];
-			snapshot.docs.forEach((docEach) => {
-				badgeList.push({ ...docEach.data(), id: docEach.id });
+
+		return getDocs(colRef)
+			.then((snapshot) => {
+				let badgeList: any = [];
+				snapshot.docs.forEach((docEach) => {
+					badgeList.push({ ...docEach.data(), id: docEach.id });
+				});
+				return badgeList;
+			})
+			.catch((err) => {
+				console.log(err.message);
 			});
-			return badgeList;
-		});
 	};
 
-	// async getBadgeList(collection: any) {
-	// 	const querySnapshot = await getDocs(collection);
-	// 	querySnapshot.forEach((doc) => {
-	// 		// console.log(doc.id, ' => ', doc.data());
-	// 		return doc.data;
-	// 	});
-	// }
 	updateBadge = (updatedBadge: any, id: string) => {
 		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
 			badgesConverter

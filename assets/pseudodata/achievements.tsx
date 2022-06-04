@@ -1,30 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { useAuthState } from 'react-firebase-hooks/auth';
-// import { auth } from '../../src/firebase-config';
-// import DataService from '../../src/firebase/Services';
-
-// const [badgesCount, setBadgesCount] = useState(0);
-// const [eventsCount, setEventsCount] = useState(0);
-// const [user, loading] = useAuthState(auth);
-
-// useEffect(() => {
-// 	getAchievements();
-// }, [loading]);
-
-// const getAchievements = async () => {
-// 	await DataService.getUser(user.uid).then((docSnap) => {
-// 		console.log(user.uid);
-// 		if (docSnap.exists()) {
-// 			// console.log('Document data:', docSnap.data());
-// 			const myData = docSnap.data();
-// 			setBadgesCount(myData.badgesCollected.length);
-// 			setEventsCount(myData.eventsJoined.length);
-// 		} else {
-// 			// doc.data() will be undefined in this case
-// 			console.log('No such document!');
-// 		}
-// 	});
-// };
 export const achievements = [
 	{
 		id: 1,
