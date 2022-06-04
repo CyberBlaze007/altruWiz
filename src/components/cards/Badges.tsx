@@ -1,16 +1,9 @@
-import { async } from '@firebase/util';
-import { ConstructionOutlined } from '@mui/icons-material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-// import badges from '../../../assets/pseudodata/badges';
 import { auth } from '../../firebase-config';
 import DataService from '../../firebase/Services';
-import { debounce } from 'lodash';
-// import { realGetBadge } from './../../../assets/pseudodata/badges';
-import Loading from './../navigations/Loading';
 
 function Badges(check: any) {
-	// const [obtained, setObtained] = useState(false);
 	const [badgeList, setBadgeList] = useState([]);
 	const [badgeDetails, setBadgeDetails]: any = useState([]);
 	const [user, loading] = useAuthState(auth);
@@ -18,34 +11,33 @@ function Badges(check: any) {
 
 	useEffect(() => {
 		getBadgeList();
-		getBadgeDetails();
-	}, [loading]);
+		if (badgeDetails.length === 0) getBadgeDetails();
+	}, [loading, badgeDetails]);
 
 	const getBadgeList = async () => {
 		await DataService.getUser(check.uid).then(async (docSnap) => {
 			if (docSnap.exists()) {
 				setBadgeList(docSnap.data().badgesCollected);
-				// await getBadgeDetails();
 			} else {
-				// doc.data() will be undefined in this case
 				console.log('No such document!');
 			}
 		});
 	};
 	const getBadgeDetails = async () => {
-		await DataService.getBadges(badgeList).then((result) => {
-			setBadgeDetails(result);
-			console.log('badgeDetails: ');
-			console.log(badgeDetails);
+		await DataService.getBadges().then((result) => {
+			let finalBadges: any = [];
+			badgeList.forEach((id: any) => {
+				finalBadges.push(result.find((item: any) => item.id === id));
+			});
+			setBadgeDetails(finalBadges);
 		});
 	};
 
-	// if (obtained) {
 	return (
 		<div className='badges'>
 			<div className='badges-list'>
 				{badgeDetails.map((data: any, index: number) => {
-					return (
+					return data ? (
 						<div key={index} className='badges-list-card'>
 							<div className='badges-list-card-overlay'>
 								<img src={data.badgePic} />
@@ -67,12 +59,13 @@ function Badges(check: any) {
 								</div>
 							</div>
 						</div>
+					) : (
+						<h1>No badges yet</h1>
 					);
 				})}
 			</div>
 		</div>
 	);
-	// }
 }
 
 export default Badges;

@@ -109,40 +109,24 @@ class DataService {
 			newBadge
 		);
 	};
-	getBadges = async (id: any) => {
-		// const badgeDoc = doc(firestore, badgeCol, id).withConverter(
-		// 	badgesConverter
-		// );
-		// const badgeDoc = doc(firestore, badgeCol, id);
-		//baby steps n junior
-		// console.log('id before: ');
-		// console.log(id);
-		const badgeList = new Array();
-		id.forEach(async (id: any) => {
-			// console.log('id after: ');
-			// console.log(id);
-			const q = query(
-				collection(firestore, badgeCol),
-				where('badgeName', '==', id)
-			);
-
-			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach((doc) => {
-				// doc.data() is never undefined for query doc snapshots
-				// console.log(doc.id, ' => ', doc.data());
-				badgeList.push(doc.data());
+	getBadges = async () => {
+		const colRef = collection(firestore, badgeCol);
+		return getDocs(colRef).then((snapshot) => {
+			let badgeList: any = [];
+			snapshot.docs.forEach((docEach) => {
+				badgeList.push({ ...docEach.data(), id: docEach.id });
 			});
+			return badgeList;
 		});
-		return badgeList;
 	};
 
-	async getBadgeList(collection: any) {
-		const querySnapshot = await getDocs(collection);
-		querySnapshot.forEach((doc) => {
-			// console.log(doc.id, ' => ', doc.data());
-			return doc.data;
-		});
-	}
+	// async getBadgeList(collection: any) {
+	// 	const querySnapshot = await getDocs(collection);
+	// 	querySnapshot.forEach((doc) => {
+	// 		// console.log(doc.id, ' => ', doc.data());
+	// 		return doc.data;
+	// 	});
+	// }
 	updateBadge = (updatedBadge: any, id: string) => {
 		const badgeDoc = doc(firestore, badgeCol, id).withConverter(
 			badgesConverter
