@@ -23,15 +23,10 @@ function App() {
 				<Route path='/login' element={<Signin />}></Route>
 				<Route path='/register' element={<Signup />}></Route>
 				<Route path='/upload' element={<FileUpload />}></Route>
-				<Route path='/dashboard/profile' element={<Dashboard />}></Route>
-				<Route path='/dashboard/events' element={<Dashboard />}></Route>
-				<Route path='/dashboard/achievements' element={<Dashboard />}></Route>
-				<Route path='/dashboard/certificates' element={<Dashboard />}></Route>
-				<Route path='/dashboard/badges' element={<Dashboard />}></Route>
 				<Route path='/event/details' element={<Details />}></Route>
 				<Route path='/makeorg' element={<BeOrganizer />}></Route>
 				<Route path='/organization' element={<OrgDashboard />}></Route>
-				<Route path='/dashboard' element={<Dashboard />}></Route>
+				<Route path='/dashboard/:id' element={<Dashboard />}></Route>
 				<Route path='/addevent' element={<AddEvent />}></Route>
 				<Route path='/beorganizer' element={<BeOrganizer />}></Route>
 				<Route path='/event-creation' element={<EventCreation />}></Route>

@@ -14,7 +14,7 @@ import { profiles } from '../../../assets/pseudodata/profile-data';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { Link, useNavigate } from 'react-router-dom';
-import DataService from '../../firebase/Services';
+import DataService from '../../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function DBNav() {
@@ -107,8 +107,7 @@ function DBNav() {
 										dropDownState
 											? 'nav-col2-profile-nav-modal-open'
 											: 'nav-col2-profile-nav-modal-close'
-									}
-								>
+									}>
 									{dropDownState ? (
 										<>
 											<Button
@@ -126,8 +125,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												{isOrganizer ? orgName : 'Be an Organizer'}
 											</Button>
@@ -143,8 +141,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												Log-out
 											</Button>
