@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase-config';
-import DataService from '../../firebase/Services';
+import DataService from '../../firebase/services';
 
 function Badges(check: any) {
 	const [badgeList, setBadgeList] = useState([]);

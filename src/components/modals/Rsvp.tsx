@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
+import DataService from '../../firebase/services';
 
-function Rsvp({ event, showModal, setShowModal }: any) {
-	console.log(event);
+function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
+	const participateEvent = async (eventsJoined: any) => {
+		await DataService.updateUser(
+			{
+				eventsJoined: eventsJoined,
+			},
+			user.uid
+		);
+	};
+
 	return (
 		<motion.div
 			initial={{ scale: 0, opacity: 0 }}
@@ -14,7 +23,8 @@ function Rsvp({ event, showModal, setShowModal }: any) {
 					? { delay: 0.1, duration: 0.5, type: 'tween' }
 					: { duration: 0.5, type: 'tween' },
 			}}
-			className='rsvp'>
+			className='rsvp'
+		>
 			<motion.div
 				initial={{
 					y: '100%',
@@ -29,7 +39,8 @@ function Rsvp({ event, showModal, setShowModal }: any) {
 						  }
 				}
 				transition={{ delay: 0.1, duration: 0.5, type: 'tween' }}
-				className='rsvp-container'>
+				className='rsvp-container'
+			>
 				<div className='rsvp-container-close'>
 					<CloseIcon
 						onClick={() => setShowModal(false)}
@@ -55,7 +66,13 @@ function Rsvp({ event, showModal, setShowModal }: any) {
 						</div>
 					</div>
 					<div className='rsvp-container-body-col2'>
-						<button className='rsvp-container-body-col2-btn1'>
+						<button
+							className='rsvp-container-body-col2-btn1'
+							onClick={() => {
+								participateEvent(myEvents);
+								setShowModal(false);
+							}}
+						>
 							Participate
 						</button>
 						<button className='rsvp-container-body-col2-btn2'>
