@@ -79,7 +79,7 @@ function OrgDashboard() {
 									<Button
 										endIcon={<AddOutlinedIcon />}
 										onClick={() => {
-											navigate('/event-creation');
+											navigate('/create');
 										}}>
 										Create New Event
 									</Button>
