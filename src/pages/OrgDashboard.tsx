@@ -14,12 +14,12 @@ function OrgDashboard() {
 	const [orgName, setOrgName] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
 	const [eventsCreated, setEventsCreated] = useState([]);
-	const [user] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		getCurrentOrg();
-	}, []);
+	}, [loading]);
 
 	const getCurrentOrg = async () => {
 		await DataService.getOrg(user.uid).then((docSnap) => {
@@ -56,9 +56,9 @@ function OrgDashboard() {
 								<h4>Name</h4>
 								<h4>Attendees</h4>
 							</div>
-							<div>{eventsCreated[0]}</div>
-							<div>{eventsCreated[1]}</div>
-							<div>{eventsCreated[2]}</div>
+							{eventsCreated.map((data) => {
+								return <div>{data}</div>;
+							})}
 
 							{events.map((element) => {
 								<div className='orgDashboard-events-body'>
@@ -80,7 +80,8 @@ function OrgDashboard() {
 										endIcon={<AddOutlinedIcon />}
 										onClick={() => {
 											navigate('/create');
-										}}>
+										}}
+									>
 										Create New Event
 									</Button>
 								</div>

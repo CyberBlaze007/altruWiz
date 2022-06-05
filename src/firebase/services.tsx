@@ -58,7 +58,7 @@ class DataService {
 	};
 
 	//Events CRUD
-	addEvent = (newEvent: any, id: string) => {
+	addEvent = (newEvent: any, id: any) => {
 		// return setDoc(
 		// 	doc(firestore, eventCol, id).withConverter(eventConverter),
 		// 	newEvent

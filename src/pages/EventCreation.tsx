@@ -17,19 +17,23 @@ function EventCreation() {
 	const [eventCode, setEventCode] = useState('');
 	const [eventDate, setEventDate] = useState('');
 	const [eventQuests, setEventQuests] = useState([]);
+	const [expReward, setExpReward] = useState([]);
+	const [expFinal, setExpFinal] = useState(0);
 	const [eventLocation, setEventLocation] = useState('');
 	const [eventImage, setEventImage] = useState('');
-	// const [expReward, setExpReward] = useState('');
+	// const [addQuest, setAddQuest] = useState(0);
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [attendMax, setAttendMax] = useState('');
 	const [imageUpload, setImageUpload] = useState(null);
-	// const [imageUrl, setImageUrl] = useState('');
 
-	const imageListRef = ref(storage, `eventImages/${user.uid}/`);
+	const imageListRef = ref(storage, `eventImages/${user.uid}/${eventCode}`);
 	const uploadImage = () => {
 		if (imageUpload == null) return;
-		const imageRef = ref(storage, `eventImages/${user.uid}/image`);
-		uploadBytes(imageRef, imageUpload);
+		console.log('processing and uploading image');
+		const imageRef = ref(storage, `eventImages/${user.uid}/${eventCode}/image`);
+		uploadBytes(imageRef, imageUpload).then(() =>
+			console.log('successfully uploaded image to storage')
+		);
 	};
 
 	useEffect(() => {
@@ -44,7 +48,7 @@ function EventCreation() {
 				});
 			});
 		});
-	}, [loading]);
+	}, [loading, eventImage]);
 
 	const getCurrentUser = async () => {
 		await DataService.getOrg(user.uid).then((docSnap) => {
@@ -63,6 +67,7 @@ function EventCreation() {
 	};
 
 	const loadFile = (event: any) => {
+		//process file chosen by user
 		var image = document.getElementById('change-image') as HTMLImageElement;
 		image.src = URL.createObjectURL(event.target.files[0]);
 		setImageUpload(event.target.files[0]);
@@ -74,7 +79,32 @@ function EventCreation() {
 		console.log(eventDesc);
 	}
 
+	const processQuest = (index: number, val: any) => {
+		//process quests in a single array
+		let quests = eventQuests;
+		quests[index] = val;
+		console.log(quests);
+		setEventQuests(quests);
+	};
+	const processExp = (index: number, val: any) => {
+		//process exps from quests in a single array
+		let exps = expReward;
+		exps[index] = val;
+		setExpReward(exps);
+		console.log(expReward);
+	};
+	const calcExp = () => {
+		//finalize exp total reward for event
+		let exp: number = 0;
+		expReward.forEach((element) => {
+			exp += parseInt(element);
+		});
+		setExpFinal(exp);
+		console.log(expFinal);
+	};
+
 	const makeEvent = async () => {
+		//add event to firebase
 		const newEvent = {
 			attendCount: 0,
 			eventName: eventName,
@@ -83,13 +113,13 @@ function EventCreation() {
 			eventDate: eventDate,
 			eventImage: eventImage,
 			eventDesc: eventDesc,
-			// expReward: expReward,
-			membersAllowed: attendMax,
+			expReward: expFinal,
+			membersAllowed: parseInt(attendMax),
 			quests: eventQuests,
 		};
 
 		try {
-			await DataService.addEvent(newEvent, user.uid).then(async () => {
+			await DataService.addEvent(newEvent, eventCode).then(async () => {
 				const newEvents = eventsCreated;
 				newEvents.push(eventName);
 				setEventsCreated(newEvents);
@@ -102,17 +132,23 @@ function EventCreation() {
 			console.log(error);
 		}
 
+		//empty the states
 		setEventName('');
 		setEventDesc('');
 		setEventCreator('');
 		setEventCode('');
 		setEventDate('');
-		setEventImage('');
-		// setExpReward('');
-		setAttendMax('');
 		setEventQuests([]);
-
-		navigate('/organization');
+		setExpReward([]);
+		setExpFinal(0);
+		setEventLocation('');
+		setEventImage('');
+		// setAddQuest(0);
+		setEventsCreated([]);
+		setAttendMax('');
+		setImageUpload(null);
+		//navigate back to organizer page
+		navigate('/organizer');
 	};
 	return (
 		<>
@@ -132,7 +168,8 @@ function EventCreation() {
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 									setEventName(event.target.value);
 									console.log(eventName);
-								}}></input>
+								}}
+							></input>
 
 							{/* <img src='' alt='Time Icon' /> */}
 							<h2>Time {`&`} Date</h2>
@@ -144,28 +181,11 @@ function EventCreation() {
 									console.log(eventDate);
 								}}
 							/>
-							{/* <TextField
-								variant={'outlined'}
-								color='secondary'
-								size='small'
-								className='profile-body-sec1-form-bday-field'
-								type={'date'}
-								margin='dense'
-								value={eventDate}
-								// disabled={editState}
-								onChange={(event) => setEventDate(event.target.value)}
-							/> */}
 						</div>
 
 						{/* <img src='' alt='Image Icon' /> */}
 						<h2>Event Image</h2>
-						{/* <input
-							type='file'
-							onChange={(event) => {
-								setEventImage(event.target.value);
-								console.log(eventImage);
-							}}
-						/> */}
+
 						<img src={imageUpload} alt='' id='change-image' />
 						<input
 							type='file'
@@ -185,19 +205,116 @@ function EventCreation() {
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 							setEventLocation(event.target.value);
 							console.log(eventLocation);
-						}}></input>
+						}}
+					></input>
 
 					{/* <img src='' alt='Quest Icon' /> */}
-					<h2>Quest</h2>
+					<div>
+						<h2>Quest</h2>
+						<input
+							type='text'
+							placeholder='Assign a quest'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processQuest(0, event.target.value);
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign exp reward'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processExp(0, event.target.value);
+								calcExp();
+							}}
+						/>
+						<button
+							onClick={() => {
+								// onclick should display additional fields
+								//limit quests to maximum of 5 fields
+								// setAddQuest(addQuest + 1);
+								// console.log(addQuest);
+							}}
+						>
+							Add another quest
+						</button>
+						<input
+							type='text'
+							placeholder='Assign a quest'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processQuest(1, event.target.value);
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign exp reward'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processExp(1, event.target.value);
+								calcExp();
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign a quest'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processQuest(2, event.target.value);
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign exp reward'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processExp(2, event.target.value);
+								calcExp();
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign a quest'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processQuest(3, event.target.value);
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign exp reward'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processExp(3, event.target.value);
+								calcExp();
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign a quest'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processQuest(4, event.target.value);
+							}}
+						/>
+						<input
+							type='text'
+							placeholder='Assign exp reward'
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+								processExp(4, event.target.value);
+								calcExp();
+							}}
+						/>
+					</div>
+					<h2>Max Attendees</h2>
 					<input
-						type='text'
-						placeholder='Add a field'
+						type={'text'}
+						value={attendMax}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-							setEventQuests([event.target.value]);
-							console.log(eventQuests);
+							setAttendMax(event.target.value);
+							console.log(attendMax);
 						}}
-					/>
-
+					></input>
+					<h2>Event Code</h2>
+					<input
+						type={'text'}
+						value={eventCode}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+							setEventCode(event.target.value);
+							console.log(eventCode);
+						}}
+					></input>
 					{/* <img src='' alt='Desc Icon' /> */}
 					<h2>Description</h2>
 					<textarea
@@ -210,8 +327,9 @@ function EventCreation() {
 				</div>
 				<button
 					onClick={() => {
-						uploadImage;
-					}}>
+						uploadImage();
+					}}
+				>
 					Done
 				</button>
 			</div>

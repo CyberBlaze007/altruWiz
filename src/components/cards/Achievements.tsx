@@ -85,7 +85,8 @@ function Achievements() {
 									backgroundColor: '#3e98c7',
 								})}
 								value={(expCurrent * 100) / expReq}
-								className='achievements-body-row1-col2-bar-icon'>
+								className='achievements-body-row1-col2-bar-icon'
+							>
 								<h1 className='achievements-body-row1-col2-bar-icon-label1'>
 									{expCurrent}
 								</h1>
@@ -128,16 +129,15 @@ function Achievements() {
 								Title
 							</div>
 							<div className='achievements-body-row2-table-head-col3'>EXP</div>
-							<div className='achievements-body-row2-table-head-col4'>
-								Date Completed
-							</div>
+							<div className='achievements-body-row2-table-head-col4'>Date</div>
 						</div>
 						<div className='achievements-body-row2-table-body'>
 							{eventDetails.map((data: any, index: number) => {
 								return data ? (
 									<div
 										className='achievements-body-row2-table-body-cells'
-										key={index}>
+										key={index}
+									>
 										<div className='achievements-body-row2-table-body-cells-col1'>
 											{index + 1}
 										</div>
