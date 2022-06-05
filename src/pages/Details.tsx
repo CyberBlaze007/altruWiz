@@ -5,14 +5,21 @@ import DBNav from './../components/navbar/DBNav';
 import { useNavigate, useParams } from 'react-router-dom';
 import Rsvp from '../components/modals/Rsvp';
 import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase-config';
+import DataService from '../firebase/services';
 
 function Details() {
 	let { id } = useParams();
 	const [showRsvp, setShowRsvp] = useState(false);
+	const [myEvents, setMyEvents] = useState([]);
+	const [user, loading] = useAuthState(auth);
+	const [eventsJoined, setEventsJoined] = useState([]);
+
 	const data = events.at(
 		events.findIndex((event) => {
-			console.log(parseInt(id));
-			console.log(event.id);
+			// console.log(parseInt(id));
+			// console.log(event.id);
 			return event.id === parseInt(id);
 		})
 	);
@@ -21,13 +28,27 @@ function Details() {
 		showRsvp
 			? (document.querySelector('body').style.overflow = 'hidden')
 			: (document.querySelector('body').style.overflow = 'auto');
-	}, [showRsvp]);
+		getMyEvents();
+	}, [showRsvp, loading]);
 
-	console.log(data);
+	const getMyEvents = async () => {
+		await DataService.getUser(user.uid).then((docSnap: any) => {
+			if (docSnap.exists()) {
+				setMyEvents(docSnap.data().eventsJoined);
+			}
+		});
+	};
+	// console.log(data);
 	const navigate = useNavigate();
 	return (
 		<>
-			<Rsvp event={data} showModal={showRsvp} setShowModal={setShowRsvp} />
+			<Rsvp
+				event={data}
+				showModal={showRsvp}
+				setShowModal={setShowRsvp}
+				user={user}
+				myEvents={eventsJoined}
+			/>
 			<div className='details'>
 				<div className='details-nav'>
 					<DBNav />
@@ -60,8 +81,12 @@ function Details() {
 					<div className='details-head-row2'>
 						<ShareOutlinedIcon className='details-head-row2-icon' />
 						<button
-							onClick={() => setShowRsvp(true)}
-							className='details-head-row2-register'>
+							onClick={() => {
+								setEventsJoined([...myEvents, data.title]);
+								setShowRsvp(true);
+							}}
+							className='details-head-row2-register'
+						>
 							Register
 						</button>
 					</div>

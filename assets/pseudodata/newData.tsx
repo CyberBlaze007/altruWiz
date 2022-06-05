@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useAuthState from 'react-firebase-hooks/auth/dist/auth/useAuthState';
 import { auth } from '../../src/firebase-config';
-import DataService from '../../src/firebase/Services';
+import DataService from '../../src/firebase/services';
 
 function newData() {
 	//Make Organization Data
@@ -86,36 +86,6 @@ function newData() {
 				console.log('No such document!');
 			}
 		});
-	};
-
-	//Badges Data
-
-	const [badgeDesc, setBadgeDesc] = useState('');
-	const [badgeName, setBadgeName] = useState('');
-	const [badgePic, setBadgePic] = useState('');
-	useEffect(() => {
-		getCurrentBadges();
-	}, []);
-
-	const badgesID = {
-		'Poop Blaster': 'poopBlaster',
-	};
-
-	const getCurrentBadges = async () => {
-		await DataService.getBadge(badgesID['Poop Blaster']).then(
-			(docSnap: any) => {
-				if (docSnap.exists()) {
-					// console.log('Document data:', docSnap.data());
-					const myData = docSnap.data();
-					setBadgeDesc(badgeDesc);
-					setBadgeName(badgeName);
-					setBadgePic(badgePic);
-				} else {
-					// doc.data() will be undefined in this case
-					console.log('No such document!');
-				}
-			}
-		);
 	};
 
 	return <div>newData</div>;
