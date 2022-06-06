@@ -1,5 +1,6 @@
 import { firestore } from '../firebase-config';
 import {
+	addDoc,
 	getDoc,
 	setDoc,
 	updateDoc,
@@ -58,14 +59,18 @@ class DataService {
 	};
 
 	//Events CRUD
-	addEvent = (newEvent: any, id: any) => {
-		// return setDoc(
-		// 	doc(firestore, eventCol, id).withConverter(eventConverter),
-		// 	newEvent
-		// );
+	addEvent = (addEvent: any) => {
 		// with converter not yet working
-		return setDoc(doc(firestore, eventCol, id), newEvent);
+		return addDoc(collection(firestore, eventCol), addEvent);
 	};
+	updateEvent = (updatedEvent: any, id: any) => {
+		// with converter not yet working
+		return updateDoc(doc(firestore, eventCol, id), updatedEvent);
+	};
+	// updateEvent = (updatedEvent: any, id: string) => {
+	// 	const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
+	// 	return updateDoc(eventDoc, updatedEvent);
+	// };
 	getEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
 		return getDoc(eventDoc);
@@ -85,10 +90,7 @@ class DataService {
 				console.log(err.message);
 			});
 	};
-	updateEvent = (updatedEvent: any, id: string) => {
-		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
-		return updateDoc(eventDoc, updatedEvent);
-	};
+
 	deleteEvent = (id: string) => {
 		const eventDoc = doc(firestore, eventCol, id);
 		return deleteDoc(eventDoc);

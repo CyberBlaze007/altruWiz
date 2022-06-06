@@ -16,6 +16,7 @@ function BeOrganizer() {
 	useEffect(() => {
 		getCurrentUser();
 	}, []);
+
 	const getCurrentUser = async () => {
 		await DataService.getUser(user.uid).then((docSnap) => {
 			if (docSnap.exists()) {
@@ -34,6 +35,7 @@ function BeOrganizer() {
 			creator: orgCreator,
 			eventsCreated: [''],
 		};
+
 		try {
 			await DataService.addOrg(newOrg, user.uid);
 		} catch (error) {
@@ -43,15 +45,16 @@ function BeOrganizer() {
 		setOrgName('');
 		setOrgAbout('');
 		setCreator('');
+
 		const updatedUser = {
 			isOrganizer: true,
 		};
+
 		try {
 			await DataService.updateUser(updatedUser, user.uid);
 		} catch (error) {
 			console.log(error);
 		}
-
 		navigate('/organizer');
 	};
 
@@ -88,7 +91,8 @@ function BeOrganizer() {
 										value={orgName}
 										onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 											setOrgName(event.target.value)
-										}></input>
+										}
+									></input>
 								</div>
 							</div>
 						</div>
@@ -119,7 +123,8 @@ function BeOrganizer() {
 					<div className='beOrganizer-body-container-footer'>
 						<button
 							className='beOrganizer-body-container-footer-button'
-							onClick={makeOrg}>
+							onClick={makeOrg}
+						>
 							Done
 						</button>
 					</div>
