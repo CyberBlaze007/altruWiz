@@ -29,7 +29,6 @@ function Create() {
 	const [eventLocation, setEventLocation] = useState('');
 	const [eventImage, setEventImage] = useState('');
 	const [eventTime, setEventTime] = useState('');
-	// const [addQuest, setAddQuest] = useState(0);
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [attendMax, setAttendMax] = useState('');
 	const [imageUpload, setImageUpload] = useState(null);
@@ -99,15 +98,24 @@ function Create() {
 		//process quests in a single array
 		let quests = eventQuests;
 		quests[index] = val;
-		// console.log(quests);
 		setEventQuests(quests);
+		console.log(eventQuests);
 	};
 	const processExp = (index: number, val: any) => {
 		//process exps from quests in a single array
 		let exps = expReward;
 		exps[index] = val;
 		setExpReward(exps);
-		// console.log(expReward);
+		console.log(expReward);
+	};
+
+	const removeEvent = (index: number) => {
+		console.log(index);
+		setEventQuests([
+			...eventQuests.slice(0, index),
+			...eventQuests.slice(index + 1),
+		]);
+		setExpReward([...expReward.slice(0, index), ...expReward.slice(index + 1)]);
 	};
 	const calcExp = () => {
 		//finalize exp total reward for event
@@ -242,47 +250,43 @@ function Create() {
 								<h1>Quest</h1>
 							</div>
 							<div className='create-form-section1-col1-entry4-fields'>
-								<input
-									type='text'
-									placeholder='Assign a quest'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processQuest(0, event.target.value);
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign exp reward'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processExp(0, event.target.value);
-										calcExp();
-									}}
-								/>
+								{eventQuests.map((value, index) => {
+									return (
+										<>
+											<input
+												type='text'
+												placeholder='Assign a quest'
+												onChange={(
+													event: React.ChangeEvent<HTMLInputElement>
+												) => {
+													processQuest(index, event.target.value);
+												}}
+											/>
+											<input
+												type='text'
+												placeholder='Assign exp reward'
+												onChange={(
+													event: React.ChangeEvent<HTMLInputElement>
+												) => {
+													processExp(index, event.target.value);
+													calcExp();
+												}}
+											/>
+											<button onClick={() => removeEvent(index)}>
+												Remove Quest
+											</button>
+										</>
+									);
+								})}
 								<button
 									onClick={() => {
-										// onclick should display additional fields
-										//limit quests to maximum of 5 fields
-										// setAddQuest(addQuest + 1);
-										// console.log(addQuest);
-									}}
-								>
-									Add another quest
+										setEventQuests(() => [...eventQuests, '']);
+										setExpReward(() => [...expReward, '']);
+									}}>
+									Add Another Quest
 								</button>
-								<input
-									type='text'
-									placeholder='Assign a quest'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processQuest(1, event.target.value);
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign exp reward'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processExp(1, event.target.value);
-										calcExp();
-									}}
-								/>
-								<input
+
+								{/* <input
 									type='text'
 									placeholder='Assign a quest'
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -326,7 +330,7 @@ function Create() {
 										processExp(4, event.target.value);
 										calcExp();
 									}}
-								/>
+								/> */}
 							</div>
 						</div>
 					</div>
@@ -339,8 +343,7 @@ function Create() {
 							<div className='create-form-section1-col2-entry-fields'>
 								<label
 									htmlFor='file'
-									className='create-form-section1-col2-entry-fields-input'
-								>
+									className='create-form-section1-col2-entry-fields-input'>
 									<div className='create-form-section1-col2-entry-fields-input-container'>
 										<img
 											src=''
@@ -390,8 +393,7 @@ function Create() {
 								value={attendMax}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 									setAttendMax(event.target.value);
-								}}
-							></input>
+								}}></input>
 						</div>
 					</div>
 				</div>
@@ -400,8 +402,7 @@ function Create() {
 						className='create-form-section3-button'
 						onClick={() => {
 							makeEvent();
-						}}
-					>
+						}}>
 						Done
 					</button>
 				</div>
