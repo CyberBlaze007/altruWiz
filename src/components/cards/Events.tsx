@@ -5,7 +5,6 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
 import { auth, firestore } from '../../firebase-config';
-import DataService from '../../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
