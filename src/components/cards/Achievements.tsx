@@ -5,8 +5,9 @@ import {
 	buildStyles,
 } from 'react-circular-progressbar';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase-config';
+import { auth, firestore } from '../../firebase-config';
 import DataService from '../../firebase/services';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 function Achievements() {
 	const [rankPic, setRankPic] = useState('');
@@ -17,26 +18,32 @@ function Achievements() {
 	const [myBadges, setMyBadges] = useState([]);
 	const [expReq, setExpReq] = useState(0);
 	const [expCurrent, setExpCurrent] = useState(0);
+	const [joinedEvents, setJoinedEvents] = useState([]);
 
 	useEffect(() => {
-		getCurrentUser();
-		getRankDetails();
-		if (eventDetails.length === 0) getEventDetails();
-	}, [loading, userRank, eventDetails]);
-
-	const getCurrentUser = async () => {
-		await DataService.getUser(user.uid).then(async (docSnap) => {
-			if (docSnap.exists()) {
-				setUserRank(docSnap.data().rank);
-				setExpCurrent(docSnap.data().expTotal);
-				setMyEvents(docSnap.data().eventsJoined);
-				setMyBadges(docSnap.data().badgesCollected);
+		onSnapshot(
+			query(collection(firestore, 'user'), where('email', '==', user.email)),
+			(snapshot) => {
+				setUserRank(snapshot.docs.at(0).data().rank);
+				setExpCurrent(snapshot.docs.at(0).data().expTotal);
+				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
+				setMyBadges(snapshot.docs.at(0).data().badgesCollected);
+				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
 				getRankDetails();
-			} else {
-				console.log('No such document!');
 			}
+		);
+		let eventArr: any = [];
+		joinedEvents.forEach((data) => {
+			onSnapshot(
+				query(collection(firestore, 'events'), where('eventCode', '==', data)),
+				(snapshot) => {
+					snapshot.docs.map((docEach) => eventArr.push(docEach.data()));
+				}
+			);
 		});
-	};
+		setEventDetails(eventArr);
+	}, [loading, userRank]);
+
 	const getRankDetails = async () => {
 		await DataService.getRank(userRank).then(async (docSnap: any) => {
 			if (docSnap.exists()) {
@@ -47,14 +54,18 @@ function Achievements() {
 			}
 		});
 	};
-	const getEventDetails = async () => {
-		await DataService.getEventList().then((result) => {
-			let finalEvents: any = [];
-			myEvents.forEach((id: any) => {
-				finalEvents.push(result.find((item: any) => item.eventName === id));
-			});
-			setEventDetails(finalEvents);
-		});
+
+	const processDate = (data: any) => {
+		const date = new Date(data.eventDate);
+		// const date = new Date(data.eventDate + 'T' + data.eventTime);
+		// const time = new Date(
+		// 	data.eventDate + 'T' + data.eventTime
+		// ).toLocaleTimeString('en-US', {
+		// 	hour12: true,
+		// 	hour: 'numeric',
+		// 	minute: 'numeric',
+		// });
+		return date.toDateString();
 	};
 
 	return (
@@ -148,7 +159,7 @@ function Achievements() {
 											{data.expReward}
 										</div>
 										<div className='achievements-body-row2-table-body-cells-col4'>
-											{data.eventDate}
+											{processDate(data)}
 										</div>
 									</div>
 								) : (

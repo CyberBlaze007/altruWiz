@@ -18,10 +18,8 @@ function Events() {
 	let searchTemp: string;
 
 	useEffect(() => {
-		// let eventList: any = [];
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
-			// eventList.push({ ...docEach.data(), id: docEach.id });
 		});
 		onSnapshot(
 			query(collection(firestore, 'user'), where('email', '==', user.email)),
