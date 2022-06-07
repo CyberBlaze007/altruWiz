@@ -77,18 +77,14 @@ class DataService {
 	};
 	getEventList = () => {
 		const eventRef = collection(firestore, eventCol);
-
-		return getDocs(eventRef)
-			.then((snapshot) => {
-				let eventList: any = [];
-				snapshot.docs.forEach((docEach) => {
-					eventList.push({ ...docEach.data(), id: docEach.id });
-				});
-				return eventList;
-			})
-			.catch((err) => {
-				console.log(err.message);
+		let eventList: any = [];
+		onSnapshot(eventRef, (snapshot) => {
+			snapshot.docs.forEach((docEach) => {
+				eventList.push({ ...docEach.data(), id: docEach.id });
 			});
+		});
+
+		return eventList;
 	};
 
 	deleteEvent = (id: string) => {

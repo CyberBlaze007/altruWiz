@@ -31,6 +31,7 @@ function Signup() {
 			email: registerEmail,
 			avatar: '',
 			eventsJoined: [''],
+			completedEvents: [''],
 			badgesCollected: [''],
 			expTotal: 0,
 			gender: '',
@@ -202,7 +203,8 @@ function Signup() {
 										confirmPassword === registerPassword
 											? register
 											: () => alert('Password does not match')
-									}>
+									}
+								>
 									Create Account
 								</button>
 							</div>
@@ -217,7 +219,8 @@ function Signup() {
 								<div className='signup-body-container-section-footer-hold-login'>
 									<Link
 										className='signup-body-container-section-footer-hold-login-link'
-										to={'/login'}>
+										to={'/login'}
+									>
 										Login
 									</Link>
 								</div>

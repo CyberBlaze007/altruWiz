@@ -21,26 +21,28 @@ function EventList({ use, head, events }: any) {
 					{isCompact
 						? events.slice(0, 8).map((data: any) => (
 								<div
-									key={data.id}
+									key={data.eventCode}
 									className='events-list-items'
-									onClick={() => navigate(`/event/${data.id}`)}>
-									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
+									onClick={() => navigate(`/event/${data.eventName}`)}
+								>
+									<img src={data.eventImage}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
-											{data.title}
+											{data.eventName}
 										</h1>
 										<h1 className='events-list-items-details-date'>
 											{data.date}
 										</h1>
 										<h1 className='events-list-items-details-org'>
-											{data.org}
+											{data.eventCreator}
 										</h1>
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'></img>
+												className='events-list-items-details-xp-icon'
+											></img>
 											<h1 className='events-list-items-details-xp-label'>
-												{data.xp}
+												{data.expReward}
 											</h1>
 										</div>
 									</div>
@@ -48,26 +50,31 @@ function EventList({ use, head, events }: any) {
 						  ))
 						: events.map((data: any) => (
 								<div
-									key={data.id}
+									key={data.eventCode}
 									className='events-list-items'
-									onClick={() => navigate(`/event/${data.id}`)}>
-									<img src={`/assets/pseudodata/${data.thumbnail}`}></img>
+									onClick={() => navigate(`/event/${data.eventName}`)}
+								>
+									<img src={data.eventImage}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>
-											{data.title}
+											{data.eventName}
 										</h1>
 										<h1 className='events-list-items-details-date'>
-											{data.date}
+											{data.eventDate}
+										</h1>
+										<h1 className='events-list-items-details-date'>
+											{data.eventTime}
 										</h1>
 										<h1 className='events-list-items-details-org'>
-											{data.org}
+											{data.eventCreator}
 										</h1>
 										<div className='events-list-items-details-xp'>
 											<img
 												src='/assets/xp-logo.svg'
-												className='events-list-items-details-xp-icon'></img>
+												className='events-list-items-details-xp-icon'
+											></img>
 											<h1 className='events-list-items-details-xp-label'>
-												{data.xp}
+												{data.expReward}
 											</h1>
 										</div>
 									</div>
@@ -80,7 +87,8 @@ function EventList({ use, head, events }: any) {
 				<div className='events-container'>
 					<button
 						className='events-container-button'
-						onClick={() => setIsCompact(!isCompact)}>
+						onClick={() => setIsCompact(!isCompact)}
+					>
 						{isCompact ? 'See More' : 'See Less'}
 					</button>
 				</div>
