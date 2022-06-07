@@ -2,15 +2,21 @@
 import EventList from '../components/listing/EventList';
 import Footer from '../components/footer/Footer';
 import LandingNav from './../components/navbar/LandingNav';
-import { createContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase-config';
-import { events } from '../../assets/pseudodata/events-data';
+import { auth, firestore } from '../firebase-config';
+import { collection, onSnapshot } from 'firebase/firestore';
 import DBNav from '../components/navbar/DBNav';
 function Landing() {
 	const UserContext = createContext('');
-	const [user] = useAuthState(auth);
-	// !user ? null : console.log(`UserUID:${user.uid}`);
+	const [user, loading] = useAuthState(auth);
+	const [eventList, setEventList] = useState([]);
+
+	useEffect(() => {
+		onSnapshot(collection(firestore, 'events'), (snapshot) => {
+			setEventList(snapshot.docs.map((docEach) => docEach.data()));
+		});
+	}, [loading]);
 	return (
 		<UserContext.Provider value={!user ? null : user.uid}>
 			<div className='landing'>
@@ -18,7 +24,8 @@ function Landing() {
 					<div className='landing-header-col1'>
 						<h1>For better unity, help your community.</h1>
 						<button
-							onClick={() => document.getElementById('list')?.scrollIntoView()}>
+							onClick={() => document.getElementById('list')?.scrollIntoView()}
+						>
 							Find your next event
 						</button>
 					</div>
@@ -27,7 +34,7 @@ function Landing() {
 					</div>
 				</div>
 				<div className='landing-body'>
-					<EventList use='list' head='All Events' events={events} />
+					<EventList use='list' head='All Events' events={eventList} />
 					<div className='landing-body-footer'>
 						<Footer />
 					</div>

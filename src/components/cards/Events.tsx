@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
 import { auth, firestore } from '../../firebase-config';
 import DataService from '../../firebase/services';
-import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Events() {
@@ -17,21 +17,19 @@ function Events() {
 	const [completedEvents, setCompletedEvents] = useState([]);
 	let searchTemp: string;
 
-	const q = query(
-		collection(firestore, 'user'),
-		where('email', '==', user.email)
-	);
-	console.log(joinedEvents);
 	useEffect(() => {
 		// let eventList: any = [];
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 			// eventList.push({ ...docEach.data(), id: docEach.id });
 		});
-		onSnapshot(q, (snapshot) => {
-			setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-			setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-		});
+		onSnapshot(
+			query(collection(firestore, 'user'), where('email', '==', user.email)),
+			(snapshot) => {
+				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
+				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+			}
+		);
 	}, [loading]);
 
 	return (

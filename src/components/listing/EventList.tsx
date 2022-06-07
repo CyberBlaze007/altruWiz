@@ -6,6 +6,18 @@ function EventList({ use, head, events }: any) {
 	const [isCompact, setIsCompact] = useState(isEnough);
 	const navigate = useNavigate();
 
+	const processDate = (data: any) => {
+		const date = new Date(data.eventDate + 'T' + data.eventTime);
+		const time = new Date(
+			data.eventDate + 'T' + data.eventTime
+		).toLocaleTimeString('en-US', {
+			hour12: true,
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+		return date.toDateString() + ' ' + time;
+	};
+
 	useEffect(() => {
 		setIsEnough(events.length > 8);
 		return () => setIsEnough(events.length > 8);
@@ -31,8 +43,9 @@ function EventList({ use, head, events }: any) {
 											{data.eventName}
 										</h1>
 										<h1 className='events-list-items-details-date'>
-											{data.date}
+											{processDate(data)}
 										</h1>
+
 										<h1 className='events-list-items-details-org'>
 											{data.eventCreator}
 										</h1>
@@ -60,11 +73,9 @@ function EventList({ use, head, events }: any) {
 											{data.eventName}
 										</h1>
 										<h1 className='events-list-items-details-date'>
-											{data.eventDate}
+											{processDate(data)}
 										</h1>
-										<h1 className='events-list-items-details-date'>
-											{data.eventTime}
-										</h1>
+
 										<h1 className='events-list-items-details-org'>
 											{data.eventCreator}
 										</h1>

@@ -19,7 +19,6 @@ import { styled } from '@mui/system';
 //Local Components
 import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
-import { EventsData } from './../components/cards/EventsData';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
@@ -85,7 +84,6 @@ function Dashboard() {
 						<Tab
 							onClick={() => {
 								setIndex(0);
-								EventsData;
 							}}
 						>
 							Profile
