@@ -18,7 +18,6 @@ function Achievements() {
 	const [myBadges, setMyBadges] = useState([]);
 	const [expReq, setExpReq] = useState(0);
 	const [expCurrent, setExpCurrent] = useState(0);
-	const [joinedEvents, setJoinedEvents] = useState([]);
 
 	useEffect(() => {
 		onSnapshot(
@@ -28,13 +27,15 @@ function Achievements() {
 				setExpCurrent(snapshot.docs.at(0).data().expTotal);
 				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
 				setMyBadges(snapshot.docs.at(0).data().badgesCollected);
-				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-				getRankDetails();
+				getTableDetails(snapshot.docs.at(0).data());
+				getRankDetails(snapshot.docs.at(0).data());
 			}
 		);
+	}, [loading]);
+
+	const getTableDetails = async (data: any) => {
 		let eventArr: any = [];
-		console.log('joined: ', joinedEvents);
-		joinedEvents.forEach((data) => {
+		data.eventsJoined.forEach((data: any) => {
 			onSnapshot(
 				query(collection(firestore, 'events'), where('eventCode', '==', data)),
 				(snapshot) => {
@@ -42,16 +43,17 @@ function Achievements() {
 				}
 			);
 		});
-		console.log('eventArr: ', eventArr);
 		setEventDetails(eventArr);
-	}, [loading, userRank]);
+	};
 
-	const getRankDetails = async () => {
-		await DataService.getRank(userRank).then(async (docSnap: any) => {
+	const getRankDetails = async (data: any) => {
+		let expNeed = expReq;
+		await DataService.getRank(data.rank).then(async (docSnap: any) => {
 			if (docSnap.exists()) {
 				setRankPic(docSnap.data().rankPic);
 				setExpReq(docSnap.data().expNeeded);
-				// checkUpdateRank();
+				expNeed = docSnap.data().expNeeded;
+				checkUpdateRank(data.expTotal, expNeed);
 			} else {
 				console.log('No such document!');
 			}
@@ -59,49 +61,52 @@ function Achievements() {
 	};
 
 	//Check update rank still needs to be fixed
-	const checkUpdateRank = () => {
-		if (expCurrent >= expReq) {
-			let newExp = expCurrent - expReq;
-			switch (userRank) {
-				case 'Spark': {
-					setUserRank('Growing Ember');
+	const checkUpdateRank = async (expCurr: any, expNeeded: any) => {
+		if (expCurr >= expNeeded) {
+			console.log('Checking RANK!');
+			let newRank = '';
+			console.log('expCurrent: ', expCurrent);
+			console.log('expReq: ', expReq);
+			console.log('expNeeded: ', expNeeded);
+			console.log('userRank: ', userRank);
+			switch (expNeeded) {
+				case 1000: {
+					newRank = 'Growing Ember';
 					break;
 				}
-				case 'Growing Ember': {
-					setUserRank('Waking Essence');
+				case 5000: {
+					newRank = 'Waking Essence';
 					break;
 				}
-				case 'Waking Essence': {
-					setUserRank('Kindled Soul');
+				case 10000: {
+					newRank = 'Kindled Soul';
 					break;
 				}
-				case 'Kindled Soul': {
-					setUserRank('Manifested Spirit');
+				case 20000: {
+					newRank = 'Manifested Spirit';
 					break;
 				}
-				case 'Manifested Spirit': {
-					setUserRank('Profound Mind');
+				case 50000: {
+					newRank = 'Profound Mind';
 					break;
 				}
-				case 'Profound Mind': {
-					setUserRank('Zealot Body');
+				case 100000: {
+					newRank = 'Zealot Body';
 					break;
 				}
-				case 'Zealot Body': {
-					setUserRank('Altruist Sage');
+				case 250000: {
+					newRank = 'Altruist Sage';
 					break;
 				}
-				case 'Altruist Sage': {
-					setUserRank('Proxima Singula');
+				case 500000: {
+					newRank = 'Proxima Singula';
 					break;
 				}
 			}
-			console.log('newRank:', userRank);
-			console.log('newExp:', newExp);
-			DataService.updateUser(
+			console.log('newRank:', newRank);
+			await DataService.updateUser(
 				{
-					rank: userRank,
-					expTotal: newExp,
+					rank: newRank,
 				},
 				user.uid
 			);
@@ -110,14 +115,7 @@ function Achievements() {
 
 	const processDate = (data: any) => {
 		const date = new Date(data.eventDate);
-		// const date = new Date(data.eventDate + 'T' + data.eventTime);
-		// const time = new Date(
-		// 	data.eventDate + 'T' + data.eventTime
-		// ).toLocaleTimeString('en-US', {
-		// 	hour12: true,
-		// 	hour: 'numeric',
-		// 	minute: 'numeric',
-		// });
+
 		return date.toDateString();
 	};
 
