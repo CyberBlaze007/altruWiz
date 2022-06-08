@@ -33,6 +33,7 @@ function Achievements() {
 			}
 		);
 		let eventArr: any = [];
+		console.log('joined: ', joinedEvents);
 		joinedEvents.forEach((data) => {
 			onSnapshot(
 				query(collection(firestore, 'events'), where('eventCode', '==', data)),
@@ -41,6 +42,7 @@ function Achievements() {
 				}
 			);
 		});
+		console.log('eventArr: ', eventArr);
 		setEventDetails(eventArr);
 	}, [loading, userRank]);
 
@@ -49,10 +51,61 @@ function Achievements() {
 			if (docSnap.exists()) {
 				setRankPic(docSnap.data().rankPic);
 				setExpReq(docSnap.data().expNeeded);
+				// checkUpdateRank();
 			} else {
 				console.log('No such document!');
 			}
 		});
+	};
+
+	//Check update rank still needs to be fixed
+	const checkUpdateRank = () => {
+		if (expCurrent >= expReq) {
+			let newExp = expCurrent - expReq;
+			switch (userRank) {
+				case 'Spark': {
+					setUserRank('Growing Ember');
+					break;
+				}
+				case 'Growing Ember': {
+					setUserRank('Waking Essence');
+					break;
+				}
+				case 'Waking Essence': {
+					setUserRank('Kindled Soul');
+					break;
+				}
+				case 'Kindled Soul': {
+					setUserRank('Manifested Spirit');
+					break;
+				}
+				case 'Manifested Spirit': {
+					setUserRank('Profound Mind');
+					break;
+				}
+				case 'Profound Mind': {
+					setUserRank('Zealot Body');
+					break;
+				}
+				case 'Zealot Body': {
+					setUserRank('Altruist Sage');
+					break;
+				}
+				case 'Altruist Sage': {
+					setUserRank('Proxima Singula');
+					break;
+				}
+			}
+			console.log('newRank:', userRank);
+			console.log('newExp:', newExp);
+			DataService.updateUser(
+				{
+					rank: userRank,
+					expTotal: newExp,
+				},
+				user.uid
+			);
+		}
 	};
 
 	const processDate = (data: any) => {

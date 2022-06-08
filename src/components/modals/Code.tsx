@@ -42,15 +42,23 @@ function Code({ showModal, setShowModal }: any) {
 					// console.log('data !== code', data, code);
 					check = check && data !== code;
 				});
-				completed.push(code);
-				newExp += event.expReward;
 
 				joinedEvents.forEach((data) => {
 					//prevent repeat submission
 					// console.log('data !== code', data, code);
 					checkJoined = checkJoined && data !== code;
 				});
-				joined.push(code);
+				if (checkJoined)
+					alert('You have not yet joined this event. Please join first.');
+				if (check && checkJoined === false) {
+					completed.push(code);
+					newExp += event.expReward;
+					alert(
+						'Congratulations! You have completed the event and earned ' +
+							event.expReward +
+							' EXP!'
+					);
+				}
 			}
 		});
 
@@ -63,55 +71,9 @@ function Code({ showModal, setShowModal }: any) {
 					},
 					user.uid
 			  )
-			: alert('You already submitted this code');
+			: alert('Sorry. You already submitted this code.');
 	};
-	//after entering event code
-	// 	if (expCurrent >= expReq) {
-	// 		let newExp = expCurrent - expReq;
-	// 		let newRank = '';
-	// 		switch (expReq) {
-	// 			case 1000: {
-	// 				newRank = 'Growing Ember';
-	// 				break;
-	// 			}
-	// 			case 5000: {
-	// 				newRank = 'Waking Essence';
-	// 				break;
-	// 			}
-	// 			case 10000: {
-	// 				newRank = 'Kindled Soul';
-	// 				break;
-	// 			}
-	// 			case 20000: {
-	// 				newRank = 'Manifested Spirit';
-	// 				break;
-	// 			}
-	// 			case 50000: {
-	// 				newRank = 'Profound Mind';
-	// 				break;
-	// 			}
-	// 			case 100000: {
-	// 				newRank = 'Zealot Body';
-	// 				break;
-	// 			}
-	// 			case 250000: {
-	// 				newRank = 'Altruist Sage';
-	// 				break;
-	// 			}
-	// 			case 500000: {
-	// 				newRank = 'Proxima Singula';
-	// 				break;
-	// 			}
-	// 		}
-	// 		await DataService.updateUser(
-	// 			{
-	// 				expTotal: newExp,
-	// 				rank: newRank,
-	// 			},
-	// 			user.uid
-	// 		).then(() => console.log('update successful'));
-	// 	}
-	// });
+
 	return (
 		<motion.div
 			initial={{
