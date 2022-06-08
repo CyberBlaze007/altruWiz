@@ -18,6 +18,7 @@ function Achievements() {
 	const [myBadges, setMyBadges] = useState([]);
 	const [expReq, setExpReq] = useState(0);
 	const [expCurrent, setExpCurrent] = useState(0);
+	const [isMaxed, setIsMaxed] = useState(false);
 
 	useEffect(() => {
 		onSnapshot(
@@ -53,7 +54,7 @@ function Achievements() {
 				setRankPic(docSnap.data().rankPic);
 				setExpReq(docSnap.data().expNeeded);
 				expNeed = docSnap.data().expNeeded;
-				checkUpdateRank(data.expTotal, expNeed);
+				checkUpdateRank(data.expTotal, expNeed, data.rank);
 			} else {
 				console.log('No such document!');
 			}
@@ -61,14 +62,16 @@ function Achievements() {
 	};
 
 	//Check update rank still needs to be fixed
-	const checkUpdateRank = async (expCurr: any, expNeeded: any) => {
-		if (expCurr >= expNeeded) {
-			console.log('Checking RANK!');
-			let newRank = '';
-			console.log('expCurrent: ', expCurrent);
-			console.log('expReq: ', expReq);
-			console.log('expNeeded: ', expNeeded);
-			console.log('userRank: ', userRank);
+	const checkUpdateRank = async (
+		expCurr: any,
+		expNeeded: any,
+		rankCurr: any
+	) => {
+		let newRank = rankCurr;
+		if (expCurr >= 1000000) {
+			setIsMaxed(true);
+			newRank = 'Proxima Singula';
+		} else if (expCurr >= expNeeded) {
 			switch (expNeeded) {
 				case 1000: {
 					newRank = 'Growing Ember';
@@ -102,15 +105,16 @@ function Achievements() {
 					newRank = 'Proxima Singula';
 					break;
 				}
+				default:
+					newRank = rankCurr;
 			}
-			console.log('newRank:', newRank);
-			await DataService.updateUser(
-				{
-					rank: newRank,
-				},
-				user.uid
-			);
 		}
+		await DataService.updateUser(
+			{
+				rank: newRank,
+			},
+			user.uid
+		);
 	};
 
 	const processDate = (data: any) => {
@@ -149,12 +153,20 @@ function Achievements() {
 								value={(expCurrent * 100) / expReq}
 								className='achievements-body-row1-col2-bar-icon'
 							>
-								<h1 className='achievements-body-row1-col2-bar-icon-label1'>
-									{expCurrent}
-								</h1>
-								<h1 className='achievements-body-row1-col2-bar-icon-label2'>
-									{`of ${expReq}`}
-								</h1>
+								{isMaxed ? (
+									<h1 className='achievements-body-row1-col2-bar-icon-label1'>
+										Maxed
+									</h1>
+								) : (
+									<>
+										<h1 className='achievements-body-row1-col2-bar-icon-label1'>
+											{expCurrent}
+										</h1>
+										<h1 className='achievements-body-row1-col2-bar-icon-label2'>
+											{`of ${expReq}`}
+										</h1>
+									</>
+								)}
 							</CircularProgressbarWithChildren>
 						</div>
 						<h1 className='achievements-body-row1-col2-text'>EXP</h1>
