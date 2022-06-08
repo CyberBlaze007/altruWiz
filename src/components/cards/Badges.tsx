@@ -1,36 +1,75 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase-config';
+import { auth, firestore } from '../../firebase-config';
 import DataService from '../../firebase/services';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 function Badges(check: any) {
-	const [badgeList, setBadgeList] = useState([]);
 	const [badgeDetails, setBadgeDetails]: any = useState([]);
+	const [isUpdated, setIsUpdated] = useState(false);
 	const [user, loading] = useAuthState(auth);
 	check && (check = user);
 
 	useEffect(() => {
-		getBadgeList();
-		if (badgeDetails.length === 0) getBadgeDetails();
-	}, [loading, badgeDetails]);
-
-	const getBadgeList = async () => {
-		await DataService.getUser(check.uid).then(async (docSnap) => {
-			if (docSnap.exists()) {
-				setBadgeList(docSnap.data().badgesCollected);
-			} else {
-				console.log('No such document!');
+		onSnapshot(
+			query(collection(firestore, 'user'), where('email', '==', user.email)),
+			(snapshot) => {
+				getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+				awardBadges(
+					snapshot.docs.at(0).data().badgesCollected,
+					snapshot.docs.at(0).data().eventsJoined
+				);
 			}
-		});
-	};
-	const getBadgeDetails = async () => {
+		);
+	}, [loading, isUpdated]);
+
+	const getBadgeDetails = async (badgeList: any) => {
+		let finalBadges: any = [];
 		await DataService.getBadges().then((result) => {
-			let finalBadges: any = [];
 			badgeList.forEach((id: any) => {
 				finalBadges.push(result.find((item: any) => item.id === id));
 			});
 			setBadgeDetails(finalBadges);
+			setIsUpdated(true);
 		});
+	};
+
+	const awardBadges = async (badgesCollected: any, eventsJoined: any) => {
+		let newBadges = badgesCollected;
+		let checkJ = true;
+		let checkB = true;
+		let checkL = true;
+
+		if (eventsJoined.length >= 1) {
+			badgesCollected.forEach((badge: any) => {
+				checkB = checkB && badge !== 'Baby Steps';
+				// console.log('badge === Baby steps', badge, checkB);
+			});
+			checkB && newBadges.push('Baby Steps');
+		}
+		if (eventsJoined.length >= 5) {
+			badgesCollected.forEach((badge: any) => {
+				checkJ = checkJ && badge !== 'Junior Steps';
+				// console.log('badge === Junior steps', badge, checkJ);
+			});
+
+			checkJ && newBadges.push('Junior Steps');
+		}
+		if (eventsJoined.length >= 10) {
+			badgesCollected.forEach((badge: any) => {
+				checkL = checkL && badge !== 'Love Thumb';
+				// console.log('badge === Love Thumb', badge, checkL);
+			});
+
+			checkL && newBadges.push('Love Thumb');
+		}
+		(checkL || checkJ || checkB) &&
+			(await DataService.updateUser(
+				{
+					badgesCollected: newBadges,
+				},
+				user.uid
+			));
 	};
 
 	return (
