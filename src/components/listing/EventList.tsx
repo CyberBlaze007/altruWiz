@@ -35,7 +35,7 @@ function EventList({ use, head, events }: any) {
 								<div
 									key={data.eventCode}
 									className='events-list-items'
-									onClick={() => navigate(`/event/${data.eventName}`)}
+									onClick={() => navigate(`/event/${data.eventID}`)}
 								>
 									<img src={data.eventImage}></img>
 									<div className='events-list-items-details'>
@@ -65,7 +65,7 @@ function EventList({ use, head, events }: any) {
 								<div
 									key={data.eventCode}
 									className='events-list-items'
-									onClick={() => navigate(`/event/${data.eventName}`)}
+									onClick={() => navigate(`/event/${data.eventID}`)}
 								>
 									<img src={data.eventImage}></img>
 									<div className='events-list-items-details'>

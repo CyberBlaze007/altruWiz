@@ -6,8 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Rsvp from '../components/modals/Rsvp';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase-config';
+import { auth, firestore } from '../firebase-config';
 import DataService from '../firebase/services';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 function Details() {
 	let { id } = useParams();
@@ -15,21 +16,31 @@ function Details() {
 	const [myEvents, setMyEvents] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
-
-	const data = events.at(
-		events.findIndex((event) => {
-			// console.log(parseInt(id));
-			// console.log(event.id);
-			return event.id === parseInt(id);
-		})
-	);
+	// const [eventList, setEventList] = useState([]);
+	const [data, setData] = useState(null);
 
 	useEffect(() => {
+		onSnapshot(
+			query(collection(firestore, 'events'), where('eventID', '==', id)),
+			(snapshot) => {
+				setData(snapshot.docs.at(0).data());
+			}
+		);
+		console.log('data: ', data);
 		showRsvp
 			? (document.querySelector('body').style.overflow = 'hidden')
 			: (document.querySelector('body').style.overflow = 'auto');
 		getMyEvents();
 	}, [showRsvp, loading]);
+
+	// const data = eventList.at(
+	// 	eventList.findIndex((event) => {
+	// 		// console.log(parseInt(id));
+	// 		console.log(event.eventID);
+	// 		console.log(id);
+	// 		return event.eventID === id; //:rj:
+	// 	})
+	// );
 
 	const getMyEvents = async () => {
 		await DataService.getUser(user.uid).then((docSnap: any) => {
@@ -38,7 +49,6 @@ function Details() {
 			}
 		});
 	};
-	// console.log(data);
 	const navigate = useNavigate();
 	return (
 		<>
@@ -64,17 +74,18 @@ function Details() {
 				<div className='details-head'>
 					<div className='details-head-row1'>
 						<div className='details-head-row1-col1'>
-							<img
-								src={`/assets/pseudodata/${data.thumbnail}`}
-								alt={data.title}
-							/>
+							<img src={data?.eventImage} alt={data?.eventName} />
 						</div>
 						<div className='details-head-row1-col2'>
-							<h1 className='details-head-row1-col2-title'>{data.title}</h1>
-							<h1 className='details-head-row1-col2-org'>by {data.org}</h1>
+							<h1 className='details-head-row1-col2-title'>
+								{data?.eventName}
+							</h1>
+							<h1 className='details-head-row1-col2-org'>
+								by {data?.eventCreator}
+							</h1>
 							<div className='details-head-row1-col2-xp'>
 								<img src='/assets/pseudodata/images/star.png' alt='Star Icon' />
-								<p>{data.xp}</p>
+								<p>{data?.expReward}</p>
 							</div>
 						</div>
 					</div>
@@ -82,7 +93,7 @@ function Details() {
 						<ShareOutlinedIcon className='details-head-row2-icon' />
 						<button
 							onClick={() => {
-								setEventsJoined([...myEvents, data.title]);
+								setEventsJoined([...myEvents, data?.eventCode]);
 								setShowRsvp(true);
 							}}
 							className='details-head-row2-register'
@@ -95,25 +106,25 @@ function Details() {
 					<div className='details-body-col1'>
 						<div className='details-body-col1-sec1'>
 							<h1>Date and time</h1>
-							<p>{data.date}</p>
-							<p>{data.time}</p>
+							<p>{data?.eventDate}</p>
+							<p>{data?.eventTime}</p>
 						</div>
 						<div className='details-body-col1-sec2'>
 							<h1>Location</h1>
-							<p>San Fernando, Cebu</p>
+							<p>{data?.location}</p>
 						</div>
 						<div className='details-body-col1-sec3'>
 							<h1>Quests</h1>
-							{data.quests.map((element) => (
-								<p key={data.quests.indexOf(element)}>{element}</p>
+							{data?.quests.map((element: any) => (
+								<p key={data?.quests.indexOf(element)}>{element}</p>
 							))}
 						</div>
-						<div className='details-body-col1-sec4'>
+						{/* <div className='details-body-col1-sec4'>
 							<h1>Available Badges</h1>
-							{data.badges.map((element) => (
-								<p key={data.badges.indexOf(element)}>{element}</p>
+							{data?.badges.map((element:any) => (
+								<p key={data?.badges.indexOf(element)}>{element}</p>
 							))}
-						</div>
+						</div> */}
 					</div>
 					<div className='details-body-col2'>
 						<div className='details-body-col2-header'>
@@ -121,64 +132,7 @@ function Details() {
 						</div>
 						<div className='details-body-col2-body'>
 							<div className='details-body-col2-body-sec1'>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
-									mollitia, blanditiis labore sequi repellendus dignissimos,
-									iusto quod sint nostrum non aperiam, atque explicabo suscipit
-									nulla?
-								</p>
-								<p>
-									Eligendi sint numquam error voluptatem non expedita dicta,
-									rerum amet, ipsam magni praesentium quasi illum officia et
-									eveniet eum quod? Exercitationem, labore. Dolorem, cumque
-									cupiditate!
-								</p>
-								<h1>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Atque, reprehenderit.
-								</h1>
-								<p>
-									Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-									Ullam eligendi a asperiores quis, qui iusto deleniti. Facere
-									distinctio minus laudantium eius tempora. Ipsum consequuntur
-									quod commodi, natus veniam illum iste dicta reiciendis fuga
-									repellendus dolor impedit distinctio optio totam facilis
-									libero dolorum in ipsa modi, tempore aut.Aliquam, at sapiente.
-								</p>
-								<p>
-									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-									Laudantium repellat perferendis, nihil dolor illo quod odit
-									dolorum reprehenderit recusandae est! Nobis placeat provident
-									aperiam, assumenda sed possimus? Illo, maiores! Dicta adipisci
-									in voluptatem at facere nisi perspiciatis architecto,
-									voluptatibus quasi officia voluptates, quaerat necessitatibus
-									accusantium perferendis ea corporis, vel nihil.
-								</p>
-							</div>
-							<div className='details-body-col2-body-divider'></div>
-							<div className='details-body-col2-body-sec2'>
-								<h1>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Atque, reprehenderit.
-								</h1>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-									neque blanditiis autem ratione! Autem, sapiente. Suscipit
-									quasi, provident odit quidem aperiam molestiae! Ducimus
-									delectus iste aut eos minus ipsa provident animi repellat
-									quod, eius dolore dolores ullam soluta fugit rerum suscipit
-									laborum labore illo aperiam placeat id repudiandae architecto
-									quisquam.
-								</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Numquam esse nobis ipsam? Suscipit mollitia nulla voluptate
-									commodi distinctio laudantium, itaque non fuga aspernatur!
-									Officia provident eaque non, consequuntur aperiam totam autem
-									alias dolores reiciendis voluptate pariatur iure numquam fugit
-									velit ipsum, error maiores dolor deserunt. Harum, quis.
-									Perspiciatis, voluptatibus quod.
-								</p>
+								<p>{data?.eventDesc}</p>
 							</div>
 						</div>
 					</div>

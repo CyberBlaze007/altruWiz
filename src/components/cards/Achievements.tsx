@@ -19,8 +19,13 @@ function Achievements() {
 	const [expReq, setExpReq] = useState(0);
 	const [expCurrent, setExpCurrent] = useState(0);
 	const [isMaxed, setIsMaxed] = useState(false);
+	const [isUpdated, setIsUpdated] = useState(false);
+	const [eventList, setEventList] = useState([]);
 
 	useEffect(() => {
+		onSnapshot(collection(firestore, 'events'), (snapshot) => {
+			setEventList(snapshot.docs.map((docEach) => docEach.data()));
+		});
 		onSnapshot(
 			query(collection(firestore, 'user'), where('email', '==', user.email)),
 			(snapshot) => {
@@ -28,23 +33,23 @@ function Achievements() {
 				setExpCurrent(snapshot.docs.at(0).data().expTotal);
 				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
 				setMyBadges(snapshot.docs.at(0).data().badgesCollected);
-				getTableDetails(snapshot.docs.at(0).data());
+				getTableDetails(snapshot.docs.at(0).data().eventsJoined);
 				getRankDetails(snapshot.docs.at(0).data());
 			}
 		);
-	}, [loading]);
+	}, [loading, isUpdated]);
 
-	const getTableDetails = async (data: any) => {
-		let eventArr: any = [];
-		data.eventsJoined.forEach((data: any) => {
-			onSnapshot(
-				query(collection(firestore, 'events'), where('eventCode', '==', data)),
-				(snapshot) => {
-					snapshot.docs.map((docEach) => eventArr.push(docEach.data()));
-				}
-			);
+	const getTableDetails = async (joinedEvents: any) => {
+		let eventArr = eventDetails;
+		eventArr = eventList.filter((event) => {
+			let isJoined = false;
+			joinedEvents.forEach((data: any) => {
+				isJoined = isJoined || data === event.eventCode;
+			});
+			return isJoined;
 		});
 		setEventDetails(eventArr);
+		setIsUpdated(true);
 	};
 
 	const getRankDetails = async (data: any) => {

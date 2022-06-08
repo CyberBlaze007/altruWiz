@@ -50,19 +50,19 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
 				<div className='rsvp-container-header'>
 					<div className='rsvp-container-header-texts'>
 						<div className='rsvp-container-header-texts-title'>
-							<h1>{event.title}</h1>
+							<h1>{event?.eventName}</h1>
 						</div>
 						<div className='rsvp-container-header-texts-desc'>
 							<h2>organized by</h2>
-							<h1>{event.org}</h1>
+							<h1>{event?.eventCreator}</h1>
 						</div>
 					</div>
 				</div>
 				<div className='rsvp-container-body'>
 					<div className='rsvp-container-body-col1'>
-						<img src={`/assets/pseudodata/${event.thumbnail}`} />
+						<img src={event?.eventImage} />
 						<div className='rsvp-container-body-col1-desc'>
-							<p>{event.description}</p>
+							<p>{event?.eventDesc}</p>
 						</div>
 					</div>
 					<div className='rsvp-container-body-col2'>

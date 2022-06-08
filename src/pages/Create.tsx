@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useId, useState } from 'react';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
@@ -32,6 +32,7 @@ function Create() {
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [attendMax, setAttendMax] = useState('');
 	const [imageUpload, setImageUpload] = useState(null);
+	const eventID = useId();
 
 	useEffect(() => {
 		getCurrentUser();
@@ -133,6 +134,7 @@ function Create() {
 			attendCount: 0,
 			eventName: eventName,
 			eventCode: eventCode,
+			eventID: eventID,
 			eventCreator: eventCreator,
 			eventDate: eventDate,
 			eventTime: eventTime,
@@ -282,7 +284,8 @@ function Create() {
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
 										setExpReward(() => [...expReward, '']);
-									}}>
+									}}
+								>
 									Add Another Quest
 								</button>
 
@@ -343,7 +346,8 @@ function Create() {
 							<div className='create-form-section1-col2-entry-fields'>
 								<label
 									htmlFor='file'
-									className='create-form-section1-col2-entry-fields-input'>
+									className='create-form-section1-col2-entry-fields-input'
+								>
 									<div className='create-form-section1-col2-entry-fields-input-container'>
 										<img
 											src=''
@@ -393,7 +397,8 @@ function Create() {
 								value={attendMax}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 									setAttendMax(event.target.value);
-								}}></input>
+								}}
+							></input>
 						</div>
 					</div>
 				</div>
@@ -402,7 +407,8 @@ function Create() {
 						className='create-form-section3-button'
 						onClick={() => {
 							makeEvent();
-						}}>
+						}}
+					>
 						Done
 					</button>
 				</div>

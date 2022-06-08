@@ -25,14 +25,15 @@ function Signup() {
 
 	const register = async () => {
 		//sign up back-end
+		let temp: any = [];
 		const newUser = {
 			name: { first: firstName, last: lastName },
 			rank: 'Spark',
 			email: registerEmail,
 			avatar: '',
-			eventsJoined: [''],
-			completedEvents: [''],
-			badgesCollected: [''],
+			eventsJoined: temp,
+			completedEvents: temp,
+			badgesCollected: temp,
 			expTotal: 0,
 			gender: '',
 			bday: '',
@@ -62,6 +63,7 @@ function Signup() {
 			});
 		} catch (error: any) {
 			console.log(error.message);
+			alert(error.message);
 		}
 
 		setFirstName('');
