@@ -99,6 +99,11 @@ function Code({ showModal, setShowModal }: any) {
 		>
 			<div>
 				<TextField
+					style={{
+						backgroundColor: 'white',
+						width: '50vw',
+						borderRadius: '5px',
+					}}
 					color='secondary'
 					size='small'
 					className='profile-body-sec1-form-lname-field'
@@ -111,13 +116,28 @@ function Code({ showModal, setShowModal }: any) {
 				/>
 				<button
 					type='reset'
+					style={{
+						backgroundColor: 'white',
+						width: '10vw',
+						height: '2.5rem',
+						borderRadius: '5px',
+					}}
 					onClick={() => {
 						setShowModal(false);
 					}}
 				>
 					Close
 				</button>
-				<button type='submit' onClick={updateUserEvents}>
+				<button
+					type='submit'
+					onClick={updateUserEvents}
+					style={{
+						backgroundColor: 'white',
+						height: '2.5rem',
+						width: '10vw',
+						borderRadius: '5px',
+					}}
+				>
 					Submit Code
 				</button>
 			</div>

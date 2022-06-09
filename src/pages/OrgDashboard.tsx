@@ -1,8 +1,9 @@
 import { orgs } from '../../assets/pseudodata/org-data';
 import { events } from '../../assets/pseudodata/events-data';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import CheckIcon from '@mui/icons-material/Check';
 import DBNav from './../components/navbar/DBNav';
 import DataService from '../firebase/services';
 import { auth } from '../firebase-config';
@@ -13,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 function OrgDashboard() {
 	const [orgName, setOrgName] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
+	const [orgDescEdit, setOrgDescEdit] = useState(true);
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const navigate = useNavigate();
@@ -44,8 +46,31 @@ function OrgDashboard() {
 				<div className='orgDashboard-info'>
 					<h1>{orgName}</h1>
 					<h3>Organization Information</h3>
-					<p>{orgDesc}</p>
-					<Button startIcon={<EditOutlinedIcon />}></Button>
+					{orgDescEdit ? (
+						<p className='profile-body-sec2-form-data'>{orgDesc}</p>
+					) : null}
+					{!orgDescEdit ? (
+						<TextField
+							variant={orgDescEdit ? 'standard' : 'outlined'}
+							color='secondary'
+							placeholder='Write something about you...'
+							size='small'
+							multiline
+							rows={5}
+							className='profile-body-sec2-form-field'
+							value={orgDesc}
+							disabled={orgDescEdit}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+								setOrgDesc(event.target.value)
+							}
+							fullWidth
+						/>
+					) : null}
+
+					<Button
+						startIcon={!orgDescEdit ? <CheckIcon /> : <EditOutlinedIcon />}
+						onClick={() => setOrgDescEdit(!orgDescEdit)}
+					></Button>
 				</div>
 				<div className='orgDashboard-events'>
 					<h2>Events</h2>
