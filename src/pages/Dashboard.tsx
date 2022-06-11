@@ -77,43 +77,42 @@ function Dashboard() {
 				<TabsUnstyled
 					defaultValue={0}
 					value={index}
-					className='dashboard-container-tab'
-				>
+					className='dashboard-container-tab'>
 					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
+							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(0);
-							}}
-						>
+							}}>
 							Profile
 						</Tab>
 						<Tab
+							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(1);
-							}}
-						>
+							}}>
 							Events
 						</Tab>
 						<Tab
+							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(2);
-							}}
-						>
+							}}>
 							Achievements
 						</Tab>
 						<Tab
+							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(3);
-							}}
-						>
+							}}>
 							Certificates
 						</Tab>
 						<Tab
+							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(4);
-							}}
-						>
+							}}>
 							Badges
 						</Tab>
 					</TabsList>

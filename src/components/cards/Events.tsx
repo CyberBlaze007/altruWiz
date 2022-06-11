@@ -47,10 +47,11 @@ function Events() {
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position='end'>
-									<IconButton edge='end' color='secondary'>
-										<SearchIcon
-											onClick={() => setSearch(searchTemp || search)}
-										/>
+									<IconButton
+										edge='end'
+										color='secondary'
+										onClick={() => setSearch(searchTemp || search)}>
+										<SearchIcon />
 									</IconButton>
 								</InputAdornment>
 							),
