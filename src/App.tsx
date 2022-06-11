@@ -13,11 +13,8 @@ import OrgDashboard from './pages/OrgDashboard';
 import BeOrganizer from './pages/BeOrganizer';
 // import EventCreation from './pages/EventCreation';
 import Create from './pages/Create';
-<<<<<<< Updated upstream
 import ResetPass from './pages/ResetPass';
-=======
 import Cert from './components/cert/Cert';
->>>>>>> Stashed changes
 
 function App() {
 	return (
