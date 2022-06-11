@@ -26,6 +26,7 @@ function DBNav() {
 	const UserContext = createContext('');
 	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
+	var [userAvatar, setUserAvatar] = useState('');
 	var [orgName, setOrgName] = useState('');
 	var [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -47,6 +48,8 @@ function DBNav() {
 				// console.log('Document data:', docSnap.data());
 				const myData = docSnap.data();
 				setUserName(myData.name.first);
+				setUserAvatar(myData.avatar);
+				setProfile(true);
 				setIsOrganizer(myData.isOrganizer);
 			} else {
 				// doc.data() will be undefined in this case
@@ -90,7 +93,8 @@ function DBNav() {
 						<div className='nav-col2-container'>
 							<button
 								className='nav-col2-container-button'
-								onClick={() => setShowModal(true)}>
+								onClick={() => setShowModal(true)}
+							>
 								Event Code
 							</button>
 						</div>
@@ -99,7 +103,7 @@ function DBNav() {
 							<div className='nav-col2-profile-nav'>
 								{profile ? (
 									<img
-										src={`/src/pseudodata/${profiles.at(0).image}`}
+										src={userAvatar}
 										onError={() => setProfile(false)}
 										className='nav-col2-profile-nav-pic'
 									/>
@@ -114,7 +118,8 @@ function DBNav() {
 										dropDownState
 											? 'nav-col2-profile-nav-modal-open'
 											: 'nav-col2-profile-nav-modal-close'
-									}>
+									}
+								>
 									{dropDownState ? (
 										<>
 											<Button
@@ -132,7 +137,8 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}>
+												}}
+											>
 												{' '}
 												{isOrganizer ? orgName : 'Be an Organizer'}
 											</Button>
@@ -148,7 +154,8 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}>
+												}}
+											>
 												{' '}
 												Log-out
 											</Button>
