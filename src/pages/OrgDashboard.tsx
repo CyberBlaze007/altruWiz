@@ -6,10 +6,11 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CheckIcon from '@mui/icons-material/Check';
 import DBNav from './../components/navbar/DBNav';
 import DataService from '../firebase/services';
-import { auth } from '../firebase-config';
+import { auth, firestore } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { onSnapshot, collection, query, where } from 'firebase/firestore';
 
 function OrgDashboard() {
 	const [orgName, setOrgName] = useState('');
@@ -20,23 +21,28 @@ function OrgDashboard() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		getCurrentOrg();
+		onSnapshot(
+			query(
+				collection(firestore, 'organizations'),
+				where('creator', '==', user.email)
+			),
+			(snapshot) => {
+				setOrgName(snapshot.docs.at(0).data().orgName);
+				setOrgDesc(snapshot.docs.at(0).data().orgAbout);
+				setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
+			}
+		);
 	}, [loading]);
 
-	const getCurrentOrg = async () => {
-		await DataService.getOrg(user.uid).then((docSnap) => {
-			// console.log(user.uid);
-			if (docSnap.exists()) {
-				// console.log('Document data:', docSnap.data());
-				const myData = docSnap.data();
-				setOrgName(myData.orgName);
-				setOrgDesc(myData.orgAbout);
-				setEventsCreated(myData.eventsCreated);
-			} else {
-				// doc.data() will be undefined in this case
-				console.log('No such document!');
-			}
-		});
+	const updateDesc = async (orgDescNew: any) => {
+		const updatedDesc = {
+			orgAbout: orgDescNew,
+		};
+		try {
+			await DataService.updateOrg(updatedDesc, user.uid);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -69,7 +75,10 @@ function OrgDashboard() {
 
 					<Button
 						startIcon={!orgDescEdit ? <CheckIcon /> : <EditOutlinedIcon />}
-						onClick={() => setOrgDescEdit(!orgDescEdit)}
+						onClick={() => {
+							setOrgDescEdit(!orgDescEdit);
+							updateDesc(orgDesc);
+						}}
 					></Button>
 				</div>
 				<div className='orgDashboard-events'>
