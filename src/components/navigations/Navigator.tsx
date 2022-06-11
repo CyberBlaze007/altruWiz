@@ -20,6 +20,7 @@ function Navigator() {
 			location.pathname !== '/' &&
 			location.pathname !== '/login' &&
 			location.pathname !== '/register' &&
+			location.pathname !== '/resetpassword' &&
 			location.pathname !== '/event/details'
 		) {
 			navigate('/login');

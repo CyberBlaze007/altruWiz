@@ -11,8 +11,9 @@ import Navigator from './components/navigations/Navigator';
 import Details from './pages/Details';
 import OrgDashboard from './pages/OrgDashboard';
 import BeOrganizer from './pages/BeOrganizer';
-import EventCreation from './pages/EventCreation';
+// import EventCreation from './pages/EventCreation';
 import Create from './pages/Create';
+import ResetPass from './pages/ResetPass';
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 				<Route path='/dashboard' element={<Dashboard />} />
 				{/* <Route path='/event-creation' element={<EventCreation />} /> */}
 				<Route path='/create' element={<Create />} />
+				<Route path='/resetpassword' element={<ResetPass />} />
 			</Routes>
 		</BrowserRouter>
 	);
