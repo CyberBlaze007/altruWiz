@@ -14,26 +14,35 @@ function ModalCert({ showModal, setShowModal, user, event }: any) {
 			}}
 			initial={{
 				scale: 0,
-				backgroundColor: 'none',
+				opacity: 0,
 			}}
-			animate={
-				showModal
-					? { backgroundColor: 'rgba(64, 31, 97, 0.3)', scale: 1 }
-					: { backgroundColor: 'none', scale: 0 }
-			}
+			animate={showModal ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
 			transition={
 				showModal
 					? {
-							scale: { duration: 0.5, type: 'tween' },
-							backgroundColor: { delay: 0.3, duration: 0.3, type: 'tween' },
+							scale: { duration: 0.1, type: 'tween' },
+							opacity: { delay: 0.1, duration: 0.3, type: 'tween' },
 					  }
 					: {
-							scale: { delay: 0.3, duration: 0.3, type: 'tween' },
-							backgroundColor: { duration: 0.3, type: 'tween' },
+							scale: { delay: 0.6, duration: 0.1, type: 'tween' },
+							opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
 					  }
-			}
-		>
-			<div className='certificates-modal-container'>
+			}>
+			<motion.div
+				initial={{
+					scale: 0,
+				}}
+				animate={showModal ? { scale: 1 } : { scale: 0 }}
+				transition={
+					showModal
+						? {
+								scale: { delay: 0.3, duration: 0.5, type: 'tween' },
+						  }
+						: {
+								scale: { duration: 0.3, type: 'tween' },
+						  }
+				}
+				className='certificates-modal-container'>
 				<Cert
 					name={user}
 					title={
@@ -41,7 +50,7 @@ function ModalCert({ showModal, setShowModal, user, event }: any) {
 							? event.at(
 									event.findIndex((data) => {
 										return id === data.eventID;
-									})
+									}),
 							  ).eventName
 							: ''
 					}
@@ -50,7 +59,7 @@ function ModalCert({ showModal, setShowModal, user, event }: any) {
 							? event.at(
 									event.findIndex((data) => {
 										return id === data.eventID;
-									})
+									}),
 							  ).eventCreator
 							: ''
 					}
@@ -59,12 +68,12 @@ function ModalCert({ showModal, setShowModal, user, event }: any) {
 							? event.at(
 									event.findIndex((data) => {
 										return id === data.eventID;
-									})
+									}),
 							  ).eventDate
 							: ''
 					}
 				/>
-			</div>
+			</motion.div>
 		</motion.div>
 	);
 }
