@@ -29,6 +29,7 @@ function App() {
 				<Route path='/organizer' element={<OrgDashboard />} />
 				<Route path='/organizer/:id' element={<BeOrganizer />} />
 				<Route path='/dashboard' element={<Dashboard />} />
+				<Route path='/dashboard/:id' element={<Dashboard />} />
 				<Route path='/test' element={<Cert />} />
 				{/* <Route path='/event-creation' element={<EventCreation />} /> */}
 				<Route path='/create' element={<Create />} />

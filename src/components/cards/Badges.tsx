@@ -17,7 +17,7 @@ function Badges(check: any) {
 				getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
 				awardBadges(
 					snapshot.docs.at(0).data().badgesCollected,
-					snapshot.docs.at(0).data().eventsJoined
+					snapshot.docs.at(0).data().eventsCompleted
 				);
 			}
 		);

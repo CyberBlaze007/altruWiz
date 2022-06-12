@@ -4,7 +4,7 @@ import { profiles } from '../../../assets/pseudodata/profile-data';
 import Cert from '../cert/Cert';
 import { personal_events } from './../../../assets/pseudodata/personal-events';
 
-function ModalCert({ showModal, setShowModal, user }: any) {
+function ModalCert({ showModal, setShowModal, user, event }: any) {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	return (
@@ -12,16 +12,38 @@ function ModalCert({ showModal, setShowModal, user }: any) {
 			className='certificates-modal'
 			onClick={() => {
 				setShowModal(false), navigate(-1);
-			}}>
+			}}
+		>
 			<div className='certificates-modal-container'>
 				<Cert
-					name={
-						profiles.at(profiles.findIndex((data) => data.email === user.email))
-							.name
+					name={user}
+					title={
+						event.at(
+							event.findIndex((data) => {
+								id === data.eventID;
+							})
+						).eventName
 					}
-					title={personal_events.at(parseInt(id)).title}
-					org={personal_events.at(parseInt(id)).org}
-					date={personal_events.at(parseInt(id)).date}
+					org={
+						event.at(
+							event.at(
+								event.findIndex((data) => {
+									id === data.eventID;
+								})
+							).eventName
+						).eventCreator
+					}
+					date={
+						event.at(
+							event.at(
+								event.findIndex((data) => {
+									console.log('data: ', data);
+									console.log('id===eventID: ', id, data.eventID);
+									id === data.eventID;
+								})
+							).eventName
+						).eventDate
+					}
 				/>
 			</div>
 		</div>

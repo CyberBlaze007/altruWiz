@@ -969,7 +969,8 @@
 	flex-direction: column;
 	row-gap: 2rem;
 	&-modal {
-		background-color: #401f61;
+		z-index: 50;
+		background-color: rgba(64, 31, 97, 0.3);
 		display: flex;
 		position: fixed;
 		top: 0;
@@ -978,7 +979,9 @@
 		right: 0;
 		&-container {
 			margin: auto;
-			max-height: 90vh;
+			// max-height: 90vh;
+			height: 80vh;
+			width: 80%;
 		}
 	}
 	&-container {
