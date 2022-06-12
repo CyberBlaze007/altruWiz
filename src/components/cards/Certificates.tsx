@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import Cert from './../cert/Cert';
 import { personal_events } from './../../../assets/pseudodata/personal-events';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -11,7 +11,7 @@ import ModalCert from '../modals/Certificate';
 function Certificates() {
 	const [user, loading] = useAuthState(auth);
 	const navigate = useNavigate();
-	const [showModal, setShowModal] = useSate(false);
+	const [showModal, setShowModal] = useState(false);
 	return (
 		<>
 			{showModal ? (
@@ -30,6 +30,7 @@ function Certificates() {
 					})
 					.map((data) => (
 						<motion.div
+							key={data.id}
 							whileHover={{
 								y: '-0.6rem',
 								boxShadow: '3px 4px 8px rgba(0, 0, 0, 0.05)',
@@ -39,7 +40,8 @@ function Certificates() {
 								navigate(`/${data.id}`);
 							}}
 							transition={{ duration: 0.2, type: 'tween' }}
-							className='certificates-container'>
+							className='certificates-container'
+						>
 							<div className='certificates-container-image'>
 								<Cert
 									name={
@@ -72,6 +74,3 @@ function Certificates() {
 }
 
 export default Certificates;
-function useSate(arg0: boolean): [any, any] {
-	throw new Error('Function not implemented.');
-}
