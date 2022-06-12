@@ -44,22 +44,19 @@ function Certificates() {
 	};
 	return (
 		<>
-			{showModal ? (
-				<ModalCert
-					showModal={showModal}
-					setShowModal={setShowModal}
-					user={name}
-					event={eventList.filter((eventData) => {
-						let check = false;
-						completedEvents.forEach((data) => {
-							check = check || data === eventData.eventCode;
-						});
-						return check;
-					})}
-				/>
-			) : (
-				<></>
-			)}
+			<ModalCert
+				showModal={showModal}
+				setShowModal={setShowModal}
+				user={name}
+				event={eventList.filter((eventData) => {
+					let check = false;
+					completedEvents.forEach((data) => {
+						check = check || data === eventData.eventCode;
+					});
+					return check;
+				})}
+			/>
+
 			<div className='certificates'>
 				{eventList
 					.filter((eventData) => {
