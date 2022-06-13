@@ -4,6 +4,7 @@ import { auth, firestore } from '../../firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import DataService from '../../firebase/services';
 
 function Code({ showModal, setShowModal }: any) {
@@ -79,69 +80,55 @@ function Code({ showModal, setShowModal }: any) {
 	return (
 		<motion.div
 			initial={{
-				opacity: 0,
-				y: '-45vh',
-				x: '30vw',
 				scale: 0,
-				borderRadius: '20px',
+				opacity: 0,
 			}}
-			animate={
+			animate={showModal ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+			transition={
 				showModal
-					? { opacity: 1, y: 0, x: 0, scale: 1, borderRadius: 0 }
+					? {
+							scale: { duration: 0.1, type: 'tween' },
+							opacity: { delay: 0.1, duration: 0.3, type: 'tween' },
+					  }
 					: {
-							opacity: 0,
-							y: '-45vh',
-							x: '30vw',
-							scale: 0,
-							borderRadius: '20px',
+							scale: { delay: 0.6, duration: 0.1, type: 'tween' },
+							opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
 					  }
 			}
-			transition={{ duration: 0.5, type: 'tween' }}
 			className='code'
 		>
-			<div>
-				<TextField
-					style={{
-						backgroundColor: 'white',
-						width: '50vw',
-						borderRadius: '5px',
-					}}
-					color='secondary'
-					size='small'
-					className='profile-body-sec1-form-lname-field'
-					margin='dense'
-					value={code}
-					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-						setCode(event.target.value)
-					}
-					fullWidth
-				/>
-				<button
-					type='reset'
-					style={{
-						backgroundColor: 'white',
-						width: '10vw',
-						height: '2.5rem',
-						borderRadius: '5px',
-					}}
-					onClick={() => {
-						setShowModal(false);
-					}}
-				>
-					Close
-				</button>
-				<button
-					type='submit'
-					onClick={updateUserEvents}
-					style={{
-						backgroundColor: 'white',
-						height: '2.5rem',
-						width: '10vw',
-						borderRadius: '5px',
-					}}
-				>
-					Submit Code
-				</button>
+			<div className='code-container'>
+				<div className='code-container-top'>
+					<h1>Finished a task or event?</h1>
+					<div className='code-container-close'>
+						<CloseIcon
+							onClick={() => setShowModal(false)}
+							className='code-container-close-icon'
+						/>
+					</div>
+				</div>
+
+				<div className='code-container-center'>
+					<img src='/assets/code-backdrop.png' alt='' />
+					<h3>Enter your code</h3>
+					<div className='code-container-center-row'>
+						<input
+							type='text'
+							className='code-container-center-row-field'
+							value={code}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+								setCode(event.target.value)
+							}
+						/>
+						<button type='submit' onClick={updateUserEvents}>
+							Submit
+						</button>
+					</div>
+				</div>
+				<div className='rsvp-container-footer'>
+					<h2>powered by </h2>
+					<h1>AltruWiz</h1>
+				</div>
 			</div>
 		</motion.div>
 	);

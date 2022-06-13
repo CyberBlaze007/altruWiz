@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
 import DataService from '../../firebase/services';
