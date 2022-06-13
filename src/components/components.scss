@@ -1162,6 +1162,60 @@
 	}
 }
 
+.share {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: hsl(271, 50%, 45%, 0.2);
+
+	&-container {
+		height: 20vh;
+		width: 30vw;
+		max-width: 90%;
+		padding: 0 2rem;
+		aspect-ratio: 5/4;
+		background: #ffffff;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		&-top {
+			display: flex;
+			margin: 0 0 2rem 0;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			h2 {
+				margin: 0;
+				font-family: 'Montserrat';
+				font-style: normal;
+				font-weight: 800;
+				font-size: 1.3rem;
+				line-height: 1.8rem;
+				color: rgb(114, 51, 178);
+			}
+			&-close {
+				&:hover {
+					cursor: pointer;
+					color: rgb(114, 51, 178);
+				}
+			}
+		}
+		&-icons {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+	}
+}
+
 .rsvp {
 	position: fixed;
 	background: hsla(271, 30%, 25%, 0.5);

@@ -1,4 +1,3 @@
-import { events } from '../../assets/pseudodata/events-data';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DBNav from './../components/navbar/DBNav';
@@ -7,13 +6,15 @@ import Rsvp from '../components/modals/Rsvp';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase-config';
-import DataService from '../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import Footer from './../components/footer/Footer';
+import Share from './../components/modals/Share';
 
 function Details() {
 	let { id } = useParams();
 	const [showRsvp, setShowRsvp] = useState(false);
+	const [showShare, setShowShare] = useState(false);
+	const [shareUrl, setShareUrl] = useState('');
 	const [myEvents, setMyEvents] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
@@ -38,7 +39,21 @@ function Details() {
 				}
 			);
 	}, [showRsvp, loading]);
+	const processDate = (data: any) => {
+		const date = new Date(data?.eventDate + 'T' + data?.eventTime);
 
+		return date.toDateString();
+	};
+	const processTime = (data: any) => {
+		const time = new Date(
+			data?.eventDate + 'T' + data?.eventTime
+		).toLocaleTimeString('en-US', {
+			hour12: true,
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+		return time;
+	};
 	const navigate = useNavigate();
 	return (
 		<>
@@ -80,7 +95,22 @@ function Details() {
 						</div>
 					</div>
 					<div className='details-head-row2'>
-						<ShareOutlinedIcon className='details-head-row2-icon' />
+						<ShareOutlinedIcon
+							className='details-head-row2-icon'
+							onClick={() => {
+								setShareUrl(`altruwiz.web.app/event/${id}`);
+								setShowShare(true);
+							}}
+						/>
+						{showShare && (
+							<Share
+								url={shareUrl}
+								eventName={data?.eventName}
+								eventDesc={data?.eventDesc}
+								showModal={showShare}
+								setShowModal={setShowShare}
+							/>
+						)}
 						{myEvents.includes(data?.eventCode) ? (
 							<button className='details-head-row2-register'>
 								Participated
@@ -102,8 +132,8 @@ function Details() {
 					<div className='details-body-col1'>
 						<div className='details-body-col1-sec1'>
 							<h1>Date and time</h1>
-							<p>{data?.eventDate}</p>
-							<p>{data?.eventTime}</p>
+							<p>{processDate(data)}</p>
+							<p>{processTime(data)}</p>
 						</div>
 						<div className='details-body-col1-sec2'>
 							<h1>Location</h1>
@@ -115,12 +145,6 @@ function Details() {
 								<p key={data?.quests.indexOf(element)}>{element}</p>
 							))}
 						</div>
-						{/* <div className='details-body-col1-sec4'>
-							<h1>Available Badges</h1>
-							{data?.badges.map((element:any) => (
-								<p key={data?.badges.indexOf(element)}>{element}</p>
-							))}
-						</div> */}
 					</div>
 					<div className='details-body-col2'>
 						<div className='details-body-col2-header'>
