@@ -17,16 +17,18 @@ function Events() {
 	let searchTemp: string;
 
 	useEffect(() => {
-		onSnapshot(collection(firestore, 'events'), (snapshot) => {
-			setEventList(snapshot.docs.map((docEach) => docEach.data()));
-		});
-		onSnapshot(
-			query(collection(firestore, 'user'), where('email', '==', user.email)),
-			(snapshot) => {
-				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-			}
-		);
+		user &&
+			onSnapshot(collection(firestore, 'events'), (snapshot) => {
+				setEventList(snapshot.docs.map((docEach) => docEach.data()));
+			});
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
+					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+				}
+			);
 	}, [loading]);
 
 	return (
@@ -50,7 +52,8 @@ function Events() {
 									<IconButton
 										edge='end'
 										color='secondary'
-										onClick={() => setSearch(searchTemp || search)}>
+										onClick={() => setSearch(searchTemp || search)}
+									>
 										<SearchIcon />
 									</IconButton>
 								</InputAdornment>

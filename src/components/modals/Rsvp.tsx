@@ -11,6 +11,7 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
 			},
 			user.uid
 		);
+		alert(`You have successfully participated for ${event?.eventName}!`);
 	};
 
 	return (

@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase-config';
 import DataService from '../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import Footer from './../components/footer/Footer';
 
 function Details() {
 	let { id } = useParams();
@@ -16,7 +17,6 @@ function Details() {
 	const [myEvents, setMyEvents] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
-	// const [eventList, setEventList] = useState([]);
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -30,25 +30,15 @@ function Details() {
 		user && showRsvp
 			? (document.querySelector('body').style.overflow = 'hidden')
 			: (document.querySelector('body').style.overflow = 'auto');
-		user && getMyEvents();
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setMyEvents(snapshot.docs.at(0).data().eventsJoined);
+				}
+			);
 	}, [showRsvp, loading]);
 
-	// const data = eventList.at(
-	// 	eventList.findIndex((event) => {
-	// 		// console.log(parseInt(id));
-	// 		console.log(event.eventID);
-	// 		console.log(id);
-	// 		return event.eventID === id; //:rj:
-	// 	})
-	// );
-
-	const getMyEvents = async () => {
-		await DataService.getUser(user.uid).then((docSnap: any) => {
-			if (docSnap.exists()) {
-				setMyEvents(docSnap.data().eventsJoined);
-			}
-		});
-	};
 	const navigate = useNavigate();
 	return (
 		<>
@@ -91,15 +81,21 @@ function Details() {
 					</div>
 					<div className='details-head-row2'>
 						<ShareOutlinedIcon className='details-head-row2-icon' />
-						<button
-							onClick={() => {
-								setEventsJoined([...myEvents, data?.eventCode]);
-								setShowRsvp(true);
-							}}
-							className='details-head-row2-register'
-						>
-							Register
-						</button>
+						{myEvents.includes(data?.eventCode) ? (
+							<button className='details-head-row2-register'>
+								Participated
+							</button>
+						) : (
+							<button
+								onClick={() => {
+									setEventsJoined([...myEvents, data?.eventCode]);
+									setShowRsvp(true);
+								}}
+								className='details-head-row2-register'
+							>
+								Register
+							</button>
+						)}
 					</div>
 				</div>
 				<div className='details-body'>
@@ -138,6 +134,7 @@ function Details() {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 }
