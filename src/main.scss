@@ -499,6 +499,63 @@ html {
 	}
 }
 
+.resetpass {
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	&-container {
+		background: #ffffff;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.05);
+		border-radius: 10px;
+		height: 60vh;
+		width: 30vw;
+		padding: 1rem 2rem;
+		font-family: 'Montserrat';
+		font-style: normal;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+		&-row {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			width: 100%;
+			&-back {
+				margin-right: 4.8vw;
+				cursor: pointer;
+				&:hover {
+					color: #7339ab;
+				}
+			}
+		}
+		h2 {
+			margin: 0;
+			font-weight: 700;
+			font-size: 1.5rem;
+		}
+		button {
+			cursor: pointer;
+			border: none;
+			height: 2rem;
+			width: 15rem;
+			font-family: 'Montserrat';
+			color: white;
+			font-weight: 600;
+			background: #7339ab;
+			box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
+			border-radius: 5px;
+			&:hover {
+				background: rgba(115, 57, 171, 0.9);
+			}
+		}
+	}
+}
+
 .modal {
 	flex-direction: column;
 	align-items: center;

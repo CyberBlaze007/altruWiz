@@ -31,7 +31,6 @@ function App() {
 				<Route path='/dashboard' element={<Dashboard />} />
 				<Route path='/dashboard/:id' element={<Dashboard />} />
 				<Route path='/test' element={<Cert />} />
-				{/* <Route path='/event-creation' element={<EventCreation />} /> */}
 				<Route path='/create' element={<Create />} />
 				<Route path='/resetpassword' element={<ResetPass />} />
 			</Routes>

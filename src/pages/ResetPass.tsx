@@ -1,11 +1,15 @@
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
-
-import { Button, TextField } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { TextField } from '@mui/material';
+import LandingNav from '../components/navbar/LandingNav';
+import Footer from '../components/footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 function ResetPass() {
 	const [email, setEmail] = useState('');
 	const auth = getAuth();
+	const navigate = useNavigate();
 	const resetPass = async () => {
 		sendPasswordResetEmail(auth, email)
 			.then(() => {
@@ -17,22 +21,38 @@ function ResetPass() {
 	};
 
 	return (
-		<div>
-			<h1>Enter your email address</h1>
-			<TextField
-				variant={'standard'}
-				color='secondary'
-				size='small'
-				className='profile-body-sec2-form-field'
-				value={email}
-				onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-					setEmail(event.target.value);
-					console.log(email);
-				}}
-				fullWidth
-			/>
-			<Button onClick={resetPass}>Reset Password</Button>
-		</div>
+		<>
+			<LandingNav />
+			<div className='resetpass'>
+				<div className='resetpass-container'>
+					<div className='resetpass-container-row'>
+						<ChevronLeftIcon
+							className='resetpass-container-row-back'
+							onClick={() => navigate('/login')}
+						/>
+						<h2>Forgot Password</h2>
+					</div>
+					<img src='/assets/resetPass.svg' alt='' />
+					<p>Please enter your email address to receive a verification code.</p>
+
+					<TextField
+						variant={'outlined'}
+						color='secondary'
+						size='small'
+						className='profile-body-sec2-form-field'
+						value={email}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+							setEmail(event.target.value);
+						}}
+						fullWidth
+					/>
+					<button className='resetPass-container-send' onClick={resetPass}>
+						Send
+					</button>
+				</div>
+			</div>
+			<Footer />
+		</>
 	);
 }
 
