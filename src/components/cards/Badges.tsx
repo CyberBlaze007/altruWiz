@@ -11,16 +11,17 @@ function Badges(check: any) {
 	check && (check = user);
 
 	useEffect(() => {
-		onSnapshot(
-			query(collection(firestore, 'user'), where('email', '==', user.email)),
-			(snapshot) => {
-				getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
-				awardBadges(
-					snapshot.docs.at(0).data().badgesCollected,
-					snapshot.docs.at(0).data().eventsCompleted
-				);
-			}
-		);
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+					awardBadges(
+						snapshot.docs.at(0).data().badgesCollected,
+						snapshot.docs.at(0).data().eventsCompleted
+					);
+				}
+			);
 	}, [loading, isUpdated]);
 
 	const getBadgeDetails = async (badgeList: any) => {

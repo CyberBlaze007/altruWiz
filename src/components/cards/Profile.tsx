@@ -18,11 +18,10 @@ function Profile() {
 	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
-		getCurrentUser();
+		user && getCurrentUser();
 	}, [loading]);
 	const getCurrentUser = async () => {
 		await DataService.getUser(user.uid).then((docSnap) => {
-			console.log(user.uid);
 			if (docSnap.exists()) {
 				// console.log('Document data:', docSnap.data());
 				const myData = docSnap.data();

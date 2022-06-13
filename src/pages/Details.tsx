@@ -20,17 +20,17 @@ function Details() {
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		onSnapshot(
-			query(collection(firestore, 'events'), where('eventID', '==', id)),
-			(snapshot) => {
-				setData(snapshot.docs.at(0).data());
-			}
-		);
-		console.log('data: ', data);
-		showRsvp
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'events'), where('eventID', '==', id)),
+				(snapshot) => {
+					setData(snapshot.docs.at(0).data());
+				}
+			);
+		user && showRsvp
 			? (document.querySelector('body').style.overflow = 'hidden')
 			: (document.querySelector('body').style.overflow = 'auto');
-		getMyEvents();
+		user && getMyEvents();
 	}, [showRsvp, loading]);
 
 	// const data = eventList.at(

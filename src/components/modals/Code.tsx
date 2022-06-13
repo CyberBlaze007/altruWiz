@@ -15,17 +15,19 @@ function Code({ showModal, setShowModal }: any) {
 	const [currentExp, setCurrentExp] = useState(0);
 
 	useEffect(() => {
-		onSnapshot(collection(firestore, 'events'), (snapshot) => {
-			setEventList(snapshot.docs.map((docEach) => docEach.data()));
-		});
-		onSnapshot(
-			query(collection(firestore, 'user'), where('email', '==', user.email)),
-			(snapshot) => {
-				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-				setCurrentExp(snapshot.docs.at(0).data().expTotal);
-			}
-		);
+		user &&
+			onSnapshot(collection(firestore, 'events'), (snapshot) => {
+				setEventList(snapshot.docs.map((docEach) => docEach.data()));
+			});
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
+					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+					setCurrentExp(snapshot.docs.at(0).data().expTotal);
+				}
+			);
 	}, [loading]);
 
 	const updateUserEvents = async () => {

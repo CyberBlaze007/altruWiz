@@ -31,7 +31,7 @@ function DBNav() {
 	var [isOrganizer, setIsOrganizer] = useState(false);
 
 	useEffect(() => {
-		getCurrentUser();
+		user && getCurrentUser();
 	}, [loading]);
 
 	const logout = async () => {

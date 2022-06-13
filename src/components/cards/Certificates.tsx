@@ -68,6 +68,7 @@ function Certificates() {
 					})
 					.map((data) => (
 						<motion.div
+							key={data.eventID}
 							onClick={() => {
 								setShowModal(true);
 								navigate(`${data.eventID}`);
