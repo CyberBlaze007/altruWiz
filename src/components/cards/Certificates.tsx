@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Cert from './../cert/Cert';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, firestore } from '../../firebase-config';
+import { firestore } from '../../firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ModalCert from '../modals/Certificate';
+import { UserContext } from '../../App';
 
 function Certificates() {
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 	const [eventList, setEventList] = useState([]);
 	const [completedEvents, setCompletedEvents] = useState([]);
 	const [name, setName] = useState('');
@@ -19,18 +19,19 @@ function Certificates() {
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 		});
-		onSnapshot(
-			query(collection(firestore, 'user'), where('email', '==', user.email)),
-			(snapshot) => {
-				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-				setName(
-					snapshot.docs.at(0).data().name.first +
-						' ' +
-						snapshot.docs.at(0).data().name.last
-				);
-			}
-		);
-	}, [loading]);
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+					setName(
+						snapshot.docs.at(0).data().name.first +
+							' ' +
+							snapshot.docs.at(0).data().name.last
+					);
+				}
+			);
+	}, []);
 	const processDate = (data: any) => {
 		const date = new Date(data.eventDate + 'T' + data.eventTime);
 		const time = new Date(

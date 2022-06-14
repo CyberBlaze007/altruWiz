@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import Footer from './../footer/Footer';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, MenuItem } from '@mui/material';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase-config';
 import DataService from '../../firebase/services';
+import { UserContext } from '../../App';
 
 function Profile() {
 	const [firstName, setFirstName] = useState('');
@@ -15,11 +12,11 @@ function Profile() {
 	const [description, setDescription] = useState('');
 	const [bday, setBday] = useState('');
 	const [editState, setEditState] = useState(true);
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 
 	useEffect(() => {
 		user && getCurrentUser();
-	}, [loading]);
+	}, []);
 	const getCurrentUser = async () => {
 		await DataService.getUser(user.uid).then((docSnap) => {
 			if (docSnap.exists()) {

@@ -1,26 +1,23 @@
 import EventList from './../listing/EventList';
-import { events } from '../../../assets/pseudodata/events-data';
-import { personal_events } from '../../../assets/pseudodata/personal-events';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useEffect, useState } from 'react';
-import { auth, firestore } from '../../firebase-config';
+import { useEffect, useState, useContext } from 'react';
+import { firestore } from '../../firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { UserContext } from '../../App';
 
 function Events() {
 	const [search, setSearch] = useState('');
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 	const [eventList, setEventList] = useState([]);
 	const [joinedEvents, setJoinedEvents] = useState([]);
 	const [completedEvents, setCompletedEvents] = useState([]);
 	let searchTemp: string;
 
 	useEffect(() => {
-		user &&
-			onSnapshot(collection(firestore, 'events'), (snapshot) => {
-				setEventList(snapshot.docs.map((docEach) => docEach.data()));
-			});
+		onSnapshot(collection(firestore, 'events'), (snapshot) => {
+			setEventList(snapshot.docs.map((docEach) => docEach.data()));
+		});
 		user &&
 			onSnapshot(
 				query(collection(firestore, 'user'), where('email', '==', user.email)),
@@ -29,7 +26,7 @@ function Events() {
 					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
 				}
 			);
-	}, [loading]);
+	}, []);
 
 	return (
 		<div className='event'>

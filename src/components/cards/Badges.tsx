@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, firestore } from '../../firebase-config';
+import { useEffect, useState, useContext } from 'react';
+import { firestore } from '../../firebase-config';
 import DataService from '../../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { UserContext } from '../../App';
 
-function Badges(check: any) {
+function Badges() {
 	const [badgeDetails, setBadgeDetails]: any = useState([]);
 	const [isUpdated, setIsUpdated] = useState(false);
-	const [user, loading] = useAuthState(auth);
-	check && (check = user);
+	const user = useContext(UserContext);
 
 	useEffect(() => {
 		user &&
@@ -22,7 +21,7 @@ function Badges(check: any) {
 					);
 				}
 			);
-	}, [loading, isUpdated]);
+	}, [isUpdated]);
 
 	const getBadgeDetails = async (badgeList: any) => {
 		let finalBadges: any = [];

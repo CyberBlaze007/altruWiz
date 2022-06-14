@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { achievements } from '../../../assets/pseudodata/achievements';
+import React, { useEffect, useState, useContext } from 'react';
 import {
 	CircularProgressbarWithChildren,
 	buildStyles,
 } from 'react-circular-progressbar';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, firestore } from '../../firebase-config';
+import { firestore } from '../../firebase-config';
 import DataService from '../../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { UserContext } from '../../App';
 
 function Achievements() {
 	const [rankPic, setRankPic] = useState('');
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 	const [userRank, setUserRank] = useState('');
 	const [myEvents, setMyEvents] = useState([]);
 	const [eventDetails, setEventDetails] = useState([]);
@@ -26,18 +25,19 @@ function Achievements() {
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 		});
-		onSnapshot(
-			query(collection(firestore, 'user'), where('email', '==', user.email)),
-			(snapshot) => {
-				setUserRank(snapshot.docs.at(0).data().rank);
-				setExpCurrent(snapshot.docs.at(0).data().expTotal);
-				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
-				setMyBadges(snapshot.docs.at(0).data().badgesCollected);
-				getTableDetails(snapshot.docs.at(0).data().eventsJoined);
-				getRankDetails(snapshot.docs.at(0).data());
-			}
-		);
-	}, [loading, isUpdated]);
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setUserRank(snapshot.docs.at(0).data().rank);
+					setExpCurrent(snapshot.docs.at(0).data().expTotal);
+					setMyEvents(snapshot.docs.at(0).data().eventsJoined);
+					setMyBadges(snapshot.docs.at(0).data().badgesCollected);
+					getTableDetails(snapshot.docs.at(0).data().eventsJoined);
+					getRankDetails(snapshot.docs.at(0).data());
+				}
+			);
+	}, [isUpdated]);
 
 	const getTableDetails = async (joinedEvents: any) => {
 		let eventArr = eventDetails;

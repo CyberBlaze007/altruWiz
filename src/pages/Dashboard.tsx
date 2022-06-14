@@ -19,13 +19,17 @@ import { styled } from '@mui/system';
 //Local Components
 import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
-import { UserContext } from '../App';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
-	const user = useContext(UserContext);
 
-	const cards = [<Profile />, <Events />, <Achievements />, <Certificates />, <Badges />];
+	const cards = [
+		<Profile />,
+		<Events />,
+		<Achievements />,
+		<Certificates />,
+		<Badges />,
+	];
 	const Tab = styled(TabUnstyled)`
 		font-family: 'Montserrat';
 		font-style: normal;
@@ -66,44 +70,53 @@ function Dashboard() {
 		<div className='dashboard'>
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
-					<DBNav user={user} />
+					<DBNav />
 				</div>
-				<TabsUnstyled defaultValue={0} value={index} className='dashboard-container-tab'>
+				<TabsUnstyled
+					defaultValue={0}
+					value={index}
+					className='dashboard-container-tab'
+				>
 					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(0);
-							}}>
+							}}
+						>
 							Profile
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(1);
-							}}>
+							}}
+						>
 							Events
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(2);
-							}}>
+							}}
+						>
 							Achievements
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(3);
-							}}>
+							}}
+						>
 							Certificates
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(4);
-							}}>
+							}}
+						>
 							Badges
 						</Tab>
 					</TabsList>
