@@ -64,8 +64,6 @@ function Dashboard() {
 
 	return (
 		<div className='dashboard'>
-			{/* <Navigator /> */}
-
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
 					<DBNav user={user} />

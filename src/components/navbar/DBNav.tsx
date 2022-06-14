@@ -13,9 +13,8 @@ import { profiles } from '../../../assets/pseudodata/profile-data';
 //Firebase Components
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DataService from '../../firebase/services';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Code from '../modals/Code';
 
 function DBNav({ user }: any) {
@@ -34,7 +33,7 @@ function DBNav({ user }: any) {
 
 	const logout = async () => {
 		try {
-			await signOut(auth);
+			await signOut(auth).then(() => navigate('/'));
 		} catch (error: any) {
 			console.log(error.message);
 		}

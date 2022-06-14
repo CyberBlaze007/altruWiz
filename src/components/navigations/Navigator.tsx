@@ -1,38 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { auth } from '../../firebase-config';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
 
 function Navigator() {
-	const navigate = useNavigate();
 	const location = useLocation();
-	const [user, loading] = useAuthState(auth);
+	const navigate = useNavigate();
 	const [time, setTime] = useState(true);
 
 	useEffect(() => {
-		if (loading) {
-			setTimeout(() => setTime(false), 3000);
-			return;
-		}
-		if (
-			!user &&
-			location.pathname !== '/' &&
-			location.pathname !== '/login' &&
-			location.pathname !== '/register' &&
-			location.pathname !== '/resetpassword' &&
-			location.pathname !== '/event/details'
-		) {
-			navigate('/login');
-		}
-
+		setTimeout(() => setTime(false), 3000);
+		if (location.pathname != '/login') navigate('/login');
 		window.scrollTo(0, 0);
-	}, [user, loading, location]);
+	}, [location]);
 
 	return (
-		<div
-			className={loading || time ? 'modal display-flex' : 'modal display-none'}
-		>
+		<div className={time ? 'modal display-flex' : 'modal display-none'}>
 			<section className='modal-main'>
 				<HashLoader size={100} color={'#9013FE'} />
 			</section>
