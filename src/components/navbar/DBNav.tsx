@@ -22,7 +22,6 @@ function DBNav({ user }: any) {
 	const [profile, setProfile] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
-	const UserContext = createContext('');
 	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
 	var [userAvatar, setUserAvatar] = useState('');
@@ -79,72 +78,70 @@ function DBNav({ user }: any) {
 	return (
 		<>
 			<Code showModal={showModal} setShowModal={setShowModal} />
-			<UserContext.Provider value={!user ? null : user.uid}>
-				<div className='nav'>
-					<div className='nav-col1' onClick={() => navigate('/')}>
-						<h1 className='nav-col1-text'>AltruWiz</h1>
-						<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
+			<div className='nav'>
+				<div className='nav-col1' onClick={() => navigate('/')}>
+					<h1 className='nav-col1-text'>AltruWiz</h1>
+					<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
+				</div>
+				<nav className='nav-col2-p'>
+					<div className='nav-col2-container'>
+						<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
+							Event Code
+						</button>
 					</div>
-					<nav className='nav-col2-p'>
-						<div className='nav-col2-container'>
-							<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
-								Event Code
-							</button>
-						</div>
-						<div className='nav-col2-profile'>
-							<h1 className='nav-col2-profile-text'>{userName}</h1>
-							<div className='nav-col2-profile-nav'>
-								{profile ? (
-									<img src={userAvatar} onError={() => setProfile(false)} className='nav-col2-profile-nav-pic' />
-								) : (
-									<AccountCircleIcon className='nav-col2-profile-nav-pic' />
-								)}
-								<div onClick={() => setDropdownState(!dropDownState)}>
-									<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
-								</div>
-								<div className={dropDownState ? 'nav-col2-profile-nav-modal-open' : 'nav-col2-profile-nav-modal-close'}>
-									{dropDownState ? (
-										<>
-											<Button
-												startIcon={<JoinInnerIcon />}
-												onClick={() => {
-													setDropdownState(false), orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
-												}}
-												style={{
-													color: 'white',
-													textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
-													fontFamily: 'Montserrat',
-													fontStyle: 'normal',
-													fontWeight: '500',
-													fontSize: '0.8rem',
-												}}>
-												{' '}
-												{isOrganizer ? orgName : 'Be an Organizer'}
-											</Button>
-											<Button
-												startIcon={<LogoutIcon />}
-												onClick={() => {
-													setDropdownState(false), logout();
-												}}
-												style={{
-													color: 'white',
-													textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
-													fontFamily: 'Montserrat',
-													fontStyle: 'normal',
-													fontWeight: '500',
-													fontSize: '0.8rem',
-												}}>
-												{' '}
-												Log-out
-											</Button>
-										</>
-									) : null}
-								</div>
+					<div className='nav-col2-profile'>
+						<h1 className='nav-col2-profile-text'>{userName}</h1>
+						<div className='nav-col2-profile-nav'>
+							{profile ? (
+								<img src={userAvatar} onError={() => setProfile(false)} className='nav-col2-profile-nav-pic' />
+							) : (
+								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
+							)}
+							<div onClick={() => setDropdownState(!dropDownState)}>
+								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
+							</div>
+							<div className={dropDownState ? 'nav-col2-profile-nav-modal-open' : 'nav-col2-profile-nav-modal-close'}>
+								{dropDownState ? (
+									<>
+										<Button
+											startIcon={<JoinInnerIcon />}
+											onClick={() => {
+												setDropdownState(false), orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
+											}}
+											style={{
+												color: 'white',
+												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+												fontFamily: 'Montserrat',
+												fontStyle: 'normal',
+												fontWeight: '500',
+												fontSize: '0.8rem',
+											}}>
+											{' '}
+											{isOrganizer ? orgName : 'Be an Organizer'}
+										</Button>
+										<Button
+											startIcon={<LogoutIcon />}
+											onClick={() => {
+												setDropdownState(false), logout();
+											}}
+											style={{
+												color: 'white',
+												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+												fontFamily: 'Montserrat',
+												fontStyle: 'normal',
+												fontWeight: '500',
+												fontSize: '0.8rem',
+											}}>
+											{' '}
+											Log-out
+										</Button>
+									</>
+								) : null}
 							</div>
 						</div>
-					</nav>
-				</div>
-			</UserContext.Provider>
+					</div>
+				</nav>
+			</div>
 		</>
 	);
 }
