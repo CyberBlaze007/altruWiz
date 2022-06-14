@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Create() {
 	const navigate = useNavigate();
+	const [image, setImage] = useState(null);
 	const [user, loading] = useAuthState(auth);
 	const [eventName, setEventName] = useState('');
 	const [eventDesc, setEventDesc] = useState('');
@@ -54,8 +55,7 @@ function Create() {
 
 	const loadFile = (event: any) => {
 		//process file chosen by user
-		var image = document.getElementById('change-image') as HTMLImageElement;
-		image.src = URL.createObjectURL(event.target.files[0]);
+		setImage(URL.createObjectURL(event.target.files[0]));
 		setImageUpload(event.target.files[0]);
 		console.log('Success');
 	};
@@ -77,10 +77,7 @@ function Create() {
 							console.log('Image Url: ');
 							console.log(url);
 							try {
-								await DataService.updateEvent(
-									{ eventImage: downloadedUrl, eventCode: id },
-									id
-								).then(() => navigate('/organizer'));
+								await DataService.updateEvent({ eventImage: downloadedUrl, eventCode: id }, id).then(() => navigate('/organizer'));
 							} catch (error) {
 								console.log(error);
 							}
@@ -112,10 +109,7 @@ function Create() {
 
 	const removeEvent = (index: number) => {
 		console.log(index);
-		setEventQuests([
-			...eventQuests.slice(0, index),
-			...eventQuests.slice(index + 1),
-		]);
+		setEventQuests([...eventQuests.slice(0, index), ...eventQuests.slice(index + 1)]);
 		setExpReward([...expReward.slice(0, index), ...expReward.slice(index + 1)]);
 	};
 	const calcExp = () => {
@@ -155,9 +149,7 @@ function Create() {
 				const updatedOrg = {
 					eventsCreated: eventsCreated,
 				};
-				await DataService.updateOrg(updatedOrg, user.uid).then(() =>
-					uploadImage(id)
-				);
+				await DataService.updateOrg(updatedOrg, user.uid).then(() => uploadImage(id));
 			});
 		} catch (error) {
 			console.log(error);
@@ -258,25 +250,19 @@ function Create() {
 											<input
 												type='text'
 												placeholder='Assign a quest'
-												onChange={(
-													event: React.ChangeEvent<HTMLInputElement>
-												) => {
+												onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 													processQuest(index, event.target.value);
 												}}
 											/>
 											<input
 												type='text'
 												placeholder='Assign exp reward'
-												onChange={(
-													event: React.ChangeEvent<HTMLInputElement>
-												) => {
+												onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 													processExp(index, event.target.value);
 													calcExp();
 												}}
 											/>
-											<button onClick={() => removeEvent(index)}>
-												Remove Quest
-											</button>
+											<button onClick={() => removeEvent(index)}>Remove Quest</button>
 										</>
 									);
 								})}
@@ -284,8 +270,7 @@ function Create() {
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
 										setExpReward(() => [...expReward, '']);
-									}}
-								>
+									}}>
 									Add Another Quest
 								</button>
 
@@ -344,28 +329,26 @@ function Create() {
 								<h1>Event Image</h1>
 							</div>
 							<div className='create-form-section1-col2-entry-fields'>
-								<label
-									htmlFor='file'
-									className='create-form-section1-col2-entry-fields-input'
-								>
+								<label htmlFor='file' className='create-form-section1-col2-entry-fields-input'>
 									<div className='create-form-section1-col2-entry-fields-input-container'>
-										<img
-											src=''
-											className='create-form-section1-col2-entry-fields-input-container'
-											id='change-image'
-											alt=''
-										/>
-										<AddPhotoAlternateOutlinedIcon className='create-form-section1-col2-entry-fields-input-container-image' />
+										{image ? (
+											<>
+												<img src={image} alt='' className='create-form-section1-col2-entry-fields-input-container-image' />
+												<button
+													className='create-form-section1-col2-entry-fields-input-container-button'
+													onClick={() => {
+														setImage(null);
+														setImageUpload(null);
+													}}>
+													X
+												</button>
+											</>
+										) : (
+											<AddPhotoAlternateOutlinedIcon className='create-form-section1-col2-entry-fields-input-container-image' />
+										)}
 									</div>
 								</label>
-								<input
-									type='file'
-									accept='image/*'
-									name='image'
-									id='file'
-									onChange={loadFile}
-									style={{ display: 'none' }}
-								/>
+								<input type='file' accept='image/*' name='image' id='file' onChange={loadFile} style={{ display: 'none' }} />
 							</div>
 						</div>
 					</div>
@@ -378,17 +361,12 @@ function Create() {
 					<div className='create-form-section2-field'>
 						<div className='create-form-section2-field-text'>
 							<p>
-								Write your event’s description and convince people to join your
-								cause. Add more details to your event like your sponsors,
-								purpose, guests, and schedule.
+								Write your event’s description and convince people to join your cause. Add more details to your event like your sponsors, purpose, guests, and
+								schedule.
 							</p>
 						</div>
 						<div className='create-form-section2-field-input'>
-							<textarea
-								className='create-form-section2-field-input-area'
-								value={eventDesc}
-								onChange={(event) => handleOnChange(event)}
-							/>
+							<textarea className='create-form-section2-field-input-area' value={eventDesc} onChange={(event) => handleOnChange(event)} />
 						</div>
 						<div className='create-form-section1-col1-entry4-fields'>
 							<h2>Max Attendees</h2>
@@ -397,8 +375,7 @@ function Create() {
 								value={attendMax}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 									setAttendMax(event.target.value);
-								}}
-							></input>
+								}}></input>
 						</div>
 					</div>
 				</div>
@@ -407,8 +384,7 @@ function Create() {
 						className='create-form-section3-button'
 						onClick={() => {
 							makeEvent();
-						}}
-					>
+						}}>
 						Done
 					</button>
 				</div>

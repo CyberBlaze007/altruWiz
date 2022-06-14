@@ -21,17 +21,11 @@ function OrgDashboard() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		onSnapshot(
-			query(
-				collection(firestore, 'organizations'),
-				where('creator', '==', user.email)
-			),
-			(snapshot) => {
-				setOrgName(snapshot.docs.at(0).data().orgName);
-				setOrgDesc(snapshot.docs.at(0).data().orgAbout);
-				setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
-			}
-		);
+		onSnapshot(query(collection(firestore, 'organizations'), where('creator', '==', user.email)), (snapshot) => {
+			setOrgName(snapshot.docs.at(0).data().orgName);
+			setOrgDesc(snapshot.docs.at(0).data().orgAbout);
+			setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
+		});
 	}, [loading]);
 
 	const updateDesc = async (orgDescNew: any) => {
@@ -52,9 +46,7 @@ function OrgDashboard() {
 				<div className='orgDashboard-info'>
 					<h1>{orgName}</h1>
 					<h3>Organization Information</h3>
-					{orgDescEdit ? (
-						<p className='profile-body-sec2-form-data'>{orgDesc}</p>
-					) : null}
+					{orgDescEdit ? <p className='profile-body-sec2-form-data'>{orgDesc}</p> : null}
 					{!orgDescEdit ? (
 						<TextField
 							variant={orgDescEdit ? 'standard' : 'outlined'}
@@ -66,9 +58,7 @@ function OrgDashboard() {
 							className='profile-body-sec2-form-field'
 							value={orgDesc}
 							disabled={orgDescEdit}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-								setOrgDesc(event.target.value)
-							}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => setOrgDesc(event.target.value)}
 							fullWidth
 						/>
 					) : null}
@@ -78,49 +68,45 @@ function OrgDashboard() {
 						onClick={() => {
 							setOrgDescEdit(!orgDescEdit);
 							updateDesc(orgDesc);
-						}}
-					></Button>
+						}}></Button>
 				</div>
 				<div className='orgDashboard-events'>
 					<h2>Events</h2>
 					<div className='orgDashboard-events-table'>
-						<>
-							<div className='orgDashboard-events-table-head'>
-								<h4>Date</h4>
-								<h4>Name</h4>
-								<h4>Attendees</h4>
-							</div>
-							{eventsCreated.map((data) => {
-								return <div>{data}</div>;
-							})}
+						<div className='orgDashboard-events-table-head'>
+							<h4>Date</h4>
+							<h4>Name</h4>
+							<h4>Attendees</h4>
+						</div>
+						{eventsCreated.map((data) => {
+							return <div>{data}</div>;
+						})}
 
-							{events.map((element) => {
-								<div className='orgDashboard-events-body'>
-									<div className='orgDashboard-events-table-body-date'>
-										<p>{element.date}</p>
-										<p>{element.time}</p>
-									</div>
-									<div className='orgDashboard-events-table-body-name'>
-										<p>{element.title}</p>
-									</div>
-									<div className='orgDashboard-events-table-body-participants'>
-										<p>{element.limit}</p>
-									</div>
-								</div>;
-							})}
-							<div className='orgDashboard-events-bodyLast'>
-								<div className='orgDashboard-events-table-body-create'>
-									<Button
-										endIcon={<AddOutlinedIcon />}
-										onClick={() => {
-											navigate('/create');
-										}}
-									>
-										Create New Event
-									</Button>
+						{events.map((element) => {
+							<div className='orgDashboard-events-body'>
+								<div className='orgDashboard-events-table-body-date'>
+									<p>{element.date}</p>
+									<p>{element.time}</p>
 								</div>
+								<div className='orgDashboard-events-table-body-name'>
+									<p>{element.title}</p>
+								</div>
+								<div className='orgDashboard-events-table-body-participants'>
+									<p>{element.limit}</p>
+								</div>
+							</div>;
+						})}
+						<div className='orgDashboard-events-bodyLast'>
+							<div className='orgDashboard-events-table-body-create'>
+								<Button
+									endIcon={<AddOutlinedIcon />}
+									onClick={() => {
+										navigate('/create');
+									}}>
+									Create New Event
+								</Button>
 							</div>
-						</>
+						</div>
 					</div>
 				</div>
 			</div>
