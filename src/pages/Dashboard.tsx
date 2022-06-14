@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Tabs Components
@@ -19,17 +19,13 @@ import { styled } from '@mui/system';
 //Local Components
 import DBNav from './../components/navbar/DBNav';
 import Footer from './../components/footer/Footer';
+import { UserContext } from '../App';
 
 function Dashboard() {
 	const [index, setIndex] = useState(0);
+	const user = useContext(UserContext);
 
-	const cards = [
-		<Profile />,
-		<Events />,
-		<Achievements />,
-		<Certificates />,
-		<Badges />,
-	];
+	const cards = [<Profile />, <Events />, <Achievements />, <Certificates />, <Badges />];
 	const Tab = styled(TabUnstyled)`
 		font-family: 'Montserrat';
 		font-style: normal;
@@ -72,12 +68,9 @@ function Dashboard() {
 
 			<div className='dashboard-container'>
 				<div className='dashboard-container-nav'>
-					<DBNav />
+					<DBNav user={user} />
 				</div>
-				<TabsUnstyled
-					defaultValue={0}
-					value={index}
-					className='dashboard-container-tab'>
+				<TabsUnstyled defaultValue={0} value={index} className='dashboard-container-tab'>
 					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab

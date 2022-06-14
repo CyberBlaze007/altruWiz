@@ -18,9 +18,8 @@ import DataService from '../../firebase/services';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Code from '../modals/Code';
 
-function DBNav() {
+function DBNav({ user }: any) {
 	const [profile, setProfile] = useState(true);
-	const [user, loading] = useAuthState(auth);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
 	const UserContext = createContext('');
@@ -32,7 +31,7 @@ function DBNav() {
 
 	useEffect(() => {
 		user && getCurrentUser();
-	}, [loading]);
+	}, []);
 
 	const logout = async () => {
 		try {
@@ -84,17 +83,11 @@ function DBNav() {
 				<div className='nav'>
 					<div className='nav-col1' onClick={() => navigate('/')}>
 						<h1 className='nav-col1-text'>AltruWiz</h1>
-						<img
-							src='/assets/altruwiz-logo-colored.svg'
-							className='nav-col1-icon'
-						/>
+						<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
 					</div>
 					<nav className='nav-col2-p'>
 						<div className='nav-col2-container'>
-							<button
-								className='nav-col2-container-button'
-								onClick={() => setShowModal(true)}
-							>
+							<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
 								Event Code
 							</button>
 						</div>
@@ -102,33 +95,20 @@ function DBNav() {
 							<h1 className='nav-col2-profile-text'>{userName}</h1>
 							<div className='nav-col2-profile-nav'>
 								{profile ? (
-									<img
-										src={userAvatar}
-										onError={() => setProfile(false)}
-										className='nav-col2-profile-nav-pic'
-									/>
+									<img src={userAvatar} onError={() => setProfile(false)} className='nav-col2-profile-nav-pic' />
 								) : (
 									<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 								)}
 								<div onClick={() => setDropdownState(!dropDownState)}>
 									<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
 								</div>
-								<div
-									className={
-										dropDownState
-											? 'nav-col2-profile-nav-modal-open'
-											: 'nav-col2-profile-nav-modal-close'
-									}
-								>
+								<div className={dropDownState ? 'nav-col2-profile-nav-modal-open' : 'nav-col2-profile-nav-modal-close'}>
 									{dropDownState ? (
 										<>
 											<Button
 												startIcon={<JoinInnerIcon />}
 												onClick={() => {
-													setDropdownState(false),
-														orgName
-															? navigate('/organizer')
-															: navigate('/organizer/makeorg');
+													setDropdownState(false), orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
 												}}
 												style={{
 													color: 'white',
@@ -137,8 +117,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												{isOrganizer ? orgName : 'Be an Organizer'}
 											</Button>
@@ -154,8 +133,7 @@ function DBNav() {
 													fontStyle: 'normal',
 													fontWeight: '500',
 													fontSize: '0.8rem',
-												}}
-											>
+												}}>
 												{' '}
 												Log-out
 											</Button>
