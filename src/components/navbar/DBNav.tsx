@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 //Icon Components
 import { Button } from '@mui/material';
@@ -7,20 +7,19 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import JoinInnerIcon from '@mui/icons-material/JoinInner';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-//Metadata
-import { profiles } from '../../../assets/pseudodata/profile-data';
-
 //Firebase Components
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { useNavigate } from 'react-router-dom';
 import DataService from '../../firebase/services';
 import Code from '../modals/Code';
+import { UserContext } from './../../App';
 
-function DBNav({ user }: any) {
+function DBNav() {
 	const [profile, setProfile] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
+	const user = useContext(UserContext);
 	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
 	var [userAvatar, setUserAvatar] = useState('');
@@ -80,11 +79,17 @@ function DBNav({ user }: any) {
 			<div className='nav'>
 				<div className='nav-col1' onClick={() => navigate('/')}>
 					<h1 className='nav-col1-text'>AltruWiz</h1>
-					<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
+					<img
+						src='/assets/altruwiz-logo-colored.svg'
+						className='nav-col1-icon'
+					/>
 				</div>
 				<nav className='nav-col2-p'>
 					<div className='nav-col2-container'>
-						<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
+						<button
+							className='nav-col2-container-button'
+							onClick={() => setShowModal(true)}
+						>
 							Event Code
 						</button>
 					</div>
@@ -92,20 +97,33 @@ function DBNav({ user }: any) {
 						<h1 className='nav-col2-profile-text'>{userName}</h1>
 						<div className='nav-col2-profile-nav'>
 							{profile ? (
-								<img src={userAvatar} onError={() => setProfile(false)} className='nav-col2-profile-nav-pic' />
+								<img
+									src={userAvatar}
+									onError={() => setProfile(false)}
+									className='nav-col2-profile-nav-pic'
+								/>
 							) : (
 								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
 							)}
 							<div onClick={() => setDropdownState(!dropDownState)}>
 								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
 							</div>
-							<div className={dropDownState ? 'nav-col2-profile-nav-modal-open' : 'nav-col2-profile-nav-modal-close'}>
+							<div
+								className={
+									dropDownState
+										? 'nav-col2-profile-nav-modal-open'
+										: 'nav-col2-profile-nav-modal-close'
+								}
+							>
 								{dropDownState ? (
 									<>
 										<Button
 											startIcon={<JoinInnerIcon />}
 											onClick={() => {
-												setDropdownState(false), orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
+												setDropdownState(false),
+													orgName
+														? navigate('/organizer')
+														: navigate('/organizer/makeorg');
 											}}
 											style={{
 												color: 'white',
@@ -114,7 +132,8 @@ function DBNav({ user }: any) {
 												fontStyle: 'normal',
 												fontWeight: '500',
 												fontSize: '0.8rem',
-											}}>
+											}}
+										>
 											{' '}
 											{isOrganizer ? orgName : 'Be an Organizer'}
 										</Button>
@@ -130,7 +149,8 @@ function DBNav({ user }: any) {
 												fontStyle: 'normal',
 												fontWeight: '500',
 												fontSize: '0.8rem',
-											}}>
+											}}
+										>
 											{' '}
 											Log-out
 										</Button>
