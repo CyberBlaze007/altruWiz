@@ -26,8 +26,7 @@ function Create({ showModal, setShowModal }: any) {
 	const [eventCode, setEventCode] = useState('');
 	const [eventDate, setEventDate] = useState('');
 	const [eventQuests, setEventQuests] = useState([]);
-	const [expReward, setExpReward] = useState([]);
-	const [expFinal, setExpFinal] = useState(0);
+	const [expReward, setExpReward] = useState('');
 	const [eventLocation, setEventLocation] = useState('');
 	const [eventImage, setEventImage] = useState('');
 	const [eventTime, setEventTime] = useState('');
@@ -100,27 +99,10 @@ function Create({ showModal, setShowModal }: any) {
 		setEventQuests(quests);
 		console.log(eventQuests);
 	};
-	const processExp = (index: number, val: any) => {
-		//process exps from quests in a single array
-		let exps = expReward;
-		exps[index] = val;
-		setExpReward(exps);
-		console.log(expReward);
-	};
 
 	const removeEvent = (index: number) => {
 		console.log(index);
 		setEventQuests([...eventQuests.slice(0, index), ...eventQuests.slice(index + 1)]);
-		setExpReward([...expReward.slice(0, index), ...expReward.slice(index + 1)]);
-	};
-	const calcExp = () => {
-		//finalize exp total reward for event
-		let exp: number = 0;
-		expReward.forEach((element) => {
-			exp += parseInt(element);
-		});
-		setExpFinal(exp);
-		// console.log(expFinal);
 	};
 
 	const makeEvent = async () => {
@@ -135,7 +117,7 @@ function Create({ showModal, setShowModal }: any) {
 			eventTime: eventTime,
 			eventImage: eventImage,
 			eventDesc: eventDesc,
-			expReward: expFinal,
+			expReward: expReward,
 			location: eventLocation,
 			membersAllowed: parseInt(attendMax),
 			quests: eventQuests,
@@ -163,8 +145,6 @@ function Create({ showModal, setShowModal }: any) {
 		setEventCode('');
 		setEventDate('');
 		setEventQuests([]);
-		setExpReward([]);
-		setExpFinal(0);
 		setEventLocation('');
 		setEventImage('');
 		setEventTime('');
@@ -282,25 +262,25 @@ function Create({ showModal, setShowModal }: any) {
 														processQuest(index, event.target.value);
 													}}
 												/>
-												<input
-													type='number'
-													className='create-form-section1-col1-entry-fields-quests-inputs-field'
-													placeholder='Assign exp reward'
-													onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-														processExp(index, event.target.value);
-														calcExp();
-													}}
-												/>
 											</div>
 											<CloseIcon className='create-form-section1-col1-entry-fields-quests-button' onClick={() => removeEvent(index)} />
 										</div>
 									);
 								})}
+								{eventQuests.length > 0 && (
+									<input
+										type='number'
+										className='create-form-section1-col1-entry-fields-quests-inputs-field'
+										placeholder='Assign exp reward'
+										onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+											setExpReward(event.target.value.toString());
+										}}
+									/>
+								)}
 								<button
 									className='create-form-section1-col1-entry-fields-button'
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
-										setExpReward(() => [...expReward, '']);
 									}}>
 									Add a Quest
 								</button>

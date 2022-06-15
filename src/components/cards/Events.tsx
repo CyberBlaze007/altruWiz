@@ -19,13 +19,10 @@ function Events() {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 		});
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-				}
-			);
+			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
+				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
+				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+			});
 	}, []);
 
 	return (
@@ -40,17 +37,11 @@ function Events() {
 						margin='dense'
 						placeholder='Search Anything'
 						value={searchTemp}
-						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-							(searchTemp = event.target.value)
-						}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => (searchTemp = event.target.value)}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position='end'>
-									<IconButton
-										edge='end'
-										color='secondary'
-										onClick={() => setSearch(searchTemp || search)}
-									>
+									<IconButton edge='end' color='secondary' onClick={() => setSearch(searchTemp)}>
 										<SearchIcon />
 									</IconButton>
 								</InputAdornment>
@@ -89,19 +80,17 @@ function Events() {
 					use='dash'
 					head={
 						eventList.filter((data) => {
-							return data.eventName
-								.toLowerCase()
-								.includes(search.toLowerCase());
+							return data.eventName.toLowerCase().includes(search.toLowerCase());
 						}).length > 0
-							? 'Results found'
+							? search === ''
+								? 'All Events'
+								: 'Results found'
 							: 'No results found'
 					}
 					events={
 						search
 							? eventList.filter((data) => {
-									return data.eventName
-										.toLowerCase()
-										.includes(search.toLowerCase());
+									return data.eventName.toLowerCase().includes(search.toLowerCase());
 							  })
 							: eventList
 					}
