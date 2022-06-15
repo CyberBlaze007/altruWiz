@@ -22,22 +22,14 @@ function Details() {
 
 	useEffect(() => {
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'events'), where('eventID', '==', id)),
-				(snapshot) => {
-					setData(snapshot.docs.at(0).data());
-				}
-			);
-		user && showRsvp
-			? (document.querySelector('body').style.overflow = 'hidden')
-			: (document.querySelector('body').style.overflow = 'auto');
+			onSnapshot(query(collection(firestore, 'events'), where('eventID', '==', id)), (snapshot) => {
+				setData(snapshot.docs.at(0).data());
+			});
+		user && showRsvp ? (document.querySelector('body').style.overflow = 'hidden') : (document.querySelector('body').style.overflow = 'auto');
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					setMyEvents(snapshot.docs.at(0).data().eventsJoined);
-				}
-			);
+			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
+				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
+			});
 	}, [showRsvp, loading]);
 	const processDate = (data: any) => {
 		const date = new Date(data?.eventDate + 'T' + data?.eventTime);
@@ -45,9 +37,7 @@ function Details() {
 		return date.toDateString();
 	};
 	const processTime = (data: any) => {
-		const time = new Date(
-			data?.eventDate + 'T' + data?.eventTime
-		).toLocaleTimeString('en-US', {
+		const time = new Date(data?.eventDate + 'T' + data?.eventTime).toLocaleTimeString('en-US', {
 			hour12: true,
 			hour: 'numeric',
 			minute: 'numeric',
@@ -57,13 +47,7 @@ function Details() {
 	const navigate = useNavigate();
 	return (
 		<>
-			<Rsvp
-				event={data}
-				showModal={showRsvp}
-				setShowModal={setShowRsvp}
-				user={user}
-				myEvents={eventsJoined}
-			/>
+			<Rsvp event={data} showModal={showRsvp} setShowModal={setShowRsvp} user={user} myEvents={eventsJoined} />
 			<div className='details'>
 				<div className='details-nav'>
 					<DBNav />
@@ -82,12 +66,8 @@ function Details() {
 							<img src={data?.eventImage} alt={data?.eventName} />
 						</div>
 						<div className='details-head-row1-col2'>
-							<h1 className='details-head-row1-col2-title'>
-								{data?.eventName}
-							</h1>
-							<h1 className='details-head-row1-col2-org'>
-								by {data?.eventCreator}
-							</h1>
+							<h1 className='details-head-row1-col2-title'>{data?.eventName}</h1>
+							<h1 className='details-head-row1-col2-org'>by {data?.eventCreator}</h1>
 							<div className='details-head-row1-col2-xp'>
 								<img src='/assets/pseudodata/images/star.png' alt='Star Icon' />
 								<p>{data?.expReward}</p>
@@ -103,26 +83,17 @@ function Details() {
 							}}
 						/>
 						{showShare && (
-							<Share
-								url={shareUrl}
-								eventName={data?.eventName}
-								eventDesc={data?.eventDesc}
-								showModal={showShare}
-								setShowModal={setShowShare}
-							/>
+							<Share url={shareUrl} eventName={data?.eventName} eventDesc={data?.eventDesc} showModal={showShare} setShowModal={setShowShare} />
 						)}
 						{myEvents.includes(data?.eventCode) ? (
-							<button className='details-head-row2-register'>
-								Participated
-							</button>
+							<button className='details-head-row2-register'>Participated</button>
 						) : (
 							<button
 								onClick={() => {
 									setEventsJoined([...myEvents, data?.eventCode]);
 									setShowRsvp(true);
 								}}
-								className='details-head-row2-register'
-							>
+								className='details-head-row2-register'>
 								Register
 							</button>
 						)}
@@ -147,6 +118,15 @@ function Details() {
 						</div>
 					</div>
 					<div className='details-body-col2'>
+						<div className='details-body-col2-header'>
+							<h1>About Organizer</h1>
+						</div>
+						<div className='details-body-col2-body'>
+							<div className='details-body-col2-body-sec1'>
+								<p>{data?.eventDesc}</p>
+							</div>
+						</div>
+						<div className='details-body-col2-divider' />
 						<div className='details-body-col2-header'>
 							<h1>About this event</h1>
 						</div>
