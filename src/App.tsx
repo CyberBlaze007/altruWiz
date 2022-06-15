@@ -10,7 +10,7 @@ import Details from './pages/Details';
 import OrgDashboard from './pages/OrgDashboard';
 import BeOrganizer from './pages/BeOrganizer';
 // import EventCreation from './pages/EventCreation';
-import Create from './pages/Create';
+import Create from './components/modals/Create';
 import ResetPass from './pages/ResetPass';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase-config';
@@ -37,7 +37,6 @@ function App() {
 						<Route path='/organizer/:id' element={<BeOrganizer />} />
 						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/dashboard/:id' element={<Dashboard />} />
-						<Route path='/create' element={<Create />} />
 					</Route>
 					<Route path='/*' element={<ReRoute />} />
 				</Routes>

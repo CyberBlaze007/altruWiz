@@ -81,6 +81,7 @@
 				font-weight: 500;
 				font-size: 1.2rem;
 				color: #000000;
+				cursor: pointer;
 			}
 			&-nav {
 				display: flex;
@@ -104,31 +105,17 @@
 				&-modal {
 					&-open {
 						position: absolute;
-						background-color: hsl(271, 50%, 45%, 0.5);
+						background-color: hsl(271, 50%, 45%);
 						display: flex;
 						flex-direction: column;
 						align-items: flex-end;
 						justify-content: center;
 						border-radius: 0 0 1rem 3rem;
 						box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.05);
-						animation: showDrop 0.3s ease;
+						height: 6rem;
 						padding-right: 1rem;
 						width: 12rem;
-						height: 6rem;
-						top: 3rem;
-						right: 1rem;
-					}
-					&-close {
-						position: absolute;
-						background-color: hsl(271, 50%, 45%, 0.5);
-						display: flex;
-						flex-direction: column;
-						align-items: flex-end;
-						justify-content: center;
-						border-radius: 0 0 1rem 3rem;
-						box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.05);
-						padding-right: 1rem;
-						top: 3rem;
+						top: 3.5rem;
 						right: 1rem;
 					}
 				}
@@ -176,7 +163,9 @@
 			transition: 0.25s box-shadow linear;
 			border-radius: 20px;
 			cursor: pointer;
-
+			img {
+				border-radius: 20px 20px 0px 0px;
+			}
 			&-details {
 				padding: 0.5rem 1rem;
 				&-title {
@@ -1461,26 +1450,6 @@
 	}
 	to {
 		height: 3rem;
-	}
-}
-
-@keyframes showDrop {
-	from {
-		height: 0;
-	}
-	to {
-		height: 6rem;
-	}
-}
-
-@keyframes closeDrop {
-	from {
-		height: 6rem;
-		width: 12rem;
-	}
-	to {
-		height: 0;
-		width: 0;
 	}
 }
 

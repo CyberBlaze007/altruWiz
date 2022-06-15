@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import DataService from '../../firebase/services';
 import Code from '../modals/Code';
 import { UserContext } from './../../App';
+import { motion } from 'framer-motion';
 
 function DBNav() {
 	const [profile, setProfile] = useState(true);
@@ -79,84 +80,75 @@ function DBNav() {
 			<div className='nav'>
 				<div className='nav-col1' onClick={() => navigate('/')}>
 					<h1 className='nav-col1-text'>AltruWiz</h1>
-					<img
-						src='/assets/altruwiz-logo-colored.svg'
-						className='nav-col1-icon'
-					/>
+					<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
 				</div>
 				<nav className='nav-col2-p'>
 					<div className='nav-col2-container'>
-						<button
-							className='nav-col2-container-button'
-							onClick={() => setShowModal(true)}
-						>
+						<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
 							Event Code
 						</button>
 					</div>
 					<div className='nav-col2-profile'>
-						<h1 className='nav-col2-profile-text'>{userName}</h1>
+						<motion.h1 whileTap={{ y: '2px' }} className='nav-col2-profile-text' onClick={() => navigate('/dashboard')}>
+							{userName}
+						</motion.h1>
 						<div className='nav-col2-profile-nav'>
 							{profile ? (
 								<img
 									src={userAvatar}
 									onError={() => setProfile(false)}
 									className='nav-col2-profile-nav-pic'
+									onClick={() => setDropdownState(!dropDownState)}
 								/>
 							) : (
-								<AccountCircleIcon className='nav-col2-profile-nav-pic' />
+								<AccountCircleIcon className='nav-col2-profile-nav-pic' onClick={() => setDropdownState(!dropDownState)} />
 							)}
-							<div onClick={() => setDropdownState(!dropDownState)}>
-								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' />
-							</div>
-							<div
-								className={
-									dropDownState
-										? 'nav-col2-profile-nav-modal-open'
-										: 'nav-col2-profile-nav-modal-close'
-								}
-							>
-								{dropDownState ? (
-									<>
-										<Button
-											startIcon={<JoinInnerIcon />}
-											onClick={() => {
-												setDropdownState(false),
-													orgName
-														? navigate('/organizer')
-														: navigate('/organizer/makeorg');
-											}}
-											style={{
-												color: 'white',
-												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
-												fontFamily: 'Montserrat',
-												fontStyle: 'normal',
-												fontWeight: '500',
-												fontSize: '0.8rem',
-											}}
-										>
-											{' '}
-											{isOrganizer ? orgName : 'Be an Organizer'}
-										</Button>
-										<Button
-											startIcon={<LogoutIcon />}
-											onClick={() => {
-												setDropdownState(false), logout();
-											}}
-											style={{
-												color: 'white',
-												textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
-												fontFamily: 'Montserrat',
-												fontStyle: 'normal',
-												fontWeight: '500',
-												fontSize: '0.8rem',
-											}}
-										>
-											{' '}
-											Log-out
-										</Button>
-									</>
-								) : null}
-							</div>
+							<motion.div animate={dropDownState ? { rotate: '-180deg' } : { rotate: 0 }} transition={{ duration: 0.5, type: 'spring' }}>
+								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' onClick={() => setDropdownState(!dropDownState)} />
+							</motion.div>
+							<motion.div
+								initial={{
+									y: '-100%',
+									zIndex: -1,
+									scale: 0,
+									opacity: 0,
+								}}
+								animate={dropDownState ? { y: 0, zIndex: 1, opacity: 1, scale: 1 } : { y: '-100%', zIndex: -1, opacity: 0, scale: 0 }}
+								className='nav-col2-profile-nav-modal-open'>
+								<Button
+									startIcon={<JoinInnerIcon />}
+									onClick={() => {
+										orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
+										setDropdownState(false);
+									}}
+									style={{
+										color: 'white',
+										textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+										fontFamily: 'Montserrat',
+										fontStyle: 'normal',
+										fontWeight: '500',
+										fontSize: '0.8rem',
+									}}>
+									{' '}
+									{isOrganizer ? orgName : 'Be an Organizer'}
+								</Button>
+								<Button
+									startIcon={<LogoutIcon />}
+									onClick={() => {
+										setDropdownState(false), logout();
+									}}
+									style={{
+										color: 'white',
+										textShadow: '0px 7px 8px rgba(0, 0, 0, 0.25)',
+										fontFamily: 'Montserrat',
+										fontStyle: 'normal',
+										fontWeight: '500',
+										fontSize: '0.8rem',
+									}}>
+									{' '}
+									Log-out
+								</Button>
+							</motion.div>
 						</div>
 					</div>
 				</nav>

@@ -1,21 +1,22 @@
 import React, { ChangeEvent, useEffect, useId, useState } from 'react';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
 import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import DataService from '../firebase/services';
-import { auth, storage } from '../firebase-config';
+import DataService from '../../firebase/services';
+import { auth, storage } from '../../firebase-config';
 
-import Footer from '../components/footer/Footer';
-import DBNav from '../components/navbar/DBNav';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-function Create() {
+function Create({ showModal, setShowModal }: any) {
 	const navigate = useNavigate();
 	const [image, setImage] = useState(null);
 	const [user, loading] = useAuthState(auth);
@@ -77,7 +78,7 @@ function Create() {
 							console.log('Image Url: ');
 							console.log(url);
 							try {
-								await DataService.updateEvent({ eventImage: downloadedUrl, eventCode: id }, id).then(() => navigate('/organizer'));
+								await DataService.updateEvent({ eventImage: downloadedUrl, eventCode: id }, id).then(() => setShowModal(false));
 							} catch (error) {
 								console.log(error);
 							}
@@ -175,25 +176,49 @@ function Create() {
 	};
 
 	return (
-		<div className='create'>
-			<div className='create-navbar'>
-				<DBNav />
-			</div>
-			<div className='create-form'>
+		<motion.div
+			initial={{ scale: 0, opacity: 0 }}
+			animate={showModal ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+			transition={{
+				scale: showModal ? { duration: 0.1 } : { delay: 0.5, duration: 0.1 },
+				default: showModal ? { delay: 0.1, duration: 0.5, type: 'tween' } : { duration: 0.5, type: 'tween' },
+			}}
+			className='create'>
+			<motion.div
+				initial={{
+					y: '100%',
+					scale: 0,
+				}}
+				animate={
+					showModal
+						? { y: 0, x: 0, scale: 1 }
+						: {
+								y: '100%',
+								scale: 0,
+						  }
+				}
+				transition={{ delay: 0.1, duration: 0.5, type: 'tween' }}
+				className='create-form'>
 				<div className='create-form-header'>
-					<h1>Make an Event</h1>
-					<h2>Let’s cover some basic information about your event.</h2>
+					<div className='create-form-header-texts'>
+						<h1>Make an Event</h1>
+						<h2>Let’s cover some basic information about your event.</h2>
+					</div>
+					<div className='create-form-header-close'>
+						<CloseIcon className='create-form-header-close-icon' onClick={() => setShowModal(false)} />
+					</div>
 				</div>
 				<div className='create-form-section1'>
 					<div className='create-form-section1-col1'>
-						<div className='create-form-section1-col1-entry1'>
-							<div className='create-form-section1-col1-entry1-title'>
-								<PermContactCalendarOutlinedIcon className='create-form-section1-col2-entry1-title-icon' />
+						<div className='create-form-section1-col1-entry'>
+							<div className='create-form-section1-col1-entry-title'>
+								<PermContactCalendarOutlinedIcon className='create-form-section1-col1-entry-title-icon' />
 								<h1>Name of Event</h1>
 							</div>
-							<div className='create-form-section1-col1-entry1-fields'>
+							<div className='create-form-section1-col1-entry-fields'>
 								<input
 									type='text'
+									className='create-form-section1-col1-entry-fields-input'
 									value={eventName}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 										setEventName(event.target.value);
@@ -203,7 +228,7 @@ function Create() {
 						</div>
 						<div className='create-form-section1-col1-entry2'>
 							<div className='create-form-section1-col1-entry2-title'>
-								<EventOutlinedIcon className='create-form-section1-col2-entry2-title-icon' />
+								<EventOutlinedIcon className='create-form-section1-col1-entry2-title-icon' />
 								<h1>Time {'&'} Date</h1>
 							</div>
 							<div className='create-form-section1-col1-entry2-fields'>
@@ -223,14 +248,15 @@ function Create() {
 								/>
 							</div>
 						</div>
-						<div className='create-form-section1-col1-entry3'>
-							<div className='create-form-section1-col1-entry3-title'>
-								<LocationCityOutlinedIcon className='create-form-section1-col2-entry3-title-icon' />
+						<div className='create-form-section1-col1-entry'>
+							<div className='create-form-section1-col1-entry-title'>
+								<LocationCityOutlinedIcon className='create-form-section1-col1-entry-title-icon' />
 								<h1>Location</h1>
 							</div>
-							<div className='create-form-section1-col1-entry3-fields'>
+							<div className='create-form-section1-col1-entry-fields'>
 								<input
-									type='search'
+									type='text'
+									className='create-form-section1-col1-entry-fields-input'
 									value={eventLocation}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 										setEventLocation(event.target.value);
@@ -238,87 +264,62 @@ function Create() {
 								/>
 							</div>
 						</div>
-						<div className='create-form-section1-col1-entry4'>
-							<div className='create-form-section1-col1-entry4-title'>
-								<GolfCourseOutlinedIcon className='create-form-section1-col1-entry4-title-icon' />
+						<div className='create-form-section1-col1-entry'>
+							<div className='create-form-section1-col1-entry-title'>
+								<GolfCourseOutlinedIcon className='create-form-section1-col1-entry-title-icon' />
 								<h1>Quest</h1>
 							</div>
-							<div className='create-form-section1-col1-entry4-fields'>
+							<div className='create-form-section1-col1-entry-fields'>
 								{eventQuests.map((value, index) => {
 									return (
-										<>
-											<input
-												type='text'
-												placeholder='Assign a quest'
-												onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-													processQuest(index, event.target.value);
-												}}
-											/>
-											<input
-												type='text'
-												placeholder='Assign exp reward'
-												onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-													processExp(index, event.target.value);
-													calcExp();
-												}}
-											/>
-											<button onClick={() => removeEvent(index)}>Remove Quest</button>
-										</>
+										<div className='create-form-section1-col1-entry-fields-quests'>
+											<div className='create-form-section1-col1-entry-fields-quests-inputs'>
+												<input
+													type='text'
+													className='create-form-section1-col1-entry-fields-quests-inputs-field'
+													placeholder='Assign a quest'
+													onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+														processQuest(index, event.target.value);
+													}}
+												/>
+												<input
+													type='number'
+													className='create-form-section1-col1-entry-fields-quests-inputs-field'
+													placeholder='Assign exp reward'
+													onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+														processExp(index, event.target.value);
+														calcExp();
+													}}
+												/>
+											</div>
+											<CloseIcon className='create-form-section1-col1-entry-fields-quests-button' onClick={() => removeEvent(index)} />
+										</div>
 									);
 								})}
 								<button
+									className='create-form-section1-col1-entry-fields-button'
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
 										setExpReward(() => [...expReward, '']);
 									}}>
-									Add Another Quest
+									Add a Quest
 								</button>
-
-								{/* <input
-									type='text'
-									placeholder='Assign a quest'
+							</div>
+						</div>
+						<div className='create-form-section1-col1-entry'>
+							<div className='create-form-section1-col1-entry-title'>
+								<NaturePeopleIcon className='create-form-section1-col1-entry-title-icon' />
+								<h1>Max Attendees</h1>
+							</div>
+							<div className='create-form-section1-col1-entry-fields'>
+								<input
+									type={'text'}
+									className='create-form-section1-col1-entry-fields-input'
+									value={attendMax}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processQuest(2, event.target.value);
+										setAttendMax(event.target.value);
 									}}
 								/>
-								<input
-									type='text'
-									placeholder='Assign exp reward'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processExp(2, event.target.value);
-										calcExp();
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign a quest'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processQuest(3, event.target.value);
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign exp reward'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processExp(3, event.target.value);
-										calcExp();
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign a quest'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processQuest(4, event.target.value);
-									}}
-								/>
-								<input
-									type='text'
-									placeholder='Assign exp reward'
-									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-										processExp(4, event.target.value);
-										calcExp();
-									}}
-								/> */}
 							</div>
 						</div>
 					</div>
@@ -334,14 +335,13 @@ function Create() {
 										{image ? (
 											<>
 												<img src={image} alt='' className='create-form-section1-col2-entry-fields-input-container-image' />
-												<button
+												<CloseIcon
 													className='create-form-section1-col2-entry-fields-input-container-button'
 													onClick={() => {
 														setImage(null);
 														setImageUpload(null);
-													}}>
-													X
-												</button>
+													}}
+												/>
 											</>
 										) : (
 											<AddPhotoAlternateOutlinedIcon className='create-form-section1-col2-entry-fields-input-container-image' />
@@ -368,15 +368,6 @@ function Create() {
 						<div className='create-form-section2-field-input'>
 							<textarea className='create-form-section2-field-input-area' value={eventDesc} onChange={(event) => handleOnChange(event)} />
 						</div>
-						<div className='create-form-section1-col1-entry4-fields'>
-							<h2>Max Attendees</h2>
-							<input
-								type={'text'}
-								value={attendMax}
-								onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-									setAttendMax(event.target.value);
-								}}></input>
-						</div>
 					</div>
 				</div>
 				<div className='create-form-section3'>
@@ -388,11 +379,8 @@ function Create() {
 						Done
 					</button>
 				</div>
-			</div>
-			<div className='create-footer'>
-				<Footer />
-			</div>
-		</div>
+			</motion.div>
+		</motion.div>
 	);
 }
 

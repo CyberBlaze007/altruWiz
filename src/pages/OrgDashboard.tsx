@@ -11,12 +11,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
+import Create from '../components/modals/Create';
 
 function OrgDashboard() {
 	const [orgName, setOrgName] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
 	const [orgDescEdit, setOrgDescEdit] = useState(true);
 	const [eventsCreated, setEventsCreated] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 	const [user, loading] = useAuthState(auth);
 	const navigate = useNavigate();
 
@@ -42,6 +44,7 @@ function OrgDashboard() {
 	return (
 		<>
 			<DBNav />
+			<Create showModal={showModal} setShowModal={setShowModal} />
 			<div className='orgDashboard'>
 				<div className='orgDashboard-info'>
 					<h1>{orgName}</h1>
@@ -101,7 +104,7 @@ function OrgDashboard() {
 								<Button
 									endIcon={<AddOutlinedIcon />}
 									onClick={() => {
-										navigate('/create');
+										setShowModal(true);
 									}}>
 									Create New Event
 								</Button>
