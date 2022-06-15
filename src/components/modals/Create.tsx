@@ -26,7 +26,7 @@ function Create({ showModal, setShowModal }: any) {
 	const [eventCode, setEventCode] = useState('');
 	const [eventDate, setEventDate] = useState('');
 	const [eventQuests, setEventQuests] = useState([]);
-	const [expReward, setExpReward] = useState('');
+	const [expReward, setExpReward] = useState(0);
 	const [eventLocation, setEventLocation] = useState('');
 	const [eventImage, setEventImage] = useState('');
 	const [eventTime, setEventTime] = useState('');
@@ -273,7 +273,7 @@ function Create({ showModal, setShowModal }: any) {
 										className='create-form-section1-col1-entry-fields-quests-inputs-field'
 										placeholder='Assign exp reward'
 										onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-											setExpReward(event.target.value.toString());
+											setExpReward(event.target.valueAsNumber);
 										}}
 									/>
 								)}

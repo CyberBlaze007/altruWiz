@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { auth, firestore } from '../../firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DataService from '../../firebase/services';
 
@@ -21,14 +20,11 @@ function Code({ showModal, setShowModal }: any) {
 				setEventList(snapshot.docs.map((docEach) => docEach.data()));
 			});
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
-					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-					setCurrentExp(snapshot.docs.at(0).data().expTotal);
-				}
-			);
+			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
+				setJoinedEvents(snapshot.docs.at(0).data().eventsJoined);
+				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+				setCurrentExp(snapshot.docs.at(0).data().expTotal);
+			});
 	}, [loading]);
 
 	const updateUserEvents = async () => {
@@ -51,16 +47,11 @@ function Code({ showModal, setShowModal }: any) {
 					// console.log('data !== code', data, code);
 					checkJoined = checkJoined && data !== code;
 				});
-				if (checkJoined)
-					alert('You have not yet joined this event. Please join first.');
+				if (checkJoined) alert('You have not yet joined this event. Please join first.');
 				if (check && checkJoined === false) {
 					completed.push(code);
 					newExp += event.expReward;
-					alert(
-						'Congratulations! You have completed the event and earned ' +
-							event.expReward +
-							' EXP!'
-					);
+					alert('Congratulations! You have completed the event and earned ' + event.expReward + ' EXP!');
 				}
 			}
 		});
@@ -72,7 +63,7 @@ function Code({ showModal, setShowModal }: any) {
 						eventsJoined: joined,
 						completedEvents: completed,
 					},
-					user.uid
+					user.uid,
 			  )
 			: alert('Sorry. You already submitted this code.');
 	};
@@ -95,16 +86,12 @@ function Code({ showModal, setShowModal }: any) {
 							opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
 					  }
 			}
-			className='code'
-		>
+			className='code'>
 			<div className='code-container'>
 				<div className='code-container-top'>
 					<h1>Finished a task or event?</h1>
 					<div className='code-container-close'>
-						<CloseIcon
-							onClick={() => setShowModal(false)}
-							className='code-container-close-icon'
-						/>
+						<CloseIcon onClick={() => setShowModal(false)} className='code-container-close-icon' />
 					</div>
 				</div>
 
@@ -116,9 +103,7 @@ function Code({ showModal, setShowModal }: any) {
 							type='text'
 							className='code-container-center-row-field'
 							value={code}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-								setCode(event.target.value)
-							}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCode(event.target.value)}
 						/>
 						<button type='submit' onClick={updateUserEvents}>
 							Submit
