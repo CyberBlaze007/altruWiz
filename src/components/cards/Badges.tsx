@@ -15,9 +15,10 @@ function Badges() {
 				query(collection(firestore, 'user'), where('email', '==', user.email)),
 				(snapshot) => {
 					getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+
 					awardBadges(
 						snapshot.docs.at(0).data().badgesCollected,
-						snapshot.docs.at(0).data().eventsCompleted
+						snapshot.docs.at(0).data().completedEvents
 					);
 				}
 			);
@@ -34,20 +35,20 @@ function Badges() {
 		});
 	};
 
-	const awardBadges = async (badgesCollected: any, eventsJoined: any) => {
+	const awardBadges = async (badgesCollected: any, eventsCompleted: any) => {
 		let newBadges = badgesCollected;
 		let checkJ = true;
 		let checkB = true;
 		let checkL = true;
 
-		if (eventsJoined.length >= 1) {
+		if (eventsCompleted.length >= 1) {
 			badgesCollected.forEach((badge: any) => {
 				checkB = checkB && badge !== 'Baby Steps';
 				// console.log('badge === Baby steps', badge, checkB);
 			});
 			checkB && newBadges.push('Baby Steps');
 		}
-		if (eventsJoined.length >= 5) {
+		if (eventsCompleted.length >= 5) {
 			badgesCollected.forEach((badge: any) => {
 				checkJ = checkJ && badge !== 'Junior Steps';
 				// console.log('badge === Junior steps', badge, checkJ);
@@ -55,7 +56,7 @@ function Badges() {
 
 			checkJ && newBadges.push('Junior Steps');
 		}
-		if (eventsJoined.length >= 10) {
+		if (eventsCompleted.length >= 10) {
 			badgesCollected.forEach((badge: any) => {
 				checkL = checkL && badge !== 'Love Thumb';
 				// console.log('badge === Love Thumb', badge, checkL);

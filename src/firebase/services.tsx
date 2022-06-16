@@ -8,8 +8,6 @@ import {
 	doc,
 	getDocs,
 	collection,
-	query,
-	where,
 	onSnapshot,
 } from 'firebase/firestore';
 import eventConverter from './EventDetails';
