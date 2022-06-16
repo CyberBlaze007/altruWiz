@@ -45,7 +45,6 @@ function Edit({ showModal, setShowModal, event }: any) {
 		setEventQuests(event.quests);
 		setExpReward(event.expReward);
 		setEventLocation(event.location);
-		// setEventImage(event.eventImage);
 		setAttendMax(event.membersAllowed);
 		setImage(event.eventImage);
 		console.log(eventQuests);

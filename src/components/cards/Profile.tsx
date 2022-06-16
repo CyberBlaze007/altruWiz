@@ -11,6 +11,7 @@ import { storage } from '../../firebase-config';
 function Profile() {
 	const [image, setImage] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
+	const [data, setData] = useState(null);
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [gender, setGender] = useState('');
@@ -37,6 +38,7 @@ function Profile() {
 				setDescription(myData.desc);
 				setBday(myData.bday);
 				setImage(myData.profilePic);
+				setData(myData);
 			} else {
 				// doc.data() will be undefined in this case
 				console.log('No such document!');
@@ -96,6 +98,16 @@ function Profile() {
 		}
 	};
 
+	const handleCancel = () => {
+		setFirstName(data.name.first);
+		setLastName(data.name.last);
+		setGender(data.gender);
+		setEmail(data.email);
+		setAddress(data.address);
+		setDescription(data.desc);
+		setBday(data.bday);
+		setImage(data.profilePic);
+	};
 	return (
 		<ScrollTop>
 			<div className='profile'>
@@ -335,6 +347,7 @@ function Profile() {
 										className='profile-body-sec2-footer-buttons-comp2'
 										onClick={() => {
 											setEditState(true);
+											handleCancel();
 										}}
 									>
 										Cancel Changes
