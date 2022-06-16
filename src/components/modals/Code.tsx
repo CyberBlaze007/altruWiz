@@ -5,8 +5,10 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import CloseIcon from '@mui/icons-material/Close';
 import DataService from '../../firebase/services';
+import EventSuccess from './EventSuccess';
 
 function Code({ showModal, setShowModal }: any) {
+	const [showSuccess, setShowSuccess] = useState(false);
 	const [user, loading] = useAuthState(auth);
 	const [eventList, setEventList] = useState([]);
 	const [joinedEvents, setJoinedEvents] = useState([]);
@@ -51,7 +53,8 @@ function Code({ showModal, setShowModal }: any) {
 				if (check && checkJoined === false) {
 					completed.push(code);
 					newExp += event.expReward;
-					alert('Congratulations! You have completed the event and earned ' + event.expReward + ' EXP!');
+					setShowModal(false);
+					// alert('Congratulations! You have completed the event and earned ' + event.expReward + ' EXP!');
 				}
 			}
 		});
@@ -64,72 +67,80 @@ function Code({ showModal, setShowModal }: any) {
 						completedEvents: completed,
 					},
 					user.uid,
-			  )
+			  ).then(() => setShowSuccess(true))
 			: alert('Sorry. You already submitted this code.');
 	};
 
 	return (
-		<motion.div
-			initial={{
-				scale: 0,
-				opacity: 0,
-			}}
-			animate={showModal ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-			transition={
-				showModal
-					? {
-							scale: { duration: 0.1, type: 'tween' },
-							opacity: { delay: 0.1, duration: 0.3, type: 'tween' },
-					  }
-					: {
-							scale: { delay: 0.6, duration: 0.1, type: 'tween' },
-							opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
-					  }
-			}
-			className='code'>
+		<>
+			<EventSuccess
+				showModal={showSuccess}
+				setShowModal={setShowSuccess}
+				event={eventList.at(eventList.findIndex((event) => event.eventCode === code))?.eventName}
+				xp={eventList.at(eventList.findIndex((event) => event.eventCode === code))?.expReward}
+			/>
 			<motion.div
 				initial={{
 					scale: 0,
+					opacity: 0,
 				}}
-				animate={showModal ? { scale: 1 } : { scale: 0 }}
+				animate={showModal ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
 				transition={
 					showModal
 						? {
-								scale: { delay: 0.3, duration: 0.3, type: 'tween' },
+								scale: { duration: 0.1, type: 'tween' },
+								opacity: { delay: 0.1, duration: 0.3, type: 'tween' },
 						  }
 						: {
-								scale: { duration: 0.2, type: 'tween' },
+								scale: { delay: 0.6, duration: 0.1, type: 'tween' },
+								opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
 						  }
 				}
-				className='code-container'>
-				<div className='code-container-top'>
-					<h1>Finished a task or event?</h1>
-					<div className='code-container-close'>
-						<CloseIcon onClick={() => setShowModal(false)} className='code-container-close-icon' />
+				className='code'>
+				<motion.div
+					initial={{
+						scale: 0,
+					}}
+					animate={showModal ? { scale: 1 } : { scale: 0 }}
+					transition={
+						showModal
+							? {
+									scale: { delay: 0.3, duration: 0.3, type: 'tween' },
+							  }
+							: {
+									scale: { duration: 0.2, type: 'tween' },
+							  }
+					}
+					className='code-container'>
+					<div className='code-container-top'>
+						<h1>Finished a task or event?</h1>
+						<div className='code-container-close'>
+							<CloseIcon onClick={() => setShowModal(false)} className='code-container-close-icon' />
+						</div>
 					</div>
-				</div>
 
-				<div className='code-container-center'>
-					<img src='/assets/code-backdrop.png' alt='' />
-					<h3>Enter your code</h3>
-					<div className='code-container-center-row'>
-						<input
-							type='text'
-							className='code-container-center-row-field'
-							value={code}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCode(event.target.value)}
-						/>
-						<button type='submit' onClick={updateUserEvents}>
-							Submit
-						</button>
+					<div className='code-container-center'>
+						<img src='/assets/code-backdrop.png' alt='' />
+						<h3>Enter your code</h3>
+						<div className='code-container-center-row'>
+							<input
+								type='text'
+								className='code-container-center-row-field'
+								value={code}
+								onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCode(event.target.value)}
+							/>
+							<button type='submit' onClick={updateUserEvents}>
+								Submit
+							</button>
+						</div>
 					</div>
-				</div>
-				<div className='rsvp-container-footer'>
-					<h2>powered by </h2>
-					<h1>AltruWiz</h1>
-				</div>
+					<div className='rsvp-container-footer'>
+						<h2>powered by </h2>
+						<h1>AltruWiz</h1>
+					</div>
+				</motion.div>
 			</motion.div>
-		</motion.div>
+		</>
 	);
 }
 
