@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +31,13 @@ function EventList({ use, head, events }: any) {
 				<div className={`events-list${isCompact ? '-compact' : '-expanded'}`}>
 					{isCompact
 						? events.slice(0, 8).map((data: any) => (
-								<div key={data.eventCode} className='events-list-items' onClick={() => navigate(`/event/${data.eventID}`)}>
+								<motion.div
+									initial={{ y: 0 }}
+									whileHover={{ y: '-0.5rem' }}
+									whileTap={{ y: 0 }}
+									key={data.eventCode}
+									className='events-list-items'
+									onClick={() => navigate(`/event/${data.eventID}`)}>
 									<img src={data.eventImage}></img>
 									<div className='events-list-items-details'>
 										<h1 className='events-list-items-details-title'>{data.eventName}</h1>
@@ -42,10 +49,16 @@ function EventList({ use, head, events }: any) {
 											<h1 className='events-list-items-details-xp-label'>{data.expReward}</h1>
 										</div>
 									</div>
-								</div>
+								</motion.div>
 						  ))
 						: events.map((data: any) => (
-								<div key={data.eventCode} className='events-list-items' onClick={() => navigate(`/event/${data.eventID}`)}>
+								<motion.div
+									initial={{ y: 0 }}
+									whileHover={{ y: '-0.5rem' }}
+									whileTap={{ y: 0 }}
+									key={data.eventCode}
+									className='events-list-items'
+									onClick={() => navigate(`/event/${data.eventID}`)}>
 									<div className='events-list-items-image'>
 										<img src={data.eventImage} />
 									</div>
@@ -59,7 +72,7 @@ function EventList({ use, head, events }: any) {
 											<h1 className='events-list-items-details-xp-label'>{data.expReward}</h1>
 										</div>
 									</div>
-								</div>
+								</motion.div>
 						  ))}
 				</div>
 			</div>
