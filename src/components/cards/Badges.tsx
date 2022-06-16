@@ -7,6 +7,7 @@ import ScrollTop from './../navigations/scrollTop';
 
 function Badges() {
 	const [badgeDetails, setBadgeDetails]: any = useState([]);
+	const [data, setData]: any = useState(null);
 	const [isUpdated, setIsUpdated] = useState(false);
 	const [userBadges, setUserBadges]: any = useState([]);
 	const user = useContext(UserContext);
@@ -14,13 +15,15 @@ function Badges() {
 
 	useEffect(() => {
 		user &&
-			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
-				getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
-				setUserBadges(snapshot.docs.at(0).data().badgesCollected);
-
-				awardBadges(snapshot.docs.at(0).data().badgesCollected, snapshot.docs.at(0).data().completedEvents);
-			});
-	}, [isUpdated]);
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+					setUserBadges(snapshot.docs.at(0).data().badgesCollected);
+					setData(snapshot.docs.at(0).data());
+				}
+			);
+	}, [isUpdated, data]);
 
 	const getBadgeDetails = async (badgeList: any) => {
 		let finalBadges: any = [];
@@ -33,19 +36,26 @@ function Badges() {
 		});
 	};
 
-	const awardBadges = async (badgesCollected: any, eventsCompleted: any) => {
+	const awardBadges = async (
+		badgesCollected: any,
+		eventsCompleted: any,
+		eventsJoined: any,
+		profilePic: any
+	) => {
 		let newBadges = badgesCollected;
 		let tempBadges = [];
-		let checkJ = true;
-		let checkB = true;
-		let checkL = true;
+		let checkJunior = true;
+		let checkBaby = true;
+		let checkPhoto = true;
+		let checkFirstT = true;
+		let checkStreak = true;
 
 		if (eventsCompleted.length >= 1) {
 			badgesCollected.forEach((data: any) => {
-				checkB = checkB && data.badge !== 'Baby Steps';
-				// console.log('badge === Baby steps', data.badge, checkB);
+				checkBaby = checkBaby && data.badge !== 'Baby Steps';
+				// console.log('badge === Baby steps', data.badge, checkBaby);
 			});
-			checkB &&
+			checkBaby &&
 				tempBadges.push({
 					badge: 'Baby Steps',
 					date: date,
@@ -53,43 +63,77 @@ function Badges() {
 		}
 		if (eventsCompleted.length >= 5) {
 			badgesCollected.forEach((data: any) => {
-				checkJ = checkJ && data.badge !== 'Junior Steps';
-				// console.log('badge === Junior steps', badge, checkJ);
+				checkJunior = checkJunior && data.badge !== 'Junior Steps';
+				// console.log('badge === Junior steps', badge, checkJunior);
 			});
-			checkJ &&
+			checkJunior &&
 				tempBadges.push({
 					badge: 'Junior Steps',
 					date: date,
 				});
 		}
-		if (eventsCompleted.length >= 10) {
+		if (profilePic != '') {
 			badgesCollected.forEach((data: any) => {
-				checkL = checkL && data.badge !== 'Love Thumb';
-				// console.log('badge === Love Thumb', badge, checkL);
+				checkPhoto = checkPhoto && data.badge !== 'Photogenic';
+				// console.log('badge === Love Thumb', badge, checkPhoto);
 			});
-			checkL &&
+			checkPhoto &&
 				tempBadges.push({
-					badge: 'Love Thumb',
+					badge: 'Photogenic',
+					date: date,
+				});
+		}
+		if (eventsJoined.length >= 1) {
+			badgesCollected.forEach((data: any) => {
+				checkFirstT = checkFirstT && data.badge !== 'First Timer';
+				// console.log('badge === FirstT steps', badge, checkFirstT);
+			});
+			checkFirstT &&
+				tempBadges.push({
+					badge: 'First Timer',
+					date: date,
+				});
+		}
+		if (eventsJoined.length >= 5) {
+			badgesCollected.forEach((data: any) => {
+				checkStreak = checkStreak && data.badge !== 'Streak Freak';
+				// console.log('badge === Streak Freak', badge, checkStreak);
+			});
+			checkStreak &&
+				tempBadges.push({
+					badge: 'Streak Freak',
 					date: date,
 				});
 		}
 
-		(checkL || checkJ || checkB) &&
+		(checkPhoto || checkJunior || checkBaby || checkFirstT || checkStreak) &&
 			(await DataService.updateUser(
 				{
 					badgesCollected: newBadges.concat(tempBadges),
 				},
-				user.uid,
-			));
+				user.uid
+			).then(() => {
+				checkJunior = false;
+				checkBaby = false;
+				checkPhoto = false;
+				checkFirstT = false;
+				checkStreak = false;
+			}));
 	};
-
+	data &&
+		awardBadges(
+			data.badgesCollected,
+			data.completedEvents,
+			data.eventsJoined,
+			data.profilePic
+		);
 	const getDateAcquired = (badgeName: any) => {
 		const date = new Date(
 			userBadges.at(
 				userBadges.findIndex((data) => {
 					return badgeName === data.badge;
-				}),
-			).date,
+				})
+			).date
 		);
 
 		return date.toDateString();
@@ -113,11 +157,19 @@ function Badges() {
 								<div className='badges-list-card-overlay'>
 									<img src={data.badgePic} />
 									<div className='badges-list-card-overlay-details'>
-										<h1 className='badges-list-card-overlay-details-name'>{data.badgeName}</h1>
-										<h1 className='badges-list-card-overlay-details-desc'>{data.badgeDesc}</h1>
+										<h1 className='badges-list-card-overlay-details-name'>
+											{data.badgeName}
+										</h1>
+										<h1 className='badges-list-card-overlay-details-desc'>
+											{data.badgeDesc}
+										</h1>
 										<div className='badges-list-card-overlay-details-date'>
-											<h1 className='badges-list-card-overlay-details-date-text1'>{getDateAcquired(data.badgeName)}</h1>
-											<h1 className='badges-list-card-overlay-details-date-text2'>DATE ACQUIRED</h1>
+											<h1 className='badges-list-card-overlay-details-date-text1'>
+												{getDateAcquired(data.badgeName)}
+											</h1>
+											<h1 className='badges-list-card-overlay-details-date-text2'>
+												DATE ACQUIRED
+											</h1>
 										</div>
 									</div>
 								</div>
