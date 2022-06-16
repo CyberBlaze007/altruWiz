@@ -3,6 +3,7 @@ import { TextField, MenuItem } from '@mui/material';
 import DataService from '../../firebase/services';
 import { UserContext } from '../../App';
 import ScrollTop from './../navigations/scrollTop';
+import { profiles } from './../../../assets/pseudodata/profile-data';
 
 function Profile() {
 	const [firstName, setFirstName] = useState('');
@@ -59,6 +60,23 @@ function Profile() {
 				<div id='locator' />
 				<div className='profile-body'>
 					<div className='profile-body-sec1'>
+						<div className='profile-body-sec1-pic'>
+							<img
+								src={
+									profiles.at(
+										profiles.findIndex((profile) => {
+											return profile.name.includes(firstName);
+										}),
+									).image
+										? profiles.at(
+												profiles.findIndex((profile) => {
+													return profile.name.includes(firstName);
+												}),
+										  ).image
+										: '/assets/nash.jpg'
+								}
+							/>
+						</div>
 						<div className='profile-body-sec1-title'>
 							<h1>About You</h1>
 						</div>
