@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase-config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import DBNav from '../components/navbar/DBNav';
+import ScrollTop from './../components/navigations/scrollTop';
 function Landing() {
 	const UserContext = createContext('');
 	const [user, loading] = useAuthState(auth);
@@ -18,32 +19,29 @@ function Landing() {
 		});
 	}, [loading]);
 	return (
-		<UserContext.Provider value={!user ? null : user.uid}>
-			<div className='landing'>
-				<div className='landing-header'>
-					<div className='landing-header-col1'>
-						<h1>For better unity, help your community.</h1>
-						<button
-							onClick={() => document.getElementById('list')?.scrollIntoView()}
-						>
-							Find your next event
-						</button>
+		<ScrollTop>
+			<UserContext.Provider value={!user ? null : user.uid}>
+				<div className='landing'>
+					<div id='locator' />
+					<div className='landing-header'>
+						<div className='landing-header-col1'>
+							<h1>For better unity, help your community.</h1>
+							<button onClick={() => document.getElementById('list')?.scrollIntoView()}>Find your next event</button>
+						</div>
+						<div className='landing-header-col2'>
+							<img src='/assets/landing2-backdrop.png' alt='error' />
+						</div>
 					</div>
-					<div className='landing-header-col2'>
-						<img src='/assets/landing2-backdrop.png' alt='error' />
+					<div className='landing-body'>
+						<EventList use='list' head='All Events' events={eventList} />
+						<div className='landing-body-footer'>
+							<Footer />
+						</div>
 					</div>
+					<div className='landing-navbar'>{user ? <DBNav /> : <LandingNav />}</div>
 				</div>
-				<div className='landing-body'>
-					<EventList use='list' head='All Events' events={eventList} />
-					<div className='landing-body-footer'>
-						<Footer />
-					</div>
-				</div>
-				<div className='landing-navbar'>
-					{user ? <DBNav /> : <LandingNav />}
-				</div>
-			</div>
-		</UserContext.Provider>
+			</UserContext.Provider>
+		</ScrollTop>
 	);
 }
 

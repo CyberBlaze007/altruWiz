@@ -18,6 +18,7 @@ import { createContext } from 'react';
 import ReRoute from './components/navigations/ReRoute';
 import ProtectedRoutes from './components/navigations/ProtectedRoutes';
 import OrgDash from './pages/OrgDash';
+import ScrollTop from './components/navigations/scrollTop';
 
 export const UserContext = createContext(null);
 

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ModalCert from '../modals/Certificate';
 import { UserContext } from '../../App';
+import ScrollTop from './../navigations/scrollTop';
 
 function Certificates() {
 	const user = useContext(UserContext);
@@ -48,51 +49,53 @@ function Certificates() {
 					return check;
 				})}
 			/>
-
-			<div className='certificates'>
-				{completedEvents.length === 0 && (
-					<div className='certificates-alt'>
-						<img src='/assets/noCerts.svg'></img>
-						<h1>Seems like you haven't done any event yet. What are you waiting for? Go get one now!</h1>
-					</div>
-				)}
-				{eventList
-					.filter((eventData) => {
-						let check = false;
-						completedEvents.forEach((data) => {
-							check = check || data === eventData.eventCode;
-						});
-						return check;
-					})
-					.map((data) => (
-						<motion.div
-							key={data.eventID}
-							onClick={() => {
-								setShowModal(true);
-								navigate(`${data.eventID}`);
-							}}
-							whileHover={{
-								y: '-0.6rem',
-								boxShadow: '3px 4px 8px rgba(0, 0, 0, 0.05)',
-							}}
-							transition={{ duration: 0.2, type: 'tween' }}
-							className='certificates-container'>
-							<div className='certificates-container-image'>
-								<Cert name={name} title={data.eventName} org={data.eventCreator} date={data.eventDate} />
-							</div>
-							<div className='certificates-container-details'>
-								<h1>{data.eventName}</h1>
-								<h2>{processDate(data)}</h2>
-								<h3>{data.eventCreator}</h3>
-								<div className='certificates-container-details-xp'>
-									<img src='/assets/xp-logo.svg' />
-									<h3>{data.expReward}</h3>
+			<ScrollTop>
+				<div className='certificates'>
+					<div id='locator' />
+					{completedEvents.length === 0 && (
+						<div className='certificates-alt'>
+							<img src='/assets/noCerts.svg'></img>
+							<h1>Seems like you haven't done any event yet. What are you waiting for? Go get one now!</h1>
+						</div>
+					)}
+					{eventList
+						.filter((eventData) => {
+							let check = false;
+							completedEvents.forEach((data) => {
+								check = check || data === eventData.eventCode;
+							});
+							return check;
+						})
+						.map((data) => (
+							<motion.div
+								key={data.eventID}
+								onClick={() => {
+									setShowModal(true);
+									navigate(`${data.eventID}`);
+								}}
+								whileHover={{
+									y: '-0.6rem',
+									boxShadow: '3px 4px 8px rgba(0, 0, 0, 0.05)',
+								}}
+								transition={{ duration: 0.2, type: 'tween' }}
+								className='certificates-container'>
+								<div className='certificates-container-image'>
+									<Cert name={name} title={data.eventName} org={data.eventCreator} date={data.eventDate} />
 								</div>
-								<p>{data.eventDesc}</p>
-							</div>
-						</motion.div>
-					))}
-			</div>
+								<div className='certificates-container-details'>
+									<h1>{data.eventName}</h1>
+									<h2>{processDate(data)}</h2>
+									<h3>{data.eventCreator}</h3>
+									<div className='certificates-container-details-xp'>
+										<img src='/assets/xp-logo.svg' />
+										<h3>{data.expReward}</h3>
+									</div>
+									<p>{data.eventDesc}</p>
+								</div>
+							</motion.div>
+						))}
+				</div>
+			</ScrollTop>
 		</>
 	);
 }
