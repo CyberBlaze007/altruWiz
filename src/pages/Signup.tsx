@@ -32,7 +32,6 @@ function Signup() {
 			name: { first: firstName, last: lastName },
 			rank: 'Spark',
 			email: registerEmail,
-			avatar: '',
 			eventsJoined: temp,
 			completedEvents: temp,
 			badgesCollected: temp,

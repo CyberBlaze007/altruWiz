@@ -1,4 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
+import { firestore } from '../../firebase-config';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 //Icon Components
 import { Button } from '@mui/material';
@@ -17,18 +19,26 @@ import { UserContext } from './../../App';
 import { motion } from 'framer-motion';
 
 function DBNav() {
-	const [profile, setProfile] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
 	const user = useContext(UserContext);
 	const [dropDownState, setDropdownState] = useState(false);
 	var [userName, setUserName] = useState('');
-	var [userAvatar, setUserAvatar] = useState('');
+	var [userAvatar, setUserAvatar] = useState(null);
 	var [orgName, setOrgName] = useState('');
 	var [isOrganizer, setIsOrganizer] = useState(false);
 
 	useEffect(() => {
-		user && getCurrentUser();
+		user &&
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setUserName(snapshot.docs.at(0).data().name.first);
+					setUserAvatar(snapshot.docs.at(0).data().profilePic);
+					setIsOrganizer(snapshot.docs.at(0).data().isOrganizer);
+					getCurrentOrg();
+				}
+			);
 	}, []);
 
 	const logout = async () => {
@@ -38,21 +48,7 @@ function DBNav() {
 			console.log(error.message);
 		}
 	};
-	const getCurrentUser = async () => {
-		await DataService.getUser(user.uid).then((docSnap) => {
-			// console.log(user.uid);
-			if (docSnap.exists()) {
-				// console.log('Document data:', docSnap.data());
-				const myData = docSnap.data();
-				setUserName(myData.name.first);
-				setUserAvatar(myData.avatar);
-				setProfile(true);
-				setIsOrganizer(myData.isOrganizer);
-			} else {
-				// doc.data() will be undefined in this case
-				console.log('No such document!');
-			}
-		});
+	const getCurrentOrg = async () => {
 		await DataService.getOrg(user.uid).then((docSnap) => {
 			// console.log(user.uid);
 			if (docSnap.exists()) {
@@ -66,45 +62,55 @@ function DBNav() {
 		});
 	};
 
-	// const deleteU = async () => {
-	// 	try {
-	// 		await DataService.deleteUser(user.uid);
-	// 	} catch (error: any) {
-	// 		console.log(error.message);
-	// 	}
-	// };
-
 	return (
 		<>
 			<Code showModal={showModal} setShowModal={setShowModal} />
 			<div className='nav'>
 				<div className='nav-col1' onClick={() => navigate('/')}>
 					<h1 className='nav-col1-text'>AltruWiz</h1>
-					<img src='/assets/altruwiz-logo-colored.svg' className='nav-col1-icon' />
+					<img
+						src='/assets/altruwiz-logo-colored.svg'
+						className='nav-col1-icon'
+					/>
 				</div>
 				<nav className='nav-col2-p'>
 					<div className='nav-col2-container'>
-						<button className='nav-col2-container-button' onClick={() => setShowModal(true)}>
+						<button
+							className='nav-col2-container-button'
+							onClick={() => setShowModal(true)}
+						>
 							Event Code
 						</button>
 					</div>
 					<div className='nav-col2-profile'>
-						<motion.h1 whileTap={{ y: '2px' }} className='nav-col2-profile-text' onClick={() => navigate('/dashboard')}>
+						<motion.h1
+							whileTap={{ y: '2px' }}
+							className='nav-col2-profile-text'
+							onClick={() => navigate('/dashboard')}
+						>
 							{userName}
 						</motion.h1>
 						<div className='nav-col2-profile-nav'>
-							{profile ? (
+							{userAvatar ? (
 								<img
 									src={userAvatar}
-									onError={() => setProfile(false)}
 									className='nav-col2-profile-nav-pic'
 									onClick={() => setDropdownState(!dropDownState)}
 								/>
 							) : (
-								<AccountCircleIcon className='nav-col2-profile-nav-pic' onClick={() => setDropdownState(!dropDownState)} />
+								<AccountCircleIcon
+									className='nav-col2-profile-nav-pic'
+									onClick={() => setDropdownState(!dropDownState)}
+								/>
 							)}
-							<motion.div animate={dropDownState ? { rotate: '-180deg' } : { rotate: 0 }} transition={{ duration: 0.5, type: 'spring' }}>
-								<ArrowDropDownIcon className='nav-col2-profile-nav-menu' onClick={() => setDropdownState(!dropDownState)} />
+							<motion.div
+								animate={dropDownState ? { rotate: '-180deg' } : { rotate: 0 }}
+								transition={{ duration: 0.5, type: 'spring' }}
+							>
+								<ArrowDropDownIcon
+									className='nav-col2-profile-nav-menu'
+									onClick={() => setDropdownState(!dropDownState)}
+								/>
 							</motion.div>
 							<motion.div
 								initial={{
@@ -113,12 +119,19 @@ function DBNav() {
 									scale: 0,
 									opacity: 0,
 								}}
-								animate={dropDownState ? { y: 0, zIndex: 1, opacity: 1, scale: 1 } : { y: '-100%', zIndex: -1, opacity: 0, scale: 0 }}
-								className='nav-col2-profile-nav-modal-open'>
+								animate={
+									dropDownState
+										? { y: 0, zIndex: 1, opacity: 1, scale: 1 }
+										: { y: '-100%', zIndex: -1, opacity: 0, scale: 0 }
+								}
+								className='nav-col2-profile-nav-modal-open'
+							>
 								<Button
 									startIcon={<JoinInnerIcon />}
 									onClick={() => {
-										orgName ? navigate('/organizer') : navigate('/organizer/makeorg');
+										orgName
+											? navigate('/organizer')
+											: navigate('/organizer/makeorg');
 										setDropdownState(false);
 									}}
 									style={{
@@ -128,7 +141,8 @@ function DBNav() {
 										fontStyle: 'normal',
 										fontWeight: '500',
 										fontSize: '0.8rem',
-									}}>
+									}}
+								>
 									{' '}
 									{isOrganizer ? orgName : 'Be an Organizer'}
 								</Button>
@@ -144,7 +158,8 @@ function DBNav() {
 										fontStyle: 'normal',
 										fontWeight: '500',
 										fontSize: '0.8rem',
-									}}>
+									}}
+								>
 									{' '}
 									Log-out
 								</Button>
