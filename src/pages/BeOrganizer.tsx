@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import DBNav from '../components/navbar/DBNav';
 import { auth } from '../firebase-config';
 import ContactsIcon from '@mui/icons-material/Contacts';
+import InfoIcon from '@mui/icons-material/Info';
 import DataService from '../firebase/services';
+import Footer from './../components/footer/Footer';
 
 function BeOrganizer() {
 	const [orgName, setOrgName] = useState('');
@@ -69,30 +71,21 @@ function BeOrganizer() {
 				<div className='beOrganizer-body-container'>
 					<div className='beOrganizer-body-container-info'>
 						<div className='beOrganizer-body-container-info-header'>
-							<h1 className='beOrganizer-body-container-info-header-text1'>
-								Be an organizer
-							</h1>
-							<h1 className='beOrganizer-body-container-info-header-text2'>
-								Organization Information
-							</h1>
+							<h1 className='beOrganizer-body-container-info-header-text1'>Be an organizer</h1>
+							<h1 className='beOrganizer-body-container-info-header-text2'>Organization Information</h1>
 						</div>
 						<div className='beOrganizer-body-container-info-name'>
 							<div className='beOrganizer-body-container-info-name-col1'></div>
 							<div className='beOrganizer-body-container-info-name-col2'>
 								<div className='beOrganizer-body-container-info-name-col2-title'>
 									<ContactsIcon />
-									<h1 className='beOrganizer-body-container-info-name-col2-title-text'>
-										Name of the organization
-									</h1>
+									<h1 className='beOrganizer-body-container-info-name-col2-title-text'>Name of the organization</h1>
 								</div>
 								<div className='beOrganizer-body-container-info-name-col2-org'>
 									<input
 										className='beOrganizer-body-container-info-name-col2-org-in'
 										value={orgName}
-										onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-											setOrgName(event.target.value)
-										}
-									></input>
+										onChange={(event: React.ChangeEvent<HTMLInputElement>) => setOrgName(event.target.value)}></input>
 								</div>
 							</div>
 						</div>
@@ -100,12 +93,12 @@ function BeOrganizer() {
 							<div className='beOrganizer-body-container-info-about-col1'></div>
 							<div className='beOrganizer-body-container-info-about-col2'>
 								<div className='beOrganizer-body-container-info-about-col2-title'>
-									<h1 className='beOrganizer-body-container-info-about-col2-title-text1'>
-										About
-									</h1>
+									<div className='beOrganizer-body-container-info-about-col2-title-head'>
+										<InfoIcon />
+										<h1 className='beOrganizer-body-container-info-about-col2-title-text1'>About</h1>
+									</div>
 									<h1 className='beOrganizer-body-container-info-about-col2-title-text2'>
-										Write your organization’s description and add more details
-										to your org like your mission, purpose, and objectives.
+										Write your organization’s description and add more details to your org like your mission, purpose, and objectives.
 									</h1>
 								</div>
 								<div className='beOrganizer-body-container-info-about-col2-descbox'>
@@ -121,14 +114,14 @@ function BeOrganizer() {
 						</div>
 					</div>
 					<div className='beOrganizer-body-container-footer'>
-						<button
-							className='beOrganizer-body-container-footer-button'
-							onClick={makeOrg}
-						>
+						<button className='beOrganizer-body-container-footer-button' onClick={makeOrg}>
 							Done
 						</button>
 					</div>
 				</div>
+			</div>
+			<div className='beOrganizer-footer'>
+				<Footer />
 			</div>
 		</div>
 	);

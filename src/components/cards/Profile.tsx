@@ -60,7 +60,7 @@ function Profile() {
 						<h1>About You</h1>
 					</div>
 					<div className='profile-body-sec1-form'>
-						{description ? null : <img className='profile-body-sec1-form-img' src='/assets/lazy.png' />}
+						{description || !editState ? null : <img className='profile-body-sec1-form-img' src='/assets/lazy.svg' />}
 						{editState ? (
 							<p className='profile-body-sec1-form-data'>{description || 'This person is either too lazy or has not yet added some details.'}</p>
 						) : null}

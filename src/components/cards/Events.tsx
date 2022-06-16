@@ -52,28 +52,32 @@ function Events() {
 
 				{!search && (
 					<>
-						<EventList
-							use='dash'
-							head='Joined Events'
-							events={eventList.filter((eventData) => {
-								let check = false;
-								joinedEvents.forEach((data) => {
-									check = check || data === eventData.eventCode;
-								});
-								return check;
-							})}
-						/>
-						<EventList
-							use='dash'
-							head='Completed Events'
-							events={eventList.filter((eventData) => {
-								let check = false;
-								completedEvents.forEach((data) => {
-									check = check || data === eventData.eventCode;
-								});
-								return check;
-							})}
-						/>
+						{joinedEvents.length != 0 && (
+							<EventList
+								use='dash'
+								head='Joined Events'
+								events={eventList.filter((eventData) => {
+									let check = false;
+									joinedEvents.forEach((data) => {
+										check = check || data === eventData.eventCode;
+									});
+									return check;
+								})}
+							/>
+						)}
+						{completedEvents.length != 0 && (
+							<EventList
+								use='dash'
+								head='Completed Events'
+								events={eventList.filter((eventData) => {
+									let check = false;
+									completedEvents.forEach((data) => {
+										check = check || data === eventData.eventCode;
+									});
+									return check;
+								})}
+							/>
+						)}
 					</>
 				)}
 				<EventList

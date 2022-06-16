@@ -20,23 +20,14 @@ function Certificates() {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 		});
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
-					setName(
-						snapshot.docs.at(0).data().name.first +
-							' ' +
-							snapshot.docs.at(0).data().name.last
-					);
-				}
-			);
+			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
+				setCompletedEvents(snapshot.docs.at(0).data().completedEvents);
+				setName(snapshot.docs.at(0).data().name.first + ' ' + snapshot.docs.at(0).data().name.last);
+			});
 	}, []);
 	const processDate = (data: any) => {
 		const date = new Date(data.eventDate + 'T' + data.eventTime);
-		const time = new Date(
-			data.eventDate + 'T' + data.eventTime
-		).toLocaleTimeString('en-US', {
+		const time = new Date(data.eventDate + 'T' + data.eventTime).toLocaleTimeString('en-US', {
 			hour12: true,
 			hour: 'numeric',
 			minute: 'numeric',
@@ -59,6 +50,11 @@ function Certificates() {
 			/>
 
 			<div className='certificates'>
+				{completedEvents.length === 0 && (
+					<div className='certificates-alt'>
+						<img src='/assets/noCerts.svg'></img>
+					</div>
+				)}
 				{eventList
 					.filter((eventData) => {
 						let check = false;
@@ -79,15 +75,9 @@ function Certificates() {
 								boxShadow: '3px 4px 8px rgba(0, 0, 0, 0.05)',
 							}}
 							transition={{ duration: 0.2, type: 'tween' }}
-							className='certificates-container'
-						>
+							className='certificates-container'>
 							<div className='certificates-container-image'>
-								<Cert
-									name={name}
-									title={data.eventName}
-									org={data.eventCreator}
-									date={data.eventDate}
-								/>
+								<Cert name={name} title={data.eventName} org={data.eventCreator} date={data.eventDate} />
 							</div>
 							<div className='certificates-container-details'>
 								<h1>{data.eventName}</h1>

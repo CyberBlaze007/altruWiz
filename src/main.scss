@@ -882,7 +882,8 @@ html {
 	flex-direction: column;
 
 	&-body {
-		height: 100vh;
+		width: 50%;
+		margin: auto;
 		padding-top: 5vh;
 		padding-bottom: 5vh;
 		display: flex;
@@ -902,8 +903,8 @@ html {
 						font-family: 'Montserrat';
 						font-style: normal;
 						font-weight: 700;
-						font-size: 36px;
-						line-height: 44px;
+						font-size: 1.8rem;
+						line-height: 2rem;
 
 						color: rgba(0, 0, 0, 0.85);
 					}
@@ -911,8 +912,8 @@ html {
 						font-family: 'Montserrat';
 						font-style: normal;
 						font-weight: 500;
-						font-size: 20px;
-						line-height: 24px;
+						font-size: 1rem;
+						line-height: 1.5rem;
 
 						color: rgba(0, 0, 0, 0.85);
 					}
@@ -928,9 +929,8 @@ html {
 								font-family: 'Montserrat';
 								font-style: normal;
 								font-weight: 600;
-								font-size: 28px;
-								line-height: 34px;
-
+								font-size: 1.3rem;
+								line-height: 2rem;
 								color: rgba(0, 0, 0, 0.85);
 							}
 						}
@@ -946,8 +946,8 @@ html {
 								font-family: 'Montserrat';
 								font-style: normal;
 								font-weight: 600;
-								font-size: 20px;
-								line-height: 24px;
+								font-size: 1.3rem;
+								line-height: 2rem;
 								color: #a951ff;
 							}
 						}
@@ -956,22 +956,26 @@ html {
 				&-about {
 					&-col2 {
 						&-title {
+							&-head {
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								column-gap: 1rem;
+							}
 							&-text1 {
 								font-family: 'Montserrat';
 								font-style: normal;
 								font-weight: 600;
-								font-size: 28px;
-								line-height: 34px;
-
+								font-size: 1.3rem;
+								line-height: 2rem;
 								color: rgba(0, 0, 0, 0.85);
 							}
 							&-text2 {
 								font-family: 'Montserrat';
 								font-style: normal;
 								font-weight: 500;
-								font-size: 20px;
-								line-height: 24px;
-
+								font-size: 1rem;
+								line-height: 1.5rem;
 								color: #776b6b;
 							}
 						}
@@ -1003,16 +1007,14 @@ html {
 				flex-direction: column;
 				align-self: flex-end;
 				align-items: flex-end;
-				width: 18vw;
-				height: 8vh;
+				min-width: 20vmax;
+				height: 5vh;
 				&-button {
-					width: 100%;
-					height: 100%;
 					font-family: 'Montserrat';
 					font-style: normal;
 					font-weight: 700;
-					font-size: 22px;
-					line-height: 32px;
+					font-size: 1rem;
+					line-height: 2rem;
 					cursor: pointer;
 					color: #ffffff;
 					width: 80%;
