@@ -5,10 +5,12 @@ import DataService from '../../firebase/services';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { UserContext } from '../../App';
 import ScrollTop from '../navigations/scrollTop';
+import RankUp from '../modals/RankUp';
 
 function Achievements() {
 	const [rankPic, setRankPic] = useState('');
 	const user = useContext(UserContext);
+	const [rank, setRank] = useState('');
 	const [userRank, setUserRank] = useState('');
 	const [myEvents, setMyEvents] = useState([]);
 	const [eventDetails, setEventDetails] = useState([]);
@@ -18,6 +20,7 @@ function Achievements() {
 	const [isMaxed, setIsMaxed] = useState(false);
 	const [isUpdated, setIsUpdated] = useState(false);
 	const [eventList, setEventList] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
@@ -104,13 +107,16 @@ function Achievements() {
 				default:
 					newRank = rankCurr;
 			}
+			setShowModal(true);
 		}
 		await DataService.updateUser(
 			{
 				rank: newRank,
 			},
 			user.uid,
-		);
+		)
+			.then(() => setRank(newRank))
+			.finally(() => setShowModal(true));
 	};
 
 	const processDate = (data: any) => {
@@ -121,6 +127,7 @@ function Achievements() {
 
 	return (
 		<ScrollTop>
+			<RankUp showModal={showModal} setShowModal={setShowModal} rank={rank || userRank} />
 			<div className='achievements'>
 				<div id='locator' />
 				<div className='achievements-body'>
