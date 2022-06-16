@@ -20,6 +20,7 @@ import ProtectedRoutes from './components/navigations/ProtectedRoutes';
 import OrgDash from './pages/OrgDash';
 import ScrollTop from './components/navigations/scrollTop';
 import EventSuccess from './components/modals/EventSuccess';
+import CreateSuccess from './components/modals/CreateSuccess';
 
 export const UserContext = createContext(null);
 
@@ -32,6 +33,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Landing />} />
 					<Route path='/test' element={<EventSuccess />} />
+					<Route path='/test2' element={<CreateSuccess />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/register' element={<Signup />} />
 					<Route path='/resetpassword' element={<ResetPass />} />
