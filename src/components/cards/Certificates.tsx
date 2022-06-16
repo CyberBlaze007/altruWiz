@@ -77,6 +77,9 @@ function Certificates() {
 									y: '-0.6rem',
 									boxShadow: '3px 4px 8px rgba(0, 0, 0, 0.05)',
 								}}
+								whileTap={{
+									y: 0,
+								}}
 								transition={{ duration: 0.2, type: 'tween' }}
 								className='certificates-container'>
 								<div className='certificates-container-image'>

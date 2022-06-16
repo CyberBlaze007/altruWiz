@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+import DownloadIcon from '@mui/icons-material/Download';
 import { useNavigate, useParams } from 'react-router-dom';
 import Cert from '../cert/Cert';
 
@@ -73,6 +73,7 @@ function ModalCert({ showModal, setShowModal, user, event }: any) {
 							: ''
 					}
 				/>
+				<DownloadIcon />
 			</motion.div>
 		</motion.div>
 	);

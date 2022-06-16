@@ -220,14 +220,23 @@ function Profile() {
 									Edit
 								</button>
 							) : (
-								<button
-									className='profile-body-sec2-footer-button'
-									onClick={() => {
-										setEditState(true);
-										update();
-									}}>
-									Save Changes
-								</button>
+								<div className='profile-body-sec2-footer-buttons'>
+									<button
+										className='profile-body-sec2-footer-buttons-comp1'
+										onClick={() => {
+											setEditState(true);
+											update();
+										}}>
+										Save Changes
+									</button>
+									<button
+										className='profile-body-sec2-footer-buttons-comp2'
+										onClick={() => {
+											setEditState(true);
+										}}>
+										Cancel Changes
+									</button>
+								</div>
 							)}
 						</div>
 					</div>
