@@ -87,7 +87,21 @@ function Code({ showModal, setShowModal }: any) {
 					  }
 			}
 			className='code'>
-			<div className='code-container'>
+			<motion.div
+				initial={{
+					scale: 0,
+				}}
+				animate={showModal ? { scale: 1 } : { scale: 0 }}
+				transition={
+					showModal
+						? {
+								scale: { delay: 0.3, duration: 0.3, type: 'tween' },
+						  }
+						: {
+								scale: { duration: 0.2, type: 'tween' },
+						  }
+				}
+				className='code-container'>
 				<div className='code-container-top'>
 					<h1>Finished a task or event?</h1>
 					<div className='code-container-close'>
@@ -114,7 +128,7 @@ function Code({ showModal, setShowModal }: any) {
 					<h2>powered by </h2>
 					<h1>AltruWiz</h1>
 				</div>
-			</div>
+			</motion.div>
 		</motion.div>
 	);
 }

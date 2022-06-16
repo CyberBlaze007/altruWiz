@@ -710,6 +710,7 @@ html {
 	}
 	&-body {
 		width: 80%;
+		min-height: 90vh;
 		display: flex;
 		column-gap: 2rem;
 		flex-direction: row;
