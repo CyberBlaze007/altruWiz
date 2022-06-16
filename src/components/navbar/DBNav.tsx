@@ -29,16 +29,20 @@ function DBNav() {
 	var [isOrganizer, setIsOrganizer] = useState(false);
 
 	useEffect(() => {
-		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					setUserName(snapshot.docs.at(0).data().name.first);
-					setUserAvatar(snapshot.docs.at(0).data().profilePic);
-					setIsOrganizer(snapshot.docs.at(0).data().isOrganizer);
-					getCurrentOrg();
-				}
-			);
+		user && user.emailVerified
+			? onSnapshot(
+					query(
+						collection(firestore, 'user'),
+						where('email', '==', user.email)
+					),
+					(snapshot) => {
+						setUserName(snapshot.docs.at(0).data().name.first);
+						setUserAvatar(snapshot.docs.at(0).data().profilePic);
+						setIsOrganizer(snapshot.docs.at(0).data().isOrganizer);
+						getCurrentOrg();
+					}
+			  )
+			: navigate('/verify');
 	}, []);
 
 	const logout = async () => {

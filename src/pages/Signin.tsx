@@ -18,8 +18,9 @@ function Signin() {
 	const user = useContext(UserContext);
 
 	useEffect(() => {
+		user && console.log('verified:', user.emailVerified);
 		if (user) {
-			navigate('/dashboard');
+			user.emailVerified ? navigate('/dashboard') : navigate('/verify');
 		}
 	}, [user]);
 
@@ -27,8 +28,7 @@ function Signin() {
 		try {
 			await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
 		} catch (err: any) {
-			confirm('Incorrect Credentials');
-			console.log(err.message);
+			alert(err.message);
 		}
 	};
 

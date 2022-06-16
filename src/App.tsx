@@ -7,7 +7,6 @@ import Dashboard from './pages/Dashboard';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Details from './pages/Details';
-import OrgDashboard from './pages/OrgDashboard';
 import BeOrganizer from './pages/BeOrganizer';
 // import EventCreation from './pages/EventCreation';
 import Create from './components/modals/Create';
@@ -23,6 +22,7 @@ import EventSuccess from './components/modals/EventSuccess';
 import CreateSuccess from './components/modals/CreateSuccess';
 import RankUp from './components/modals/RankUp';
 import JoinedEvent from './components/modals/JoinedEvent';
+import VerifyEmail from './pages/VerifyEmail';
 
 export const UserContext = createContext(null);
 
@@ -38,6 +38,7 @@ function App() {
 					<Route path='/test2' element={<CreateSuccess />} />
 					<Route path='/test3' element={<RankUp />} />
 					<Route path='/test4' element={<JoinedEvent />} />
+					<Route path='/verify' element={<VerifyEmail />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/register' element={<Signup />} />
 					<Route path='/resetpassword' element={<ResetPass />} />

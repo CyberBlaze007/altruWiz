@@ -5,7 +5,10 @@ import AuthNav from '../components/navbar/AuthNav';
 import { TextField } from '@mui/material';
 
 //Firebase Components
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+	createUserWithEmailAndPassword,
+	sendEmailVerification,
+} from 'firebase/auth';
 import { auth } from '../firebase-config';
 import DataService from '../firebase/services';
 import { UserContext } from '../App';
@@ -21,20 +24,19 @@ function Signup() {
 
 	useEffect(() => {
 		if (user) {
-			navigate('/dashboard');
+			user.emailVerified ? navigate('/dashboard') : navigate('/verify');
 		}
 	}, [user]);
 
 	const register = async () => {
 		//sign up back-end
-		let temp: any = [];
 		const newUser = {
 			name: { first: firstName, last: lastName },
 			rank: 'Spark',
 			email: registerEmail,
-			eventsJoined: temp,
-			completedEvents: temp,
-			badgesCollected: temp,
+			eventsJoined: [],
+			completedEvents: [],
+			badgesCollected: [],
 			expTotal: 0,
 			gender: '',
 			bday: '',
@@ -53,16 +55,19 @@ function Signup() {
 			).then(async (userCredential) => {
 				// User Created for Auth
 				const userID = userCredential.user.uid;
-				console.log(userID);
+				// console.log(userID);
+				await sendEmailVerification(userCredential.user).then(async () => {
+					alert('Email verification sent!');
+					try {
+						await DataService.addUser(newUser, userID).then(() =>
+							navigate('/verify')
+						);
+					} catch (error) {
+						console.log(error);
+					}
+				});
 
 				//create userData for Firestore
-				try {
-					await DataService.addUser(newUser, userID).then(() =>
-						navigate('/dashboard')
-					);
-				} catch (error) {
-					console.log(error);
-				}
 			});
 		} catch (error: any) {
 			console.log(error.message);
