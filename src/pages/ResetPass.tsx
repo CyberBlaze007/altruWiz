@@ -1,15 +1,18 @@
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { TextField } from '@mui/material';
 import LandingNav from '../components/navbar/LandingNav';
 import Footer from '../components/footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 function ResetPass() {
 	const [email, setEmail] = useState('');
 	const auth = getAuth();
 	const navigate = useNavigate();
+	const user = useContext(UserContext);
+
 	const resetPass = async () => {
 		sendPasswordResetEmail(auth, email)
 			.then(() => {
@@ -19,6 +22,12 @@ function ResetPass() {
 				console.log(error.code, error.message);
 			});
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate('/dashboard');
+		}
+	}, [user]);
 
 	return (
 		<>

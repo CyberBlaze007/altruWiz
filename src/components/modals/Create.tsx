@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useId, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
@@ -10,14 +10,12 @@ import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import DataService from '../../firebase/services';
 import { auth, storage } from '../../firebase-config';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
-import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
 
 function Create({ showModal, setShowModal }: any) {
-	const navigate = useNavigate();
 	const [image, setImage] = useState(null);
 	const [user, loading] = useAuthState(auth);
 	const [eventName, setEventName] = useState('');
@@ -33,7 +31,7 @@ function Create({ showModal, setShowModal }: any) {
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [attendMax, setAttendMax] = useState('');
 	const [imageUpload, setImageUpload] = useState(null);
-	const eventID = useId();
+	const eventID = uuidv4();
 
 	useEffect(() => {
 		getCurrentUser();
@@ -57,7 +55,7 @@ function Create({ showModal, setShowModal }: any) {
 		//process file chosen by user
 		setImage(URL.createObjectURL(event.target.files[0]));
 		setImageUpload(event.target.files[0]);
-		console.log('Success');
+		// console.log('Success');
 	};
 
 	const uploadImage = (id: any) => {
@@ -74,10 +72,13 @@ function Create({ showModal, setShowModal }: any) {
 					response.items.forEach((item) => {
 						getDownloadURL(item).then(async (url) => {
 							downloadedUrl = url;
-							console.log('Image Url: ');
-							console.log(url);
+							// console.log('Image Url: ');
+							// console.log(url);
 							try {
-								await DataService.updateEvent({ eventImage: downloadedUrl, eventCode: id }, id).then(() => setShowModal(false));
+								await DataService.updateEvent(
+									{ eventImage: downloadedUrl, eventCode: id },
+									id
+								).then(() => setShowModal(false));
 							} catch (error) {
 								console.log(error);
 							}
@@ -101,8 +102,11 @@ function Create({ showModal, setShowModal }: any) {
 	};
 
 	const removeEvent = (index: number) => {
-		console.log(index);
-		setEventQuests([...eventQuests.slice(0, index), ...eventQuests.slice(index + 1)]);
+		// console.log(index);
+		setEventQuests([
+			...eventQuests.slice(0, index),
+			...eventQuests.slice(index + 1),
+		]);
 	};
 
 	const makeEvent = async () => {
@@ -132,7 +136,9 @@ function Create({ showModal, setShowModal }: any) {
 				const updatedOrg = {
 					eventsCreated: eventsCreated,
 				};
-				await DataService.updateOrg(updatedOrg, user.uid).then(() => uploadImage(id));
+				await DataService.updateOrg(updatedOrg, user.uid).then(() =>
+					uploadImage(id)
+				);
 			});
 		} catch (error) {
 			console.log(error);
@@ -148,7 +154,6 @@ function Create({ showModal, setShowModal }: any) {
 		setEventLocation('');
 		setEventImage('');
 		setEventTime('');
-		// setAddQuest(0);
 		setEventsCreated([]);
 		setAttendMax('');
 		setImageUpload(null);
@@ -161,9 +166,12 @@ function Create({ showModal, setShowModal }: any) {
 			animate={showModal ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
 			transition={{
 				scale: showModal ? { duration: 0.1 } : { delay: 0.5, duration: 0.1 },
-				default: showModal ? { delay: 0.1, duration: 0.5, type: 'tween' } : { duration: 0.5, type: 'tween' },
+				default: showModal
+					? { delay: 0.1, duration: 0.5, type: 'tween' }
+					: { duration: 0.5, type: 'tween' },
 			}}
-			className='create'>
+			className='create'
+		>
 			<motion.div
 				initial={{
 					y: '100%',
@@ -178,14 +186,18 @@ function Create({ showModal, setShowModal }: any) {
 						  }
 				}
 				transition={{ delay: 0.1, duration: 0.5, type: 'tween' }}
-				className='create-form'>
+				className='create-form'
+			>
 				<div className='create-form-header'>
 					<div className='create-form-header-texts'>
 						<h1>Make an Event</h1>
 						<h2>Let’s cover some basic information about your event.</h2>
 					</div>
 					<div className='create-form-header-close'>
-						<CloseIcon className='create-form-header-close-icon' onClick={() => setShowModal(false)} />
+						<CloseIcon
+							className='create-form-header-close-icon'
+							onClick={() => setShowModal(false)}
+						/>
 					</div>
 				</div>
 				<div className='create-form-section1'>
@@ -258,12 +270,17 @@ function Create({ showModal, setShowModal }: any) {
 													type='text'
 													className='create-form-section1-col1-entry-fields-quests-inputs-field'
 													placeholder='Assign a quest'
-													onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+													onChange={(
+														event: React.ChangeEvent<HTMLInputElement>
+													) => {
 														processQuest(index, event.target.value);
 													}}
 												/>
 											</div>
-											<CloseIcon className='create-form-section1-col1-entry-fields-quests-button' onClick={() => removeEvent(index)} />
+											<CloseIcon
+												className='create-form-section1-col1-entry-fields-quests-button'
+												onClick={() => removeEvent(index)}
+											/>
 										</div>
 									);
 								})}
@@ -281,7 +298,8 @@ function Create({ showModal, setShowModal }: any) {
 									className='create-form-section1-col1-entry-fields-button'
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
-									}}>
+									}}
+								>
 									Add a Quest
 								</button>
 							</div>
@@ -310,11 +328,18 @@ function Create({ showModal, setShowModal }: any) {
 								<h1>Event Image</h1>
 							</div>
 							<div className='create-form-section1-col2-entry-fields'>
-								<label htmlFor='file' className='create-form-section1-col2-entry-fields-input'>
+								<label
+									htmlFor='file'
+									className='create-form-section1-col2-entry-fields-input'
+								>
 									<div className='create-form-section1-col2-entry-fields-input-container'>
 										{image ? (
 											<>
-												<img src={image} alt='' className='create-form-section1-col2-entry-fields-input-container-image' />
+												<img
+													src={image}
+													alt=''
+													className='create-form-section1-col2-entry-fields-input-container-image'
+												/>
 												<CloseIcon
 													className='create-form-section1-col2-entry-fields-input-container-button'
 													onClick={() => {
@@ -328,7 +353,14 @@ function Create({ showModal, setShowModal }: any) {
 										)}
 									</div>
 								</label>
-								<input type='file' accept='image/*' name='image' id='file' onChange={loadFile} style={{ display: 'none' }} />
+								<input
+									type='file'
+									accept='image/*'
+									name='image'
+									id='file'
+									onChange={loadFile}
+									style={{ display: 'none' }}
+								/>
 							</div>
 						</div>
 					</div>
@@ -341,12 +373,17 @@ function Create({ showModal, setShowModal }: any) {
 					<div className='create-form-section2-field'>
 						<div className='create-form-section2-field-text'>
 							<p>
-								Write your event’s description and convince people to join your cause. Add more details to your event like your sponsors, purpose, guests, and
-								schedule.
+								Write your event’s description and convince people to join your
+								cause. Add more details to your event like your sponsors,
+								purpose, guests, and schedule.
 							</p>
 						</div>
 						<div className='create-form-section2-field-input'>
-							<textarea className='create-form-section2-field-input-area' value={eventDesc} onChange={(event) => handleOnChange(event)} />
+							<textarea
+								className='create-form-section2-field-input-area'
+								value={eventDesc}
+								onChange={(event) => handleOnChange(event)}
+							/>
 						</div>
 					</div>
 				</div>
@@ -355,7 +392,8 @@ function Create({ showModal, setShowModal }: any) {
 						className='create-form-section3-button'
 						onClick={() => {
 							makeEvent();
-						}}>
+						}}
+					>
 						Done
 					</button>
 				</div>

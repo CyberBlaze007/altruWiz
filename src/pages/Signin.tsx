@@ -8,16 +8,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { UserContext } from './../App';
+import Loading from './../components/navigations/Loading';
 
 function Signin() {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 	const user = useContext(UserContext);
 
-	if (user) {
-		navigate('/dashboard');
-	}
+	useEffect(() => {
+		if (user) {
+			navigate('/dashboard');
+		}
+	}, [user]);
+
 	const login = async () => {
 		try {
 			await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
@@ -27,7 +32,11 @@ function Signin() {
 		}
 	};
 
-	return (
+	setTimeout(() => setLoading(false), 1000);
+
+	return loading ? (
+		<Loading />
+	) : (
 		<div className='signin'>
 			<div className='signin-navbar'>
 				<AuthNav />
