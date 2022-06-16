@@ -53,8 +53,7 @@ function Certificates() {
 				{completedEvents.length === 0 && (
 					<div className='certificates-alt'>
 						<img src='/assets/noCerts.svg'></img>
-						<h1>Seems like you haven't done any event yet.</h1>
-						<h1>What are you waiting go get one now!</h1>
+						<h1>Seems like you haven't done any event yet. What are you waiting for? Go get one now!</h1>
 					</div>
 				)}
 				{eventList

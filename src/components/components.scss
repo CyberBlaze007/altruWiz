@@ -970,13 +970,15 @@
 	flex-direction: column;
 	row-gap: 2rem;
 	&-alt {
-		width: 100%;
+		margin: auto;
+		width: 40%;
+		min-width: 300px;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 		img {
 			min-width: 200px;
-			width: 15%;
+			width: 40%;
 			margin: auto;
 			padding-bottom: 2rem;
 		}
@@ -984,10 +986,11 @@
 			font-family: 'Montserrat';
 			margin: auto;
 			font-style: normal;
+			text-align: center;
 			font-weight: 700;
-			font-size: 1.2rem;
-			line-height: 1.5rem;
-			color: rgb(47, 34, 34, 0.5);
+			font-size: 1rem;
+			line-height: 2rem;
+			color: rgb(47, 34, 34, 0.6);
 		}
 	}
 	&-modal {

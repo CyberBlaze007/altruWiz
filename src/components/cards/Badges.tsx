@@ -13,18 +13,12 @@ function Badges() {
 
 	useEffect(() => {
 		user &&
-			onSnapshot(
-				query(collection(firestore, 'user'), where('email', '==', user.email)),
-				(snapshot) => {
-					getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
-					setUserBadges(snapshot.docs.at(0).data().badgesCollected);
+			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
+				getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+				setUserBadges(snapshot.docs.at(0).data().badgesCollected);
 
-					awardBadges(
-						snapshot.docs.at(0).data().badgesCollected,
-						snapshot.docs.at(0).data().completedEvents
-					);
-				}
-			);
+				awardBadges(snapshot.docs.at(0).data().badgesCollected, snapshot.docs.at(0).data().completedEvents);
+			});
 	}, [isUpdated]);
 
 	const getBadgeDetails = async (badgeList: any) => {
@@ -84,7 +78,7 @@ function Badges() {
 				{
 					badgesCollected: newBadges.concat(tempBadges),
 				},
-				user.uid
+				user.uid,
 			));
 	};
 
@@ -93,8 +87,8 @@ function Badges() {
 			userBadges.at(
 				userBadges.findIndex((data) => {
 					return badgeName === data.badge;
-				})
-			).date
+				}),
+			).date,
 		);
 
 		return date.toDateString();
@@ -102,6 +96,13 @@ function Badges() {
 
 	return (
 		<div className='badges'>
+			{badgeDetails.length === 0 && (
+				<div className='badges-alt'>
+					<img src='/assets/noBadges.svg'></img>
+					<h1>No Badges?!</h1>
+					<h1>Ayyt mate you're missing out! Go get some events!</h1>
+				</div>
+			)}
 			<div className='badges-list'>
 				{badgeDetails.map((data: any, index: number) => {
 					return (
@@ -109,19 +110,11 @@ function Badges() {
 							<div className='badges-list-card-overlay'>
 								<img src={data.badgePic} />
 								<div className='badges-list-card-overlay-details'>
-									<h1 className='badges-list-card-overlay-details-name'>
-										{data.badgeName}
-									</h1>
-									<h1 className='badges-list-card-overlay-details-desc'>
-										{data.badgeDesc}
-									</h1>
+									<h1 className='badges-list-card-overlay-details-name'>{data.badgeName}</h1>
+									<h1 className='badges-list-card-overlay-details-desc'>{data.badgeDesc}</h1>
 									<div className='badges-list-card-overlay-details-date'>
-										<h1 className='badges-list-card-overlay-details-date-text1'>
-											{getDateAcquired(data.badgeName)}
-										</h1>
-										<h1 className='badges-list-card-overlay-details-date-text2'>
-											DATE ACQUIRED
-										</h1>
+										<h1 className='badges-list-card-overlay-details-date-text1'>{getDateAcquired(data.badgeName)}</h1>
+										<h1 className='badges-list-card-overlay-details-date-text2'>DATE ACQUIRED</h1>
 									</div>
 								</div>
 							</div>
