@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
@@ -9,15 +9,15 @@ import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
 import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import DataService from '../../firebase/services';
-import { auth, storage } from '../../firebase-config';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { storage } from '../../firebase-config';
 import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
+import { UserContext } from '../../App';
 
-function Edit({ showModal, setShowModal }: any) {
+function Edit({ showModal, setShowModal, event }: any) {
 	const [image, setImage] = useState(null);
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 	const [eventName, setEventName] = useState('');
 	const [eventDesc, setEventDesc] = useState('');
 	const [eventCreator, setEventCreator] = useState('');
@@ -32,10 +32,29 @@ function Edit({ showModal, setShowModal }: any) {
 	const [attendMax, setAttendMax] = useState('');
 	const [imageUpload, setImageUpload] = useState(null);
 	const eventID = uuidv4();
+	let tempQuests: any = [];
+
+	const initValues = () => {
+		tempQuests = event.quests;
+		setEventName(event.eventName);
+		setEventDesc(event.eventDesc);
+		setEventCreator(event.eventCreator);
+		setEventCode(event.eventCode);
+		setEventDate(event.eventDate);
+		setEventTime(event.eventTime);
+		setEventQuests(event.quests);
+		setExpReward(event.expReward);
+		setEventLocation(event.location);
+		// setEventImage(event.eventImage);
+		setAttendMax(event.membersAllowed);
+		setImage(event.eventImage);
+		console.log(eventQuests);
+	};
 
 	useEffect(() => {
 		getCurrentUser();
-	}, [loading]);
+		initValues();
+	}, [showModal]);
 
 	const getCurrentUser = async () => {
 		await DataService.getOrg(user.uid).then((docSnap) => {
@@ -64,7 +83,7 @@ function Edit({ showModal, setShowModal }: any) {
 		const imageRef = ref(storage, `eventImages/${user.uid}/${id}/image`);
 		const imageListRef = ref(storage, `eventImages/${user.uid}/${id}`);
 		uploadBytes(imageRef, imageUpload)
-			.then(() => console.log('successfully uploaded image to storage'))
+			.then(() => console.log('successfully changed image to storage'))
 			.finally(() => {
 				let downloadedUrl = '';
 
@@ -72,8 +91,7 @@ function Edit({ showModal, setShowModal }: any) {
 					response.items.forEach((item) => {
 						getDownloadURL(item).then(async (url) => {
 							downloadedUrl = url;
-							// console.log('Image Url: ');
-							// console.log(url);
+
 							try {
 								await DataService.updateEvent(
 									{ eventImage: downloadedUrl, eventCode: id },
@@ -95,9 +113,9 @@ function Edit({ showModal, setShowModal }: any) {
 
 	const processQuest = (index: number, val: any) => {
 		//process quests in a single array
-		let quests = eventQuests;
-		quests[index] = val;
-		setEventQuests(quests);
+		tempQuests = event.quests;
+		tempQuests[index] = val;
+		setEventQuests(tempQuests);
 		console.log(eventQuests);
 	};
 
@@ -111,7 +129,7 @@ function Edit({ showModal, setShowModal }: any) {
 
 	const makeEvent = async () => {
 		//add event to firebase
-		const newEvent = {
+		const updatedEvent = {
 			attendCount: 0,
 			eventName: eventName,
 			eventCode: eventCode,
@@ -128,18 +146,19 @@ function Edit({ showModal, setShowModal }: any) {
 		};
 
 		try {
-			await DataService.addEvent(newEvent).then(async (doc: any) => {
-				let id = doc.id;
-				const newEvents = eventsCreated;
-				newEvents.push(eventName);
-				setEventsCreated(newEvents);
-				const updatedOrg = {
-					eventsCreated: eventsCreated,
-				};
-				await DataService.updateOrg(updatedOrg, user.uid).then(() =>
-					uploadImage(id)
-				);
-			});
+			await DataService.updateEvent(updatedEvent, event.eventCode).then(
+				async () => {
+					const newEvents = eventsCreated;
+					newEvents.push(eventName);
+					setEventsCreated(newEvents);
+					const updatedOrg = {
+						eventsCreated: eventsCreated,
+					};
+					await DataService.updateOrg(updatedOrg, user.uid).then(() =>
+						uploadImage(event.eventCode)
+					);
+				}
+			);
 		} catch (error) {
 			console.log(error);
 		}
@@ -162,6 +181,7 @@ function Edit({ showModal, setShowModal }: any) {
 
 	return (
 		<motion.div
+			id='editModal'
 			initial={{ scale: 0, opacity: 0 }}
 			animate={showModal ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
 			transition={{
@@ -170,7 +190,8 @@ function Edit({ showModal, setShowModal }: any) {
 					? { delay: 0.1, duration: 0.5, type: 'tween' }
 					: { duration: 0.5, type: 'tween' },
 			}}
-			className='create'>
+			className='create'
+		>
 			<motion.div
 				initial={{
 					y: '100%',
@@ -185,7 +206,8 @@ function Edit({ showModal, setShowModal }: any) {
 						  }
 				}
 				transition={{ delay: 0.1, duration: 0.5, type: 'tween' }}
-				className='create-form'>
+				className='create-form'
+			>
 				<div className='create-form-header'>
 					<div className='create-form-header-texts'>
 						<h1>Edit Event</h1>
@@ -225,6 +247,7 @@ function Edit({ showModal, setShowModal }: any) {
 								<input
 									type='date'
 									className='create-form-section1-col1-entry2-fields-input1'
+									value={eventDate}
 									onChange={(event) => {
 										setEventDate(event.target.value);
 									}}
@@ -232,6 +255,7 @@ function Edit({ showModal, setShowModal }: any) {
 								<input
 									type='time'
 									className='create-form-section1-col1-entry2-fields-input2'
+									value={eventTime}
 									onChange={(event) => {
 										setEventTime(event.target.value);
 									}}
@@ -260,33 +284,38 @@ function Edit({ showModal, setShowModal }: any) {
 								<h1>Quest</h1>
 							</div>
 							<div className='create-form-section1-col1-entry-fields'>
-								{eventQuests.map((value, index) => {
-									return (
-										<div className='create-form-section1-col1-entry-fields-quests'>
-											<div className='create-form-section1-col1-entry-fields-quests-inputs'>
-												<input
-													type='text'
-													className='create-form-section1-col1-entry-fields-quests-inputs-field'
-													placeholder='Assign a quest'
-													onChange={(
-														event: React.ChangeEvent<HTMLInputElement>
-													) => {
-														processQuest(index, event.target.value);
-													}}
+								{eventQuests &&
+									eventQuests.map((data, index) => {
+										return (
+											<div
+												key={index}
+												className='create-form-section1-col1-entry-fields-quests'
+											>
+												<div className='create-form-section1-col1-entry-fields-quests-inputs'>
+													<input
+														type='text'
+														className='create-form-section1-col1-entry-fields-quests-inputs-field'
+														placeholder={data}
+														onChange={(
+															event: React.ChangeEvent<HTMLInputElement>
+														) => {
+															processQuest(index, event.target.value);
+														}}
+													/>
+												</div>
+												<CloseIcon
+													className='create-form-section1-col1-entry-fields-quests-button'
+													onClick={() => removeEvent(index)}
 												/>
 											</div>
-											<CloseIcon
-												className='create-form-section1-col1-entry-fields-quests-button'
-												onClick={() => removeEvent(index)}
-											/>
-										</div>
-									);
-								})}
-								{eventQuests.length > 0 && (
+										);
+									})}
+								{eventQuests && eventQuests.length > 0 && (
 									<input
 										type='number'
 										className='create-form-section1-col1-entry-fields-quests-inputs-field'
 										placeholder='Assign exp reward'
+										value={expReward}
 										onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 											setExpReward(event.target.valueAsNumber);
 										}}
@@ -296,7 +325,8 @@ function Edit({ showModal, setShowModal }: any) {
 									className='create-form-section1-col1-entry-fields-button'
 									onClick={() => {
 										setEventQuests(() => [...eventQuests, '']);
-									}}>
+									}}
+								>
 									Add a Quest
 								</button>
 							</div>
@@ -326,8 +356,9 @@ function Edit({ showModal, setShowModal }: any) {
 							</div>
 							<div className='create-form-section1-col2-entry-fields'>
 								<label
-									htmlFor='file'
-									className='create-form-section1-col2-entry-fields-input'>
+									htmlFor='editfile'
+									className='create-form-section1-col2-entry-fields-input'
+								>
 									<div className='create-form-section1-col2-entry-fields-input-container'>
 										{image ? (
 											<>
@@ -353,7 +384,7 @@ function Edit({ showModal, setShowModal }: any) {
 									type='file'
 									accept='image/*'
 									name='image'
-									id='file'
+									id='editfile'
 									onChange={loadFile}
 									style={{ display: 'none' }}
 								/>
@@ -388,7 +419,8 @@ function Edit({ showModal, setShowModal }: any) {
 						className='create-form-section3-button'
 						onClick={() => {
 							makeEvent();
-						}}>
+						}}
+					>
 						Done
 					</button>
 				</div>

@@ -15,7 +15,9 @@ function Delete({ showModal, setShowModal, participants, event }: any) {
 
 	const deleteEvent = async () => {
 		if (participants > 0) {
-			alert('You cannot delete this event.');
+			alert(
+				'You cannot delete this event since there are already participants.'
+			);
 			return;
 		}
 		let eventsCreated: any = [];

@@ -1,11 +1,10 @@
-import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
 import DBNav from './../components/navbar/DBNav';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CheckIcon from '@mui/icons-material/Check';
-import { auth, firestore } from '../firebase-config';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { firestore } from '../firebase-config';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import DataService from '../firebase/services';
 
@@ -13,6 +12,7 @@ import Create from '../components/modals/Create';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Edit from '../components/modals/Edit';
 import Delete from '../components/modals/Delete';
+import { UserContext } from '../App';
 
 function Organization() {
 	const [orgName, setOrgName] = useState('');
@@ -24,7 +24,7 @@ function Organization() {
 	const [showModal, setShowModal] = useState(false);
 	const [deleteConfirm, setDeleteConfirm] = useState(false);
 	const [showModal2, setShowModal2] = useState(false);
-	const [user, loading] = useAuthState(auth);
+	const user = useContext(UserContext);
 
 	useEffect(() => {
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
@@ -41,7 +41,7 @@ function Organization() {
 				setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
 			}
 		);
-	}, [loading]);
+	}, []);
 
 	const updateDesc = async (orgDescNew: any) => {
 		const updatedDesc = {
@@ -69,7 +69,7 @@ function Organization() {
 	return (
 		<>
 			<Create showModal={showModal} setShowModal={setShowModal} />
-			<Edit showModal={showModal2} setShowModal={setShowModal2} />
+			<Edit showModal={showModal2} setShowModal={setShowModal2} event={event} />
 			<Delete
 				showModal={deleteConfirm}
 				setShowModal={setDeleteConfirm}
@@ -161,6 +161,7 @@ function Organization() {
 															className='organizers-body-events-table-component-data-icons-ic'
 															onClick={() => {
 																setShowModal2(true);
+																setEvent(element);
 															}}
 														/>
 													</div>
