@@ -17,6 +17,7 @@ import { auth } from './firebase-config';
 import { createContext } from 'react';
 import ReRoute from './components/navigations/ReRoute';
 import ProtectedRoutes from './components/navigations/ProtectedRoutes';
+import OrgDash from './pages/OrgDash';
 
 export const UserContext = createContext(null);
 
@@ -33,7 +34,7 @@ function App() {
 					<Route path='/resetpassword' element={<ResetPass />} />
 					<Route element={<ProtectedRoutes />}>
 						<Route path='/event/:id' element={<Details />} />
-						<Route path='/organizer' element={<OrgDashboard />} />
+						<Route path='/organizer' element={<OrgDash />} />
 						<Route path='/organizer/:id' element={<BeOrganizer />} />
 						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/dashboard/:id' element={<Dashboard />} />
