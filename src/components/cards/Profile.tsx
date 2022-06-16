@@ -71,10 +71,14 @@ function Profile() {
 							) : (
 								<img src='/assets/noPic.svg' alt='' className='profile-body-sec1-container-image' />
 							)}
-							<label htmlFor='profilePic' className='profile-body-sec1-container-label'>
-								<AddAPhotoOutlinedIcon className='profile-body-sec1-container-label-icon' />
-							</label>
-							<input type='file' accept='image/*' name='image' id='profilePic' onChange={loadFile} style={{ display: 'none' }} />
+							{!editState && (
+								<>
+									<label htmlFor='profilePic' className='profile-body-sec1-container-label'>
+										<AddAPhotoOutlinedIcon className='profile-body-sec1-container-label-icon' />
+									</label>
+									<input type='file' accept='image/*' name='image' id='profilePic' onChange={loadFile} style={{ display: 'none' }} />
+								</>
+							)}
 						</div>
 						<div className='profile-body-sec1-title'>
 							<h1>About You</h1>
