@@ -39,7 +39,6 @@ function App() {
 					<Route path='/test' element={<EventSuccess />} />
 					<Route path='/test3' element={<RankUp />} />
 					<Route path='/test5' element={<NewBadge />} />
-					<Route path='/test4' element={<JoinedEvent />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/verify' element={<VerifyEmail />} />
 					<Route path='/register' element={<Signup />} />

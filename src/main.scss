@@ -1771,9 +1771,12 @@ html {
 .joined {
 	display: flex;
 	flex-direction: column;
-	width: 100vw;
-	height: 100vh;
-	background-color: #7a43ad;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(64, 31, 97, 0.3);
 	&-container {
 		margin: auto;
 		display: flex;

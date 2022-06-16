@@ -1,8 +1,10 @@
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-function JoinedEvent({ setShowJoin, showModal, setShowModal }: any) {
+function JoinedEvent({ showModal, setShowModal, event }: any) {
+	const navigate = useNavigate();
 	return (
 		<motion.div
 			initial={{ scale: 0, opacity: 0 }}
@@ -32,8 +34,12 @@ function JoinedEvent({ setShowJoin, showModal, setShowModal }: any) {
 				</div>
 				<div className='joined-container-row2'>
 					<img src='/assets/user-check.png' className='joined-container-row2-icon' />
-					<h1>You have successfully joined an event.</h1>
-					<button onClick={() => {}} className='joined-container-row2-button'>
+					<h1>You have successfully joined {event}!</h1>
+					<button
+						onClick={() => {
+							navigate('/events');
+						}}
+						className='joined-container-row2-button'>
 						More Events
 					</button>
 				</div>

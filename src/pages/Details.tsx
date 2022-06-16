@@ -23,6 +23,7 @@ function Details() {
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
 	const [data, setData] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		user &&
@@ -55,7 +56,6 @@ function Details() {
 		});
 		return time;
 	};
-	const navigate = useNavigate();
 	return (
 		<ScrollTop>
 			<div id='locator' />
@@ -68,7 +68,7 @@ function Details() {
 					<ArrowBackIcon
 						className='details-back-icon'
 						onClick={() => {
-							navigate('-1');
+							navigate(-1);
 							window.scrollTo(0, 0);
 						}}
 					/>
