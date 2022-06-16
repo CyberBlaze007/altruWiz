@@ -1454,12 +1454,10 @@ html {
 							width: 3rem;
 							display: flex;
 							&-ic {
-								// align-self: center;
-								// justify-self: center;
+								cursor: pointer;
 								margin: auto;
 								height: 1rem;
 								width: 1rem;
-								// padding: 0;
 							}
 						}
 					}

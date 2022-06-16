@@ -11,6 +11,7 @@ import DataService from '../firebase/services';
 
 import Create from '../components/modals/Create';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Edit from '../components/modals/Edit';
 
 function Organization() {
 	const [orgName, setOrgName] = useState('');
@@ -18,6 +19,7 @@ function Organization() {
 	const [orgDescEdit, setOrgDescEdit] = useState(true);
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [showModal, setShowModal] = useState(false);
+	const [showModal2, setShowModal2] = useState(false);
 	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
@@ -48,6 +50,7 @@ function Organization() {
 	return (
 		<>
 			<Create showModal={showModal} setShowModal={setShowModal} />
+			<Edit showModal={showModal2} setShowModal={setShowModal2} />
 			<div className='organizers'>
 				<div className='organizers-navbar'>
 					<DBNav />
@@ -105,19 +108,24 @@ function Organization() {
 									{eventsCreated.map((element) => (
 										<tr
 											key={element}
-											className='orgDashboard-events-table-component-data'>
+											className='organizers-body-events-table-component-data'>
 											<td>{element}</td>
 											<td>{element}</td>
 											<td>{element}</td>
 											<td>{element}</td>
 											<td>
-												<div className='orgDashboard-events-table-component-data-icons'>
-													<EditOutlinedIcon className='orgDashboard-events-table-component-data-icons-ic' />
+												<div className='organizers-body-events-table-component-data-icons'>
+													<EditOutlinedIcon
+														className='organizers-body-events-table-component-data-icons-ic'
+														onClick={() => {
+															setShowModal2(true);
+														}}
+													/>
 												</div>
 											</td>
 											<td>
-												<div className='orgDashboard-events-table-component-data-icons'>
-													<DeleteOutlineIcon className='orgDashboard-events-table-component-data-icons-ic' />
+												<div className='organizers-body-events-table-component-data-icons'>
+													<DeleteOutlineIcon className='organizers-body-events-table-component-data-icons-ic' />
 												</div>
 											</td>
 										</tr>
