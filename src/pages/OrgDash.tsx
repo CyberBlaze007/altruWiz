@@ -12,6 +12,7 @@ import DataService from '../firebase/services';
 import Create from '../components/modals/Create';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Edit from '../components/modals/Edit';
+import Delete from '../components/modals/Delete';
 
 function Organization() {
 	const [orgName, setOrgName] = useState('');
@@ -19,7 +20,9 @@ function Organization() {
 	const [orgDescEdit, setOrgDescEdit] = useState(true);
 	const [eventsCreated, setEventsCreated] = useState([]);
 	const [eventList, setEventList] = useState([]);
+	const [event, setEvent]: any = useState({});
 	const [showModal, setShowModal] = useState(false);
+	const [deleteConfirm, setDeleteConfirm] = useState(false);
 	const [showModal2, setShowModal2] = useState(false);
 	const [user, loading] = useAuthState(auth);
 
@@ -67,6 +70,13 @@ function Organization() {
 		<>
 			<Create showModal={showModal} setShowModal={setShowModal} />
 			<Edit showModal={showModal2} setShowModal={setShowModal2} />
+			<Delete
+				showModal={deleteConfirm}
+				setShowModal={setDeleteConfirm}
+				participants={event.attendCount}
+				event={event}
+			/>
+
 			<div className='organizers'>
 				<div className='organizers-navbar'>
 					<DBNav />
@@ -156,7 +166,13 @@ function Organization() {
 													</div>
 												</td>
 												<td>
-													<div className='organizers-body-events-table-component-data-icons'>
+													<div
+														className='organizers-body-events-table-component-data-icons'
+														onClick={() => {
+															setEvent(element);
+															setDeleteConfirm(true);
+														}}
+													>
 														<DeleteOutlineIcon className='organizers-body-events-table-component-data-icons-ic' />
 													</div>
 												</td>

@@ -58,21 +58,16 @@ class DataService {
 
 	//Events CRUD
 	addEvent = (addEvent: any) => {
-		// with converter not yet working
 		return addDoc(collection(firestore, eventCol), addEvent);
 	};
 	updateEvent = (updatedEvent: any, id: any) => {
-		// with converter not yet working
 		return updateDoc(doc(firestore, eventCol, id), updatedEvent);
 	};
-	// updateEvent = (updatedEvent: any, id: string) => {
+
+	// getEvent = (id: string) => {
 	// 	const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
-	// 	return updateDoc(eventDoc, updatedEvent);
+	// 	return getDoc(eventDoc);
 	// };
-	getEvent = (id: string) => {
-		const eventDoc = doc(firestore, eventCol, id).withConverter(eventConverter);
-		return getDoc(eventDoc);
-	};
 	getEventList = () => {
 		const eventRef = collection(firestore, eventCol);
 		let eventList: any = [];
