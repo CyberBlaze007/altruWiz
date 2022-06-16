@@ -3,9 +3,10 @@ import { TextField, MenuItem } from '@mui/material';
 import DataService from '../../firebase/services';
 import { UserContext } from '../../App';
 import ScrollTop from './../navigations/scrollTop';
-import { profiles } from './../../../assets/pseudodata/profile-data';
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 function Profile() {
+	const [image, setImage] = useState(null);
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [gender, setGender] = useState('');
@@ -38,6 +39,10 @@ function Profile() {
 		});
 	};
 
+	const loadFile = (event: any) => {
+		setImage(URL.createObjectURL(event.target.files[0]));
+	};
+
 	const update = async () => {
 		const updatedUser = {
 			name: { first: firstName, last: lastName },
@@ -60,22 +65,16 @@ function Profile() {
 				<div id='locator' />
 				<div className='profile-body'>
 					<div className='profile-body-sec1'>
-						<div className='profile-body-sec1-pic'>
-							<img
-								src={
-									profiles.at(
-										profiles.findIndex((profile) => {
-											return profile.name.includes(firstName);
-										}),
-									).image
-										? profiles.at(
-												profiles.findIndex((profile) => {
-													return profile.name.includes(firstName);
-												}),
-										  ).image
-										: '/assets/noPic.svg'
-								}
-							/>
+						<div className='profile-body-sec1-container'>
+							{image ? (
+								<img src={image} alt='' className='profile-body-sec1-container-image' />
+							) : (
+								<img src='/assets/noPic.svg' alt='' className='profile-body-sec1-container-image' />
+							)}
+							<label htmlFor='profilePic' className='profile-body-sec1-container-label'>
+								<AddAPhotoOutlinedIcon className='profile-body-sec1-container-label-icon' />
+							</label>
+							<input type='file' accept='image/*' name='image' id='profilePic' onChange={loadFile} style={{ display: 'none' }} />
 						</div>
 						<div className='profile-body-sec1-title'>
 							<h1>About You</h1>

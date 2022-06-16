@@ -2,7 +2,7 @@ export const profiles = [
 	{
 		id: 1,
 		image: '/assets/nash.jpg',
-		name: 'Nash Uriel A. Tapayan',
+		name: 'Nash Urrr A. Tapayan',
 		username: 'taps-nash',
 		email: 'tnashuriel@gmail.com',
 		isOrganizer: true,
