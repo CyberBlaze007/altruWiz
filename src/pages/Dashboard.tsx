@@ -23,13 +23,7 @@ import Footer from './../components/footer/Footer';
 function Dashboard() {
 	const [index, setIndex] = useState(0);
 
-	const cards = [
-		<Profile />,
-		<Events />,
-		<Achievements />,
-		<Certificates />,
-		<Badges />,
-	];
+	const cards = [<Profile />, <Events />, <Achievements />, <Certificates />, <Badges />];
 	const Tab = styled(TabUnstyled)`
 		font-family: 'Montserrat';
 		font-style: normal;
@@ -72,51 +66,42 @@ function Dashboard() {
 				<div className='dashboard-container-nav'>
 					<DBNav />
 				</div>
-				<TabsUnstyled
-					defaultValue={0}
-					value={index}
-					className='dashboard-container-tab'
-				>
+				<TabsUnstyled defaultValue={0} value={index} className='dashboard-container-tab'>
 					{/* <ArrowBackIosIcon className='dashboard-container-control' /> */}
 					<TabsList className='dashboard-container-tab-list' id={'tablist'}>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(0);
-							}}
-						>
+							}}>
 							Profile
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(1);
-							}}
-						>
+							}}>
 							Events
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(2);
-							}}
-						>
+							}}>
 							Achievements
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(3);
-							}}
-						>
+							}}>
 							Certificates
 						</Tab>
 						<Tab
 							className='dashboard-container-tab-list-opt'
 							onClick={() => {
 								setIndex(4);
-							}}
-						>
+							}}>
 							Badges
 						</Tab>
 					</TabsList>

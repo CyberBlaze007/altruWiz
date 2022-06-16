@@ -83,6 +83,9 @@ function Events() {
 							)}
 						</>
 					)}
+					{eventList.filter((data) => {
+						return data.eventName.toLowerCase().includes(search.toLowerCase());
+					}).length > 0 || <img src='/assets/noResults.svg' className='event-body-image' />}
 					<EventList
 						use='dash'
 						head={
@@ -92,7 +95,7 @@ function Events() {
 								? search === ''
 									? 'All Events'
 									: 'Results found'
-								: 'No results found'
+								: ''
 						}
 						events={
 							search

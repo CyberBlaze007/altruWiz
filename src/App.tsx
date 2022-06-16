@@ -24,6 +24,7 @@ import RankUp from './components/modals/RankUp';
 import JoinedEvent from './components/modals/JoinedEvent';
 import NewBadge from './components/modals/NewBadge';
 import VerifyEmail from './pages/VerifyEmail';
+import EventSearch from './components/listing/EventSearch';
 
 export const UserContext = createContext(null);
 
@@ -36,18 +37,17 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Landing />} />
 					<Route path='/test' element={<EventSuccess />} />
-					<Route path='/test2' element={<CreateSuccess />} />
 					<Route path='/test3' element={<RankUp />} />
 					<Route path='/test5' element={<NewBadge />} />
 					<Route path='/test4' element={<JoinedEvent />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/verify' element={<VerifyEmail />} />
-
 					<Route path='/register' element={<Signup />} />
 					<Route path='/resetpassword' element={<ResetPass />} />
 					<Route element={<ProtectedRoutes />}>
 						<Route path='/event/:id' element={<Details />} />
 						<Route path='/organizer' element={<OrgDash />} />
+						<Route path='/events' element={<EventSearch />} />
 						<Route path='/organizer/:id' element={<BeOrganizer />} />
 						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/dashboard/:id' element={<Dashboard />} />
