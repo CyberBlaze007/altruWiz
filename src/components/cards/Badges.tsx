@@ -7,7 +7,9 @@ import { UserContext } from '../../App';
 function Badges() {
 	const [badgeDetails, setBadgeDetails]: any = useState([]);
 	const [isUpdated, setIsUpdated] = useState(false);
+	const [userBadges, setUserBadges]: any = useState([]);
 	const user = useContext(UserContext);
+	const date = Date.now();
 
 	useEffect(() => {
 		user &&
@@ -15,6 +17,7 @@ function Badges() {
 				query(collection(firestore, 'user'), where('email', '==', user.email)),
 				(snapshot) => {
 					getBadgeDetails(snapshot.docs.at(0).data().badgesCollected);
+					setUserBadges(snapshot.docs.at(0).data().badgesCollected);
 
 					awardBadges(
 						snapshot.docs.at(0).data().badgesCollected,
@@ -27,8 +30,8 @@ function Badges() {
 	const getBadgeDetails = async (badgeList: any) => {
 		let finalBadges: any = [];
 		await DataService.getBadges().then((result) => {
-			badgeList.forEach((id: any) => {
-				finalBadges.push(result.find((item: any) => item.id === id));
+			badgeList.forEach((data: any) => {
+				finalBadges.push(result.find((item: any) => item.id === data.badge));
 			});
 			setBadgeDetails(finalBadges);
 			setIsUpdated(true);
@@ -37,47 +40,71 @@ function Badges() {
 
 	const awardBadges = async (badgesCollected: any, eventsCompleted: any) => {
 		let newBadges = badgesCollected;
+		let tempBadges = [];
 		let checkJ = true;
 		let checkB = true;
 		let checkL = true;
 
 		if (eventsCompleted.length >= 1) {
-			badgesCollected.forEach((badge: any) => {
-				checkB = checkB && badge !== 'Baby Steps';
-				// console.log('badge === Baby steps', badge, checkB);
+			badgesCollected.forEach((data: any) => {
+				checkB = checkB && data.badge !== 'Baby Steps';
+				// console.log('badge === Baby steps', data.badge, checkB);
 			});
-			checkB && newBadges.push('Baby Steps');
+			checkB &&
+				tempBadges.push({
+					badge: 'Baby Steps',
+					date: date,
+				});
 		}
 		if (eventsCompleted.length >= 5) {
-			badgesCollected.forEach((badge: any) => {
-				checkJ = checkJ && badge !== 'Junior Steps';
+			badgesCollected.forEach((data: any) => {
+				checkJ = checkJ && data.badge !== 'Junior Steps';
 				// console.log('badge === Junior steps', badge, checkJ);
 			});
-
-			checkJ && newBadges.push('Junior Steps');
+			checkJ &&
+				tempBadges.push({
+					badge: 'Junior Steps',
+					date: date,
+				});
 		}
 		if (eventsCompleted.length >= 10) {
-			badgesCollected.forEach((badge: any) => {
-				checkL = checkL && badge !== 'Love Thumb';
+			badgesCollected.forEach((data: any) => {
+				checkL = checkL && data.badge !== 'Love Thumb';
 				// console.log('badge === Love Thumb', badge, checkL);
 			});
-
-			checkL && newBadges.push('Love Thumb');
+			checkL &&
+				tempBadges.push({
+					badge: 'Love Thumb',
+					date: date,
+				});
 		}
+
 		(checkL || checkJ || checkB) &&
 			(await DataService.updateUser(
 				{
-					badgesCollected: newBadges,
+					badgesCollected: newBadges.concat(tempBadges),
 				},
 				user.uid
 			));
+	};
+
+	const getDateAcquired = (badgeName: any) => {
+		const date = new Date(
+			userBadges.at(
+				userBadges.findIndex((data) => {
+					return badgeName === data.badge;
+				})
+			).date
+		);
+
+		return date.toDateString();
 	};
 
 	return (
 		<div className='badges'>
 			<div className='badges-list'>
 				{badgeDetails.map((data: any, index: number) => {
-					return data ? (
+					return (
 						<div key={index} className='badges-list-card'>
 							<div className='badges-list-card-overlay'>
 								<img src={data.badgePic} />
@@ -90,7 +117,7 @@ function Badges() {
 									</h1>
 									<div className='badges-list-card-overlay-details-date'>
 										<h1 className='badges-list-card-overlay-details-date-text1'>
-											{data.dateAcquired}
+											{getDateAcquired(data.badgeName)}
 										</h1>
 										<h1 className='badges-list-card-overlay-details-date-text2'>
 											DATE ACQUIRED
@@ -99,8 +126,6 @@ function Badges() {
 								</div>
 							</div>
 						</div>
-					) : (
-						<h1>No badges yet</h1>
 					);
 				})}
 			</div>
