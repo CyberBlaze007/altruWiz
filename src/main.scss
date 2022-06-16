@@ -1338,12 +1338,9 @@ html {
 .organizers {
 	display: flex;
 	flex-direction: column;
-	&-navbar {
-	}
+
 	&-body {
 		height: 100vh;
-		// padding-top: 5vh;
-		// padding-bottom: 5vh;
 		padding-block: 10vh;
 		margin: auto;
 		width: 70%;
@@ -1355,6 +1352,7 @@ html {
 		&-info {
 			display: flex;
 			flex-direction: column;
+			width: 100%;
 			&-title {
 				display: flex;
 				flex-direction: row;
@@ -1369,12 +1367,11 @@ html {
 
 					color: #7339ab;
 				}
-				&-icon {
-				}
 			}
 			&-org {
 				display: flex;
 				flex-direction: column;
+				width: 100%;
 				&-name {
 					&-t {
 						font-family: 'Montserrat';
@@ -1387,6 +1384,8 @@ html {
 					}
 				}
 				&-description {
+					height: 15vh;
+					width: 100%;
 					&-t {
 						font-family: 'Montserrat';
 						font-style: normal;
@@ -1395,7 +1394,24 @@ html {
 						line-height: 2rem;
 						text-align: justify;
 
+						color: #5e5a5a;
+					}
+					&-edit {
+						padding: 0;
+						border: none;
+						font-family: 'Montserrat';
+						font-style: normal;
+						font-weight: 500;
+						font-size: 1.2rem;
+						line-height: 2rem;
+						text-align: justify;
+						width: 99.9%;
+						background-color: #f9f9f9;
 						color: #776b6b;
+						&:focus {
+							border: none;
+							outline: none;
+						}
 					}
 				}
 			}

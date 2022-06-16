@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import DBNav from './../components/navbar/DBNav';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -18,11 +18,15 @@ function Organization() {
 	const [orgDesc, setOrgDesc] = useState('');
 	const [orgDescEdit, setOrgDescEdit] = useState(true);
 	const [eventsCreated, setEventsCreated] = useState([]);
+	const [eventList, setEventList] = useState([]);
 	const [showModal, setShowModal] = useState(false);
 	const [showModal2, setShowModal2] = useState(false);
 	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
+		onSnapshot(collection(firestore, 'events'), (snapshot) => {
+			setEventList(snapshot.docs.map((docEach) => docEach.data()));
+		});
 		onSnapshot(
 			query(
 				collection(firestore, 'organizations'),
@@ -47,6 +51,18 @@ function Organization() {
 		}
 	};
 
+	const processDate = (data: any) => {
+		const date = new Date(data.eventDate + 'T' + data.eventTime);
+		const time = new Date(
+			data.eventDate + 'T' + data.eventTime
+		).toLocaleTimeString('en-US', {
+			hour12: true,
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+		return date.toDateString() + ' ' + time;
+	};
+
 	return (
 		<>
 			<Create showModal={showModal} setShowModal={setShowModal} />
@@ -58,9 +74,7 @@ function Organization() {
 				<div className='organizers-body'>
 					<div className='organizers-body-info'>
 						<div className='organizers-body-info-title'>
-							<h1 className='organizers-body-info-title-text'>
-								Alt-F4 Organization
-							</h1>
+							<h1 className='organizers-body-info-title-text'>{orgName}</h1>
 
 							<Button
 								className='organizers-body-info-title-icon'
@@ -69,7 +83,8 @@ function Organization() {
 								onClick={() => {
 									setOrgDescEdit(!orgDescEdit);
 									updateDesc(orgDesc);
-								}}></Button>
+								}}
+							></Button>
 						</div>
 						<div className='organizers-body-info-org'>
 							<div className='organizers-body-info-org-name'>
@@ -79,12 +94,20 @@ function Organization() {
 							</div>
 
 							<div className='organizers-body-info-org-description'>
-								<h1 className='organizers-body-info-org-description-t'>
-									We are always active in closing active applications. We have
-									never failed in our mission. Our purpose is to provide
-									sustainable and productive user experience for people. We aim
-									to solve error crisis and freedom.
-								</h1>
+								{orgDescEdit ? (
+									<h1 className='organizers-body-info-org-description-t'>
+										{orgDesc}
+									</h1>
+								) : (
+									<textarea
+										rows={4}
+										placeholder='Write something about you...'
+										className='organizers-body-info-org-description-edit'
+										value={orgDesc}
+										disabled={orgDescEdit}
+										onChange={(event) => setOrgDesc(event.target.value)}
+									/>
+								)}
 							</div>
 						</div>
 					</div>
@@ -105,31 +128,40 @@ function Organization() {
 									</tr>
 								</thead>
 								<tbody>
-									{eventsCreated.map((element) => (
-										<tr
-											key={element}
-											className='organizers-body-events-table-component-data'>
-											<td>{element}</td>
-											<td>{element}</td>
-											<td>{element}</td>
-											<td>{element}</td>
-											<td>
-												<div className='organizers-body-events-table-component-data-icons'>
-													<EditOutlinedIcon
-														className='organizers-body-events-table-component-data-icons-ic'
-														onClick={() => {
-															setShowModal2(true);
-														}}
-													/>
-												</div>
-											</td>
-											<td>
-												<div className='organizers-body-events-table-component-data-icons'>
-													<DeleteOutlineIcon className='organizers-body-events-table-component-data-icons-ic' />
-												</div>
-											</td>
-										</tr>
-									))}
+									{eventList
+										.filter((eventData) => {
+											let check = false;
+											eventsCreated.forEach((data) => {
+												check = check || data === eventData.eventCode;
+											});
+											return check;
+										})
+										.map((element) => (
+											<tr
+												key={element.eventCode}
+												className='organizers-body-events-table-component-data'
+											>
+												<td>{element.eventCode}</td>
+												<td>{processDate(element)}</td>
+												<td>{element.eventName}</td>
+												<td>{element.attendCount}</td>
+												<td>
+													<div className='organizers-body-events-table-component-data-icons'>
+														<EditOutlinedIcon
+															className='organizers-body-events-table-component-data-icons-ic'
+															onClick={() => {
+																setShowModal2(true);
+															}}
+														/>
+													</div>
+												</td>
+												<td>
+													<div className='organizers-body-events-table-component-data-icons'>
+														<DeleteOutlineIcon className='organizers-body-events-table-component-data-icons-ic' />
+													</div>
+												</td>
+											</tr>
+										))}
 								</tbody>
 							</table>
 						</div>
@@ -143,7 +175,8 @@ function Organization() {
 								endIcon={<AddOutlinedIcon />}
 								onClick={() => {
 									setShowModal(true);
-								}}></Button>
+								}}
+							></Button>
 						</div>
 					</div>
 				</div>
