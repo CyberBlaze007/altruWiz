@@ -13,6 +13,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Edit from '../components/modals/Edit';
 import Delete from '../components/modals/Delete';
 import { UserContext } from '../App';
+import CreateSuccess from '../components/modals/CreateSuccess';
+import Footer from '../components/footer/Footer';
 
 function Organization() {
 	const [orgName, setOrgName] = useState('');
@@ -30,17 +32,11 @@ function Organization() {
 		onSnapshot(collection(firestore, 'events'), (snapshot) => {
 			setEventList(snapshot.docs.map((docEach) => docEach.data()));
 		});
-		onSnapshot(
-			query(
-				collection(firestore, 'organizations'),
-				where('creator', '==', user.email)
-			),
-			(snapshot) => {
-				setOrgName(snapshot.docs.at(0).data().orgName);
-				setOrgDesc(snapshot.docs.at(0).data().orgAbout);
-				setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
-			}
-		);
+		onSnapshot(query(collection(firestore, 'organizations'), where('creator', '==', user.email)), (snapshot) => {
+			setOrgName(snapshot.docs.at(0).data().orgName);
+			setOrgDesc(snapshot.docs.at(0).data().orgAbout);
+			setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
+		});
 	}, []);
 
 	const updateDesc = async (orgDescNew: any) => {
@@ -56,9 +52,7 @@ function Organization() {
 
 	const processDate = (data: any) => {
 		const date = new Date(data.eventDate + 'T' + data.eventTime);
-		const time = new Date(
-			data.eventDate + 'T' + data.eventTime
-		).toLocaleTimeString('en-US', {
+		const time = new Date(data.eventDate + 'T' + data.eventTime).toLocaleTimeString('en-US', {
 			hour12: true,
 			hour: 'numeric',
 			minute: 'numeric',
@@ -70,12 +64,7 @@ function Organization() {
 		<>
 			<Create showModal={showModal} setShowModal={setShowModal} />
 			<Edit showModal={showModal2} setShowModal={setShowModal2} event={event} />
-			<Delete
-				showModal={deleteConfirm}
-				setShowModal={setDeleteConfirm}
-				participants={event.attendCount}
-				event={event}
-			/>
+			<Delete showModal={deleteConfirm} setShowModal={setDeleteConfirm} participants={event.attendCount} event={event} />
 
 			<div className='organizers'>
 				<div className='organizers-navbar'>
@@ -93,21 +82,16 @@ function Organization() {
 								onClick={() => {
 									setOrgDescEdit(!orgDescEdit);
 									updateDesc(orgDesc);
-								}}
-							></Button>
+								}}></Button>
 						</div>
 						<div className='organizers-body-info-org'>
 							<div className='organizers-body-info-org-name'>
-								<h1 className='organizers-body-info-org-name-t'>
-									Org Information
-								</h1>
+								<h1 className='organizers-body-info-org-name-t'>Org Information</h1>
 							</div>
 
 							<div className='organizers-body-info-org-description'>
 								{orgDescEdit ? (
-									<h1 className='organizers-body-info-org-description-t'>
-										{orgDesc}
-									</h1>
+									<h1 className='organizers-body-info-org-description-t'>{orgDesc}</h1>
 								) : (
 									<textarea
 										rows={4}
@@ -147,10 +131,7 @@ function Organization() {
 											return check;
 										})
 										.map((element) => (
-											<tr
-												key={element.eventCode}
-												className='organizers-body-events-table-component-data'
-											>
+											<tr key={element.eventCode} className='organizers-body-events-table-component-data'>
 												<td>{element.eventCode}</td>
 												<td>{processDate(element)}</td>
 												<td>{element.eventName}</td>
@@ -172,8 +153,7 @@ function Organization() {
 														onClick={() => {
 															setEvent(element);
 															setDeleteConfirm(true);
-														}}
-													>
+														}}>
 														<DeleteOutlineIcon className='organizers-body-events-table-component-data-icons-ic' />
 													</div>
 												</td>
@@ -183,19 +163,19 @@ function Organization() {
 							</table>
 						</div>
 						<div className='organizers-body-events-create'>
-							<h1 className='organizers-body-events-create-text'>
-								Create New Event
-							</h1>
+							<h1 className='organizers-body-events-create-text'>Create New Event</h1>
 
 							<Button
 								className='organizers-body-events-create-icon'
 								endIcon={<AddOutlinedIcon />}
 								onClick={() => {
 									setShowModal(true);
-								}}
-							></Button>
+								}}></Button>
 						</div>
 					</div>
+				</div>
+				<div className='organizers-footer'>
+					<Footer />
 				</div>
 			</div>
 		</>

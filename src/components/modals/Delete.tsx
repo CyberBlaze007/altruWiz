@@ -8,16 +8,11 @@ import { storage } from '../../firebase-config';
 function Delete({ showModal, setShowModal, participants, event }: any) {
 	const user = useContext(UserContext);
 	// Delete on firebase storage
-	const folderRef = ref(
-		storage,
-		`eventImages/${user.uid}/${event.eventCode}/image`
-	);
+	const folderRef = ref(storage, `eventImages/${user.uid}/${event.eventCode}/image`);
 
 	const deleteEvent = async () => {
 		if (participants > 0) {
-			alert(
-				'You cannot delete this event since there are already participants.'
-			);
+			alert('You cannot delete this event since there are already participants.');
 			return;
 		}
 		let eventsCreated: any = [];
@@ -28,15 +23,15 @@ function Delete({ showModal, setShowModal, participants, event }: any) {
 			})
 			.finally(async () => {
 				const index = eventsCreated.indexOf(event.eventCode);
-				if (index > -1) {
-					eventsCreated.splice(index, 1); // 2nd parameter means remove one item only
-				}
+				eventsCreated = eventsCreated.filter((event) => {
+					return event != eventsCreated.at(index);
+				});
 				console.log('eventsCreated:', eventsCreated);
 				await DataService.updateOrg(
 					{
 						eventsCreated: eventsCreated,
 					},
-					user.uid
+					user.uid,
 				);
 			});
 
@@ -71,8 +66,7 @@ function Delete({ showModal, setShowModal, participants, event }: any) {
 							opacity: { delay: 0.3, duration: 0.3, type: 'tween' },
 					  }
 			}
-			className='confirm'
-		>
+			className='confirm'>
 			<div className='confirm-container'>
 				<div className='confirm-container-top'>
 					<h1>Do you want to delete this event?</h1>
@@ -82,15 +76,13 @@ function Delete({ showModal, setShowModal, participants, event }: any) {
 						onClick={() => {
 							setShowModal(false);
 							deleteEvent();
-						}}
-					>
+						}}>
 						Yes
 					</button>
 					<button
 						onClick={() => {
 							setShowModal(false);
-						}}
-					>
+						}}>
 						No
 					</button>
 				</div>
