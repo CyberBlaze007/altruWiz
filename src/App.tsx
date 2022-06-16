@@ -21,6 +21,7 @@ import OrgDash from './pages/OrgDash';
 import ScrollTop from './components/navigations/scrollTop';
 import EventSuccess from './components/modals/EventSuccess';
 import CreateSuccess from './components/modals/CreateSuccess';
+import RankUp from './components/modals/RankUp';
 
 export const UserContext = createContext(null);
 
@@ -34,6 +35,7 @@ function App() {
 					<Route path='/' element={<Landing />} />
 					<Route path='/test' element={<EventSuccess />} />
 					<Route path='/test2' element={<CreateSuccess />} />
+					<Route path='/test3' element={<RankUp />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/register' element={<Signup />} />
 					<Route path='/resetpassword' element={<ResetPass />} />
