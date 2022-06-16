@@ -15,6 +15,8 @@ function Details() {
 	const [showRsvp, setShowRsvp] = useState(false);
 	const [showShare, setShowShare] = useState(false);
 	const [shareUrl, setShareUrl] = useState('');
+	const [orgDesc, setOrgDesc] = useState('');
+	const [eventCreator, setEventCreator] = useState('');
 	const [myEvents, setMyEvents] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
@@ -22,22 +24,43 @@ function Details() {
 
 	useEffect(() => {
 		user &&
-			onSnapshot(query(collection(firestore, 'events'), where('eventID', '==', id)), (snapshot) => {
-				setData(snapshot.docs.at(0).data());
-			});
-		user && showRsvp ? (document.querySelector('body').style.overflow = 'hidden') : (document.querySelector('body').style.overflow = 'auto');
+			onSnapshot(
+				query(collection(firestore, 'events'), where('eventID', '==', id)),
+				(snapshot) => {
+					setData(snapshot.docs.at(0).data());
+					setEventCreator(snapshot.docs.at(0).data().eventCreator);
+				}
+			);
+		user && showRsvp
+			? (document.querySelector('body').style.overflow = 'hidden')
+			: (document.querySelector('body').style.overflow = 'auto');
 		user &&
-			onSnapshot(query(collection(firestore, 'user'), where('email', '==', user.email)), (snapshot) => {
-				setMyEvents(snapshot.docs.at(0).data().eventsJoined);
-			});
-	}, [showRsvp, loading]);
+			onSnapshot(
+				query(collection(firestore, 'user'), where('email', '==', user.email)),
+				(snapshot) => {
+					setMyEvents(snapshot.docs.at(0).data().eventsJoined);
+				}
+			);
+		eventCreator &&
+			onSnapshot(
+				query(
+					collection(firestore, 'organizations'),
+					where('orgName', '==', eventCreator)
+				),
+				(snapshot) => {
+					setOrgDesc(snapshot.docs.at(0).data().orgAbout);
+				}
+			);
+	}, [showRsvp, loading, eventCreator]);
 	const processDate = (data: any) => {
 		const date = new Date(data?.eventDate + 'T' + data?.eventTime);
 
 		return date.toDateString();
 	};
 	const processTime = (data: any) => {
-		const time = new Date(data?.eventDate + 'T' + data?.eventTime).toLocaleTimeString('en-US', {
+		const time = new Date(
+			data?.eventDate + 'T' + data?.eventTime
+		).toLocaleTimeString('en-US', {
 			hour12: true,
 			hour: 'numeric',
 			minute: 'numeric',
@@ -47,7 +70,13 @@ function Details() {
 	const navigate = useNavigate();
 	return (
 		<>
-			<Rsvp event={data} showModal={showRsvp} setShowModal={setShowRsvp} user={user} myEvents={eventsJoined} />
+			<Rsvp
+				event={data}
+				showModal={showRsvp}
+				setShowModal={setShowRsvp}
+				user={user}
+				myEvents={eventsJoined}
+			/>
 			<div className='details'>
 				<div className='details-nav'>
 					<DBNav />
@@ -66,8 +95,12 @@ function Details() {
 							<img src={data?.eventImage} alt={data?.eventName} />
 						</div>
 						<div className='details-head-row1-col2'>
-							<h1 className='details-head-row1-col2-title'>{data?.eventName}</h1>
-							<h1 className='details-head-row1-col2-org'>by {data?.eventCreator}</h1>
+							<h1 className='details-head-row1-col2-title'>
+								{data?.eventName}
+							</h1>
+							<h1 className='details-head-row1-col2-org'>
+								by {data?.eventCreator}
+							</h1>
 							<div className='details-head-row1-col2-xp'>
 								<img src='/assets/pseudodata/images/star.png' alt='Star Icon' />
 								<p>{data?.expReward}</p>
@@ -83,17 +116,26 @@ function Details() {
 							}}
 						/>
 						{showShare && (
-							<Share url={shareUrl} eventName={data?.eventName} eventDesc={data?.eventDesc} showModal={showShare} setShowModal={setShowShare} />
+							<Share
+								url={shareUrl}
+								eventName={data?.eventName}
+								eventDesc={data?.eventDesc}
+								showModal={showShare}
+								setShowModal={setShowShare}
+							/>
 						)}
 						{myEvents.includes(data?.eventCode) ? (
-							<button className='details-head-row2-register'>Participated</button>
+							<button className='details-head-row2-register'>
+								Participated
+							</button>
 						) : (
 							<button
 								onClick={() => {
 									setEventsJoined([...myEvents, data?.eventCode]);
 									setShowRsvp(true);
 								}}
-								className='details-head-row2-register'>
+								className='details-head-row2-register'
+							>
 								Register
 							</button>
 						)}
@@ -123,7 +165,7 @@ function Details() {
 						</div>
 						<div className='details-body-col2-body'>
 							<div className='details-body-col2-body-sec1'>
-								<p>{data?.eventDesc}</p>
+								<p>{orgDesc}</p>
 							</div>
 						</div>
 						<div className='details-body-col2-divider' />
