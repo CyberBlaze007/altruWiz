@@ -128,6 +128,10 @@ function Details() {
 							<button className='details-head-row2-register'>
 								Participated
 							</button>
+						) : data?.attendCount >= data?.membersAllowed ? (
+							<button className='details-head-row2-register'>
+								Max capacity reached
+							</button>
 						) : (
 							<button
 								onClick={() => {

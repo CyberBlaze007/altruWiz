@@ -3,6 +3,15 @@ import { motion } from 'framer-motion';
 import DataService from '../../firebase/services';
 
 function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
+	const updateEvent = async (id: any, numAttendees: any) => {
+		let newAttendCount = numAttendees + 1;
+		await DataService.updateEvent(
+			{
+				attendCount: newAttendCount,
+			},
+			id
+		);
+	};
 	const participateEvent = async (eventsJoined: any) => {
 		await DataService.updateUser(
 			{
@@ -69,6 +78,7 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
 						<button
 							className='rsvp-container-body-col2-btn1'
 							onClick={() => {
+								updateEvent(event?.eventCode, event?.attendCount);
 								participateEvent(myEvents);
 								setShowModal(false);
 							}}
