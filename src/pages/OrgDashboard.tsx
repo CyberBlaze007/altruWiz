@@ -1,4 +1,3 @@
-import { orgs } from '../../assets/pseudodata/org-data';
 import { events } from '../../assets/pseudodata/events-data';
 import { Button, TextField } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -21,17 +20,11 @@ function OrgDashboard() {
 	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
-		onSnapshot(
-			query(
-				collection(firestore, 'organizations'),
-				where('creator', '==', user.email)
-			),
-			(snapshot) => {
-				setOrgName(snapshot.docs.at(0).data().orgName);
-				setOrgDesc(snapshot.docs.at(0).data().orgAbout);
-				setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
-			}
-		);
+		onSnapshot(query(collection(firestore, 'organizations'), where('creator', '==', user.email)), (snapshot) => {
+			setOrgName(snapshot.docs.at(0).data().orgName);
+			setOrgDesc(snapshot.docs.at(0).data().orgAbout);
+			setEventsCreated(snapshot.docs.at(0).data().eventsCreated);
+		});
 	}, [loading]);
 
 	const updateDesc = async (orgDescNew: any) => {
@@ -53,9 +46,7 @@ function OrgDashboard() {
 				<div className='orgDashboard-info'>
 					<h1>{orgName}</h1>
 					<h3>Organization Information</h3>
-					{orgDescEdit ? (
-						<p className='profile-body-sec2-form-data'>{orgDesc}</p>
-					) : null}
+					{orgDescEdit ? <p className='profile-body-sec2-form-data'>{orgDesc}</p> : null}
 					{!orgDescEdit ? (
 						<TextField
 							variant={orgDescEdit ? 'standard' : 'outlined'}
@@ -67,9 +58,7 @@ function OrgDashboard() {
 							className='profile-body-sec2-form-field'
 							value={orgDesc}
 							disabled={orgDescEdit}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-								setOrgDesc(event.target.value)
-							}
+							onChange={(event: React.ChangeEvent<HTMLInputElement>) => setOrgDesc(event.target.value)}
 							fullWidth
 						/>
 					) : null}
@@ -79,8 +68,7 @@ function OrgDashboard() {
 						onClick={() => {
 							setOrgDescEdit(!orgDescEdit);
 							updateDesc(orgDesc);
-						}}
-					></Button>
+						}}></Button>
 				</div>
 				<div className='orgDashboard-events'>
 					<h2>Events</h2>
@@ -115,8 +103,7 @@ function OrgDashboard() {
 										endIcon={<AddOutlinedIcon />}
 										onClick={() => {
 											setShowModal(true);
-										}}
-									>
+										}}>
 										Create New Event
 									</Button>
 								</div>
