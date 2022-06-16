@@ -4,6 +4,7 @@ import DataService from '../../firebase/services';
 import { UserContext } from '../../App';
 import ScrollTop from './../navigations/scrollTop';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import { motion } from 'framer-motion';
 
 function Profile() {
 	const [image, setImage] = useState(null);
@@ -220,26 +221,34 @@ function Profile() {
 
 						<div className='profile-body-sec2-footer'>
 							{editState ? (
-								<button className='profile-body-sec2-footer-button' onClick={() => setEditState(false)}>
+								<motion.button
+									whileHover={{ y: '-3px' }}
+									whileTap={{ y: '3px' }}
+									className='profile-body-sec2-footer-button'
+									onClick={() => setEditState(false)}>
 									Edit
-								</button>
+								</motion.button>
 							) : (
 								<div className='profile-body-sec2-footer-buttons'>
-									<button
+									<motion.button
+										whileHover={{ y: '-3px' }}
+										whileTap={{ y: '3px' }}
 										className='profile-body-sec2-footer-buttons-comp1'
 										onClick={() => {
 											setEditState(true);
 											update();
 										}}>
 										Save Changes
-									</button>
-									<button
+									</motion.button>
+									<motion.button
+										whileHover={{ y: '-3px' }}
+										whileTap={{ y: '3px' }}
 										className='profile-body-sec2-footer-buttons-comp2'
 										onClick={() => {
 											setEditState(true);
 										}}>
 										Cancel Changes
-									</button>
+									</motion.button>
 								</div>
 							)}
 						</div>

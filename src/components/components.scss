@@ -439,6 +439,9 @@
 						object-fit: contain;
 						color: #a951ff;
 						border-radius: 100%;
+						&:hover {
+							background: #faf1ff;
+						}
 					}
 				}
 			}
