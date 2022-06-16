@@ -1,43 +1,33 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2022, 5, 26);
-    }
-  }
-}
-
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    //User is properly authenticated
-    function signedInUser() {
+  	function signedInUser() {
       return request.auth.uid != null;
     }
-
-    function validOrganizer() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isOrganizer == true;
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId
     }
-
-    //Check if proper owner
+  	function validOrganizer() {
+    	return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isOrganizer == true;
+    }
     match /user/{userId} {
-      allow read, write, update: if signedInUser() && request.auth.uid == userId; 
+    	allow read: if signedInUser();
+      allow write, update, delete: if isOwner(userId);
     }
-
-    //Restrict Access to Event Organizers Only
     match /organizations/{orgId} {
-      allow read, create if: signedInUser();
-      allow update if: signedInUser() && validOrganizer();
+    	allow read, create: if signedInUser();
+    	allow write, update: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isOrganizer == true;
     }
-
-    //Restrict Access to Events collection
     match /events/{eventId} {
-      allow read if: true
-      allow create if: signedInUser() && validOrganizer();
-      allow update, delete if: signedInUser() && validOrganizer();
-        // && request.auth.uid == get(/databases/$(database)/documents/organizations/$(?)).data.creator;
+      allow read: if true
+      allow create: if validOrganizer();
+      allow update, delete: if signedInUser() && validOrganizer();
+    } 
+    match /badges/{badgesId} {
+    	allow read: if signedInUser();
+    }
+    match /ranks/{rankId} {
+    	allow read: if signedInUser();
     }
   }
 }
