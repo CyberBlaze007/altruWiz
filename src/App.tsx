@@ -19,6 +19,7 @@ import ReRoute from './components/navigations/ReRoute';
 import ProtectedRoutes from './components/navigations/ProtectedRoutes';
 import OrgDash from './pages/OrgDash';
 import ScrollTop from './components/navigations/scrollTop';
+import EventSuccess from './components/modals/EventSuccess';
 
 export const UserContext = createContext(null);
 
@@ -30,6 +31,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Landing />} />
+					<Route path='/test' element={<EventSuccess />} />
 					<Route path='/login' element={<Signin />} />
 					<Route path='/register' element={<Signup />} />
 					<Route path='/resetpassword' element={<ResetPass />} />
