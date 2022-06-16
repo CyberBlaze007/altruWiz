@@ -73,7 +73,7 @@ function Profile() {
 													return profile.name.includes(firstName);
 												}),
 										  ).image
-										: '/assets/nash.jpg'
+										: '/assets/noPic.svg'
 								}
 							/>
 						</div>
