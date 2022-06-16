@@ -33,7 +33,7 @@ function BeOrganizer() {
 			orgName: orgName,
 			orgAbout: orgAbout,
 			creator: orgCreator,
-			eventsCreated: [''],
+			eventsCreated: [],
 		};
 
 		try {

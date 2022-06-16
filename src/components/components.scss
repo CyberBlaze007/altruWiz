@@ -1360,7 +1360,13 @@
 					line-height: 2rem;
 					color: #f9f9f9;
 				}
+
 				&-btn2 {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					text-decoration: none;
+					color: #7339ab;
 					border: 1px solid #7339ab;
 					box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.15);
 					height: 3rem;
@@ -1372,7 +1378,6 @@
 					font-weight: 700;
 					font-size: 0.8rem;
 					line-height: 1.5rem;
-					color: #7339ab;
 				}
 			}
 		}

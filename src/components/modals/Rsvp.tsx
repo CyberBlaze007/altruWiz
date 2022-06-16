@@ -2,7 +2,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
 import DataService from '../../firebase/services';
 
-function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
+function Rsvp({
+	event,
+	showModal,
+	setShowModal,
+	user,
+	myEvents,
+	creator,
+}: any) {
 	const updateEvent = async (id: any, numAttendees: any) => {
 		let newAttendCount = numAttendees + 1;
 		await DataService.updateEvent(
@@ -85,9 +92,12 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents }: any) {
 						>
 							Participate
 						</button>
-						<button className='rsvp-container-body-col2-btn2'>
+						<a
+							href={`mailto:${creator}`}
+							className='rsvp-container-body-col2-btn2'
+						>
 							Contact Organizer
-						</button>
+						</a>
 					</div>
 				</div>
 				<div className='rsvp-container-footer'>

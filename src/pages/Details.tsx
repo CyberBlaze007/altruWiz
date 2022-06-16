@@ -17,6 +17,7 @@ function Details() {
 	const [shareUrl, setShareUrl] = useState('');
 	const [orgDesc, setOrgDesc] = useState('');
 	const [eventCreator, setEventCreator] = useState('');
+	const [creatorEmail, setCreatorEmail] = useState('');
 	const [myEvents, setMyEvents] = useState([]);
 	const [user, loading] = useAuthState(auth);
 	const [eventsJoined, setEventsJoined] = useState([]);
@@ -31,6 +32,7 @@ function Details() {
 					setEventCreator(snapshot.docs.at(0).data().eventCreator);
 				}
 			);
+
 		user && showRsvp
 			? (document.querySelector('body').style.overflow = 'hidden')
 			: (document.querySelector('body').style.overflow = 'auto');
@@ -48,6 +50,7 @@ function Details() {
 					where('orgName', '==', eventCreator)
 				),
 				(snapshot) => {
+					setCreatorEmail(snapshot.docs.at(0).data().creator);
 					setOrgDesc(snapshot.docs.at(0).data().orgAbout);
 				}
 			);
@@ -76,6 +79,7 @@ function Details() {
 				setShowModal={setShowRsvp}
 				user={user}
 				myEvents={eventsJoined}
+				creator={creatorEmail}
 			/>
 			<div className='details'>
 				<div className='details-nav'>
