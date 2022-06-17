@@ -5,7 +5,7 @@ import DataService from '../../firebase/services';
 import JoinedEvent from './JoinedEvent';
 import emailjs from '@emailjs/browser';
 
-function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) {
+function Rsvp({ event, showModal, setShowModal, user, myEvents, creator}: any) {
 	const [showSuccess, setShowSuccess] = useState(false);
 	const serviceId = 'service_uudw07o';
 	const templateId = 'template_xp295v9';
@@ -35,14 +35,10 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) 
 		eventDate: any,
 		eventTime: any,
 		eventExp: number,
-		name: string, 
-		rank: string,
 		email: string,
 		) => {
 		let template_params = {
 			event_joined: eventName,
-			user_name: name,
-			user_rank: rank,
 			event_date: eventDate,
 			user_email: email,
 			event_time: eventTime,
@@ -106,11 +102,9 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) 
 									updateEvent(event?.eventCode, event?.attendCount);
 									emailConfirmation(
 										event?.eventName,
-										event?.Date,
+										event?.eventDate,
 										event?.eventTime,
 										event?.expReward,
-										user?.name,
-										user?.rank,
 										user?.email,
 									);
 									participateEvent(myEvents);
