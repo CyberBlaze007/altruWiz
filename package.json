@@ -8,6 +8,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@emailjs/browser": "^3.6.2",
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
 		"@mui/base": "^5.0.0-alpha.79",

@@ -3,9 +3,14 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import DataService from '../../firebase/services';
 import JoinedEvent from './JoinedEvent';
+import emailjs from '@emailjs/browser';
 
 function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) {
 	const [showSuccess, setShowSuccess] = useState(false);
+	const serviceId = 'service_uudw07o';
+	const templateId = 'template_xp295v9';
+	const userId = 'user_tTVTjivQHURFBCECQLga4';
+
 	const updateEvent = async (id: any, numAttendees: any) => {
 		let newAttendCount = numAttendees + 1;
 		await DataService.updateEvent(
@@ -23,6 +28,29 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) 
 			user.uid,
 		).then(() => setShowSuccess(true));
 	};
+
+	//using template: Event Registration Success in EmailJS
+	const emailConfirmation = (
+		eventName: string, 
+		eventDate: any,
+		eventTime: any,
+		eventExp: number,
+		name: string, 
+		rank: string,
+		email: string,
+		) => {
+		let template_params = {
+			event_joined: eventName,
+			user_name: name,
+			user_rank: rank,
+			event_date: eventDate,
+			user_email: email,
+			event_time: eventTime,
+			event_exp: eventExp
+		}
+		emailjs.send(serviceId, templateId, template_params, userId);
+		{console.log('Success! Email Registration Sent!')}
+	}
 
 	return (
 		<>
@@ -76,6 +104,15 @@ function Rsvp({ event, showModal, setShowModal, user, myEvents, creator }: any) 
 								className='rsvp-container-body-col2-btn1'
 								onClick={() => {
 									updateEvent(event?.eventCode, event?.attendCount);
+									emailConfirmation(
+										event?.eventName,
+										event?.Date,
+										event?.eventTime,
+										event?.expReward,
+										user?.name,
+										user?.rank,
+										user?.email,
+									);
 									participateEvent(myEvents);
 									setShowModal(false);
 								}}>
